@@ -9,16 +9,32 @@ enum HomeSectionType {
 
 class HomeSection {
   final HomeSectionType type;
-  final List<StoryEntity> items;
+  final StoryEntity? item;
   final List<TrendingNewsEntity>? trendingNews;
   final String? title;
   final List<String>? category;
 
   const HomeSection({
     required this.type,
-    required this.items,
+    this.item,
     this.trendingNews,
     this.title,
     this.category,
   });
+
+  HomeSection copyWith({
+    HomeSectionType? type,
+    StoryEntity? item,
+    List<TrendingNewsEntity>? trendingNews,
+    String? title,
+    List<String>? category,
+  }) {
+    return HomeSection(
+      type: type ?? this.type,
+      item: item ?? this.item,
+      trendingNews: trendingNews ?? this.trendingNews,
+      title: title ?? this.title,
+      category: category ?? this.category,
+    );
+  }
 }

@@ -11,13 +11,15 @@ class HomeNotifier extends _$HomeNotifier {
 
   bool _isLoadingMore = false;
   bool _isRefreshing = false;
+  int _currentPage = 1;
 
   bool get isLoadingMore => _isLoadingMore;
   bool get isRefreshing => _isRefreshing;
 
   @override
   FutureOr<List<HomeSection>> build() async {
-    return _fetchSections(1);
+    _currentPage = 1;
+    return _fetchSections(_currentPage);
   }
 
   Future<List<HomeSection>> _fetchSections(int page) async {
@@ -33,32 +35,35 @@ class HomeNotifier extends _$HomeNotifier {
     }
 
     final currentSections = state.value ?? [];
-    final hasMoreData =
-        currentSections.any((s) => s.type == HomeSectionType.story);
-    final currentPage = currentSections.length ~/ _pageSize + 1;
+    final hasMoreStories = currentSections
+        .any((s) => s.type == HomeSectionType.story && s.item != null);
 
-    if (currentPage >= _maxPages || !hasMoreData) return;
+    if (_currentPage >= _maxPages || !hasMoreStories) {
+      return;
+    }
 
     _isLoadingMore = true;
-    state = AsyncValue.data(currentSections); // 触发重绘以显示加载指示器
-
     try {
-      final nextSections = await _fetchSections(currentPage + 1);
-      state = AsyncValue.data([...currentSections, ...nextSections]);
+      final nextPage = _currentPage + 1;
+      final nextSections = await _fetchSections(nextPage);
+      currentSections.addAll(nextSections);
+      _currentPage = nextPage;
+      state = AsyncValue.data(currentSections);
     } catch (e, stack) {
       state = AsyncValue.error(e, stack);
     } finally {
       _isLoadingMore = false;
-      state = AsyncValue.data(state.value ?? []); // 触发重绘以更新UI
     }
   }
 
   Future<void> refresh() async {
-    if (_isRefreshing || _isLoadingMore) return;
+    if (_isRefreshing) return;
 
     _isRefreshing = true;
+    _isLoadingMore = false;
+    _currentPage = 1;
+
     try {
-      state = const AsyncLoading();
       final sections = await _fetchSections(1);
       state = AsyncValue.data(sections);
     } catch (e, stack) {

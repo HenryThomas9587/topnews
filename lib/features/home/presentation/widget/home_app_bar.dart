@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 
-class HomeAppBar extends StatelessWidget {
+class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
   const HomeAppBar({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return SliverAppBar(
-      floating: true,
+    return AppBar(
       title: Row(
         children: [
           CircleAvatar(
@@ -44,4 +43,7 @@ class HomeAppBar extends StatelessWidget {
       ],
     );
   }
+
+  @override
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }

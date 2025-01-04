@@ -18,7 +18,6 @@ class HomePage extends HookConsumerWidget {
     final notifier = ref.watch(homeNotifierProvider.notifier);
     final showToTopButton = useState(false);
 
-    // 滚动到顶部
     void scrollToTop() {
       scrollController.animateTo(
         0,
@@ -32,7 +31,6 @@ class HomePage extends HookConsumerWidget {
         if (!scrollController.hasClients) return;
         final position = scrollController.position;
 
-        // 更新置顶按钮显示状态
         if (position.pixels > 1000) {
           if (!showToTopButton.value) {
             showToTopButton.value = true;
@@ -41,8 +39,8 @@ class HomePage extends HookConsumerWidget {
           showToTopButton.value = false;
         }
 
-        // 处理加载更多
-        if (position.pixels >= position.maxScrollExtent) {
+        if (!notifier.isLoadingMore &&
+            position.pixels >= position.maxScrollExtent - 200) {
           notifier.loadMoreData();
         }
       }
@@ -52,63 +50,52 @@ class HomePage extends HookConsumerWidget {
     }, [scrollController]);
 
     return Scaffold(
+      appBar: const HomeAppBar(),
       body: RefreshIndicator(
         onRefresh: () async {
-          await notifier.refresh();
-          if (scrollController.hasClients) {
-            scrollController.jumpTo(0);
-          }
+          showToTopButton.value = false;
+          return notifier.refresh();
         },
-        displacement: 44,
+        displacement: 50,
         edgeOffset: 0,
+        color: Theme.of(context).colorScheme.primary,
+        backgroundColor: Theme.of(context).colorScheme.surface,
+        strokeWidth: 2.5,
         child: sectionsAsyncValue.when(
-          data: (sections) => NotificationListener<ScrollNotification>(
-            onNotification: (ScrollNotification notification) {
-              if (notification is ScrollEndNotification) {
-                final metrics = notification.metrics;
-                if (metrics.pixels >= metrics.maxScrollExtent) {
-                  notifier.loadMoreData();
-                }
-              }
-              return true;
-            },
-            child: CustomScrollView(
-              controller: scrollController,
-              physics: const AlwaysScrollableScrollPhysics(
-                parent: BouncingScrollPhysics(),
-              ),
-              slivers: [
-                const HomeAppBar(),
-                ...sections.map((section) => SectionRenderer(section: section)),
-                if (notifier.isLoadingMore)
-                  const LoadingIndicator()
-                else if (!sections.any((s) => s.type == HomeSectionType.story))
-                  const NoMoreDataWidget(),
-                const SliverToBoxAdapter(
-                  child: SizedBox(height: 20),
-                ),
-              ],
-            ),
-          ),
-          loading: () => const CustomScrollView(
-            physics: AlwaysScrollableScrollPhysics(
-              parent: BouncingScrollPhysics(),
-            ),
-            slivers: [
-              HomeAppBar(),
-              SliverFillRemaining(
-                child: Center(child: CircularProgressIndicator()),
-              ),
-            ],
-          ),
-          error: (error, stack) => CustomScrollView(
+          data: (sections) => ListView.builder(
+            controller: scrollController,
             physics: const AlwaysScrollableScrollPhysics(
               parent: BouncingScrollPhysics(),
             ),
-            slivers: [
-              const HomeAppBar(),
-              ErrorView(error: error),
-            ],
+            padding: const EdgeInsets.only(bottom: 20),
+            itemCount: sections.length + 1,
+            itemBuilder: (context, index) {
+              if (index < sections.length) {
+                return SectionRenderer(section: sections[index]);
+              }
+
+              if (notifier.isLoadingMore) {
+                return const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 16),
+                  child: LoadingIndicator(),
+                );
+              }
+
+              if (!sections.any((s) => s.type == HomeSectionType.story)) {
+                return const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 16),
+                  child: NoMoreDataWidget(),
+                );
+              }
+
+              return const SizedBox(height: 20);
+            },
+          ),
+          loading: () => const Center(
+            child: CircularProgressIndicator(),
+          ),
+          error: (error, stack) => Center(
+            child: ErrorView(error: error),
           ),
         ),
       ),

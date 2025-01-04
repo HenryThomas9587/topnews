@@ -1,39 +1,36 @@
 import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:topnews/features/home/domain/entity/home_section.dart';
-import 'package:topnews/features/home/presentation/widget/category_filter.dart';
-import 'package:topnews/features/home/presentation/widget/story_list.dart';
+import 'package:topnews/features/home/presentation/widget/story_card.dart';
 import 'package:topnews/features/home/presentation/widget/trending_section.dart';
+import 'package:topnews/features/home/presentation/widget/category_filter.dart';
 
-class SectionRenderer extends ConsumerWidget {
+class SectionRenderer extends StatelessWidget {
   final HomeSection section;
 
   const SectionRenderer({super.key, required this.section});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     return switch (section.type) {
-      HomeSectionType.trending => SliverToBoxAdapter(
-          child: TrendingSection(
-            items: section.trendingNews ?? [],
-            onViewAll: () {
-              // TODO: 实现查看全部
-            },
-          ),
+      HomeSectionType.trending => TrendingSection(
+          items: section.trendingNews ?? [],
+          onViewAll: () {
+            // TODO: 实现查看全部
+          },
         ),
-      HomeSectionType.category => SliverToBoxAdapter(
-          child: CategoryFilter(
-            categories: section.category ?? [],
-            selectedCategory: '',
-            onCategorySelected: (category) {
-              // TODO: 实现选择分类
-            },
-          ),
+      HomeSectionType.category => CategoryFilter(
+          categories: section.category ?? [],
+          selectedCategory: '',
+          onCategorySelected: (category) {
+            // TODO: 实现选择分类
+          },
         ),
-      HomeSectionType.story => SliverPadding(
-          padding: const EdgeInsets.only(top: 24),
-          sliver: StoryList(stories: section.items),
-        ),
+      HomeSectionType.story => section.item != null
+          ? Padding(
+              padding: const EdgeInsets.only(top: 24),
+              child: StoryCard(story: section.item!),
+            )
+          : const SizedBox.shrink(),
     };
   }
 }

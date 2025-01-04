@@ -38,38 +38,35 @@ class GetHomeSectionsUseCase {
       final trending = results[0] as List<TrendingNewsEntity>;
       final categories = results[1] as List<String>;
       final stories = results[2] as List<StoryEntity>;
-
-      return [
+      final sectionList = [
         HomeSection(
           type: HomeSectionType.trending,
-          items: [],
           trendingNews: trending,
           title: 'Trending Now',
         ),
         HomeSection(
           type: HomeSectionType.category,
-          items: [],
           title: 'Categories',
           category: categories,
         ),
-        HomeSection(
-          type: HomeSectionType.story,
-          items: stories,
-          title: 'Latest Stories',
-        ),
       ];
+      sectionList.addAll(stories.map((story) => HomeSection(
+            type: HomeSectionType.story,
+            item: story,
+          )));
+      return sectionList;
     } else {
       // 后续页面只加载stories
       final stories = await storyRepository.getStories(
         page: page,
         pageSize: pageSize,
       );
-      return [
-        HomeSection(
-          type: HomeSectionType.story,
-          items: stories,
-        ),
-      ];
+      return stories
+          .map((story) => HomeSection(
+                type: HomeSectionType.story,
+                item: story,
+              ))
+          .toList();
     }
   }
 }
