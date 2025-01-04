@@ -1,26 +1,25 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'app_router.dart';
+part of 'home_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$routerHash() => r'fff2317401738afdf8e5836dfcbede7f757a3ece';
+String _$homeNotifierHash() => r'4f25f79b7f519449566a9703a13aeb4cae113ebe';
 
-/// See also [router].
-@ProviderFor(router)
-final routerProvider = Provider<GoRouter>.internal(
-  router,
-  name: r'routerProvider',
+/// See also [HomeNotifier].
+@ProviderFor(HomeNotifier)
+final homeNotifierProvider =
+    AutoDisposeAsyncNotifierProvider<HomeNotifier, List<HomeSection>>.internal(
+  HomeNotifier.new,
+  name: r'homeNotifierProvider',
   debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$routerHash,
+      const bool.fromEnvironment('dart.vm.product') ? null : _$homeNotifierHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef RouterRef = ProviderRef<GoRouter>;
+typedef _$HomeNotifier = AutoDisposeAsyncNotifier<List<HomeSection>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

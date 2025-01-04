@@ -1,105 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class AppTheme {
-  // 颜色定义
-  static const primary = Color(0xFF2196F3); // 主色调
-  static const secondary = Color(0xFF03DAC6); // 次要色调
-  static const error = Color(0xFFB00020); // 错误色
-  static const surfaceLight = Colors.white; // 亮色表面
-  static const surfaceDark = Color(0xFF1E1E1E); // 暗色表面
-
-  // 文字样式
-  static const textTheme = TextTheme(
-    displayLarge: TextStyle(
-      fontSize: 28,
-      fontWeight: FontWeight.bold,
-      letterSpacing: -0.5,
-    ),
-    titleLarge: TextStyle(
-      fontSize: 22,
-      fontWeight: FontWeight.w600,
-      letterSpacing: 0.15,
-    ),
-    titleMedium: TextStyle(
-      fontSize: 16,
-      fontWeight: FontWeight.w500,
-      letterSpacing: 0.15,
-    ),
-    bodyLarge: TextStyle(
-      fontSize: 16,
-      letterSpacing: 0.5,
-    ),
-    bodyMedium: TextStyle(
-      fontSize: 14,
-      letterSpacing: 0.25,
-    ),
-  );
-
-  // 亮色主题
-  static final light = ThemeData(
-    useMaterial3: true,
-    colorScheme: ColorScheme.fromSeed(
-      seedColor: primary,
-      brightness: Brightness.light,
-      secondary: secondary,
-      error: error,
-      surface: surfaceLight,
-    ),
-    textTheme: textTheme,
-    appBarTheme: const AppBarTheme(
-      elevation: 0,
-      centerTitle: true,
-    ),
-    cardTheme: CardTheme(
-      elevation: 2,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
-      ),
-      clipBehavior: Clip.antiAlias,
-    ),
-    elevatedButtonTheme: ElevatedButtonThemeData(
-      style: ElevatedButton.styleFrom(
-        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8),
-        ),
-      ),
-    ),
-  );
-
-  // 暗色主题
-  static final dark = ThemeData(
-    useMaterial3: true,
-    colorScheme: ColorScheme.fromSeed(
-      seedColor: primary,
-      brightness: Brightness.dark,
-      secondary: secondary,
-      error: error,
-      surface: surfaceDark,
-    ),
-    textTheme: textTheme,
-    appBarTheme: const AppBarTheme(
-      elevation: 0,
-      centerTitle: true,
-    ),
-    cardTheme: CardTheme(
-      elevation: 2,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
-      ),
-      clipBehavior: Clip.antiAlias,
-    ),
-    elevatedButtonTheme: ElevatedButtonThemeData(
-      style: ElevatedButton.styleFrom(
-        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8),
-        ),
-      ),
-    ),
-  );
-
-  // 间距定义
+  // 添加间距定义
   static const spacing = {
     'xs': 4.0,
     'sm': 8.0,
@@ -108,12 +11,241 @@ class AppTheme {
     'xl': 32.0,
   };
 
-  // 圆角定义
-  static const radius = {
-    'sm': 4.0,
-    'md': 8.0,
-    'lg': 12.0,
-    'xl': 16.0,
-    'full': 9999.0,
+  // 浅色主题颜色定义
+  static const lightColors = {
+    'primary': Color(0xFF4CD964),
+    'secondary': Color.fromARGB(255, 26, 167, 49),
+    'surface': Colors.white,
+    'surfaceContainer': Colors.white,
+    'surfaceVariant': Color(0xFFF2F2F7),
+    'onPrimary': Colors.white,
+    'onSecondary': Colors.white,
+    'onSurface': Color(0xFF000000),
+    'onSurfaceVariant': Color(0xFF8E8E93),
+    'outline': Color(0xFFD1D1D6),
+    'outlineVariant': Color(0xFFD9D9D9),
   };
+
+  // 深色主题颜色定义
+  static const darkColors = {
+    'primary': Color(0xFF4CD964),
+    'secondary': Color.fromARGB(255, 26, 167, 49),
+    'surface': Color(0xFF121212),
+    'surfaceContainer': Color(0xFF212121),
+    'surfaceVariant': Color(0xFF303030),
+    'onPrimary': Colors.white,
+    'onSecondary': Colors.white,
+    'onSurface': Colors.white,
+    'onSurfaceVariant': Color(0xFFA1A1A1),
+    'outline': Color(0xFF444444),
+    'outlineVariant': Color(0xFF595959),
+  };
+
+  // 添加卡片样式常量
+  static final cardStyle = <String, dynamic>{
+    'elevation': 1.0,
+    'borderRadius': 12.0,
+    'imageRadius': 12.0,
+    'imageBorderRadius': const BorderRadius.vertical(top: Radius.circular(12)),
+    'categoryRadius': 20.0,
+    'avatarRadius': 10.0,
+  };
+
+  static final light = ThemeData(
+    useMaterial3: true,
+    brightness: Brightness.light,
+    colorScheme: ColorScheme.fromSeed(
+      brightness: Brightness.light,
+      seedColor: lightColors['primary']!,
+      primary: lightColors['primary']!,
+      secondary: lightColors['secondary']!,
+      surface: lightColors['surface']!,
+      surfaceTint: lightColors['surfaceContainer']!,
+      surfaceContainerHighest: lightColors['surfaceVariant']!,
+      onPrimary: lightColors['onPrimary']!,
+      onSecondary: lightColors['onSecondary']!,
+      onSurface: lightColors['onSurface']!,
+      onSurfaceVariant: lightColors['onSurfaceVariant']!,
+      outline: lightColors['outline']!,
+      outlineVariant: lightColors['outlineVariant']!,
+    ),
+    scaffoldBackgroundColor: lightColors['surfaceContainer']!,
+    cardTheme: CardTheme(
+      elevation: cardStyle['elevation'],
+      shadowColor: Colors.black.withOpacity(0.1),
+      surfaceTintColor: Colors.transparent,
+      color: lightColors['surface']!,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(cardStyle['borderRadius']!),
+      ),
+      margin: EdgeInsets.zero,
+    ),
+    appBarTheme: AppBarTheme(
+      backgroundColor: lightColors['surface']!,
+      elevation: 0,
+      titleTextStyle: GoogleFonts.inter(
+        fontSize: 17,
+        fontWeight: FontWeight.w600,
+        color: lightColors['onSurface']!,
+      ),
+      iconTheme: IconThemeData(color: lightColors['onSurface']!),
+    ),
+    textTheme: TextTheme(
+      titleLarge: GoogleFonts.inter(
+        fontSize: 20,
+        fontWeight: FontWeight.w600,
+        color: lightColors['onSurface']!,
+        height: 1.3,
+      ),
+      titleMedium: GoogleFonts.inter(
+        fontSize: 17,
+        fontWeight: FontWeight.w600,
+        color: lightColors['onSurface']!,
+        height: 1.3,
+      ),
+      bodyMedium: GoogleFonts.inter(
+        fontSize: 15,
+        color: lightColors['onSurfaceVariant']!,
+        height: 1.4,
+      ),
+      bodySmall: GoogleFonts.inter(
+        fontSize: 13,
+        color: lightColors['onSurfaceVariant']!,
+        height: 1.4,
+      ),
+    ),
+    // 底部导航栏主题
+    navigationBarTheme: NavigationBarThemeData(
+      height: 64,
+      backgroundColor: lightColors['surface']!,
+      indicatorColor: lightColors['primary']!.withOpacity(0.12),
+      labelTextStyle: WidgetStateProperty.resolveWith((states) {
+        if (states.contains(WidgetState.selected)) {
+          return GoogleFonts.inter(
+            fontSize: 12,
+            fontWeight: FontWeight.w600,
+            color: lightColors['primary']!,
+          );
+        }
+        return GoogleFonts.inter(
+          fontSize: 12,
+          color: lightColors['onSurfaceVariant']!,
+        );
+      }),
+      iconTheme: WidgetStateProperty.resolveWith((states) {
+        if (states.contains(WidgetState.selected)) {
+          return IconThemeData(
+            size: 24,
+            color: lightColors['primary']!,
+          );
+        }
+        return IconThemeData(
+          size: 24,
+          color: lightColors['onSurfaceVariant']!,
+        );
+      }),
+      surfaceTintColor: Colors.transparent,
+      shadowColor: Colors.transparent,
+      elevation: 0,
+    ),
+  );
+
+  static final dark = ThemeData(
+    useMaterial3: true,
+    brightness: Brightness.dark,
+    colorScheme: ColorScheme.fromSeed(
+      brightness: Brightness.dark,
+      seedColor: darkColors['primary']!,
+      primary: darkColors['primary']!,
+      secondary: darkColors['secondary']!,
+      surface: darkColors['surface']!,
+      surfaceTint: darkColors['surfaceContainer']!,
+      surfaceContainerHighest: darkColors['surfaceVariant']!,
+      onPrimary: darkColors['onPrimary']!,
+      onSecondary: darkColors['onSecondary']!,
+      onSurface: darkColors['onSurface']!,
+      onSurfaceVariant: darkColors['onSurfaceVariant']!,
+      outline: darkColors['outline']!,
+      outlineVariant: darkColors['outlineVariant']!,
+    ),
+    scaffoldBackgroundColor: darkColors['surfaceContainer']!,
+    cardTheme: CardTheme(
+      elevation: cardStyle['elevation'],
+      shadowColor: Colors.black.withOpacity(0.2),
+      surfaceTintColor: Colors.transparent,
+      color: darkColors['surface']!,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(cardStyle['borderRadius']!),
+      ),
+      margin: EdgeInsets.zero,
+    ),
+    appBarTheme: AppBarTheme(
+      backgroundColor: darkColors['surface']!,
+      elevation: 0,
+      titleTextStyle: GoogleFonts.inter(
+        fontSize: 17,
+        fontWeight: FontWeight.w600,
+        color: darkColors['onSurface']!,
+      ),
+      iconTheme: IconThemeData(color: darkColors['onSurface']!),
+    ),
+    textTheme: TextTheme(
+      titleLarge: GoogleFonts.inter(
+        fontSize: 20,
+        fontWeight: FontWeight.w600,
+        color: darkColors['onSurface']!,
+        height: 1.3,
+      ),
+      titleMedium: GoogleFonts.inter(
+        fontSize: 17,
+        fontWeight: FontWeight.w600,
+        color: darkColors['onSurface']!,
+        height: 1.3,
+      ),
+      bodyMedium: GoogleFonts.inter(
+        fontSize: 15,
+        color: darkColors['onSurfaceVariant']!,
+        height: 1.4,
+      ),
+      bodySmall: GoogleFonts.inter(
+        fontSize: 13,
+        color: darkColors['onSurfaceVariant']!,
+        height: 1.4,
+      ),
+    ),
+    // 深色主题底部导航栏
+    navigationBarTheme: NavigationBarThemeData(
+      height: 64,
+      backgroundColor: darkColors['surface']!,
+      indicatorColor: darkColors['primary']!.withOpacity(0.12),
+      labelTextStyle: WidgetStateProperty.resolveWith((states) {
+        if (states.contains(WidgetState.selected)) {
+          return GoogleFonts.inter(
+            fontSize: 12,
+            fontWeight: FontWeight.w600,
+            color: darkColors['primary']!,
+          );
+        }
+        return GoogleFonts.inter(
+          fontSize: 12,
+          color: darkColors['onSurfaceVariant']!,
+        );
+      }),
+      iconTheme: WidgetStateProperty.resolveWith((states) {
+        if (states.contains(WidgetState.selected)) {
+          return IconThemeData(
+            size: 24,
+            color: darkColors['primary']!,
+          );
+        }
+        return IconThemeData(
+          size: 24,
+          color: darkColors['onSurfaceVariant']!,
+        );
+      }),
+      surfaceTintColor: Colors.transparent,
+      shadowColor: Colors.transparent,
+      elevation: 0,
+    ),
+  );
 }

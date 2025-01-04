@@ -4,7 +4,7 @@ import 'package:topnews/core/constant/app_constants.dart';
 import 'package:topnews/core/theme/app_theme_provider.dart';
 import 'package:topnews/features/news/presentation/provider/news_provider.dart';
 import 'package:topnews/features/news/presentation/widget/news_list_item.dart';
-import 'package:topnews/core/route/app_router.dart';
+import 'package:topnews/core/route/router_extension.dart';
 
 class NewsHomePage extends HookConsumerWidget {
   const NewsHomePage({super.key});
