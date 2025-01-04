@@ -16,8 +16,7 @@ class NewsRemoteDataSourceImpl implements NewsRemoteDataSource {
   final NewsApiClient _apiClient;
 
   @override
-  Future<List<NewsModel>> getNewsList() async {
-    // 只并行请求文章和图片
+  Future<List<NewsModel>> getNewsList({int page = 1, int pageSize = 10}) async {
     final results = await Future.wait([
       _apiClient.getPosts(),
       _apiClient.getPhotos(),
@@ -26,11 +25,14 @@ class NewsRemoteDataSourceImpl implements NewsRemoteDataSource {
     final posts = results[0] as List<PostModel>;
     final photos = results[1] as List<PhotoModel>;
 
-    // 直接合并结果，不加载评论
-    return List.generate(posts.length, (index) {
-      final post = posts[index];
-      final photo = photos[post.id % photos.length];
+    // 实现分页
+    final start = (page - 1) * pageSize;
+    final end = start + pageSize;
+    final paginatedPosts = posts.sublist(start, end.clamp(0, posts.length));
 
+    return List.generate(paginatedPosts.length, (index) {
+      final post = paginatedPosts[index];
+      final photo = photos[post.id % photos.length];
       return NewsModel(
         id: post.id.toString(),
         title: post.title,

@@ -17,20 +17,17 @@ class NewsRepositoryImpl implements NewsRepository {
   final NewsLocalDataSource _localDataSource;
 
   @override
-  Future<List<NewsEntity>> getNewsList() async {
+  Future<List<NewsEntity>> getNewsList(
+      {int page = 1, int pageSize = 10}) async {
     try {
-      final remoteNews = await _remoteDataSource.getNewsList();
-      await _localDataSource.cacheNewsList(remoteNews);
-      return remoteNews.map((model) => model.toEntity()).toList();
-    } on DioException catch (e) {
-      // 网络错误时尝试使用缓存
-      final cachedNews = await _localDataSource.getCachedNewsList();
-      if (cachedNews.isEmpty) {
-        throw AppError.fromDioError(e);
-      }
-      return cachedNews.map((model) => model.toEntity()).toList();
+      final news =
+          await _remoteDataSource.getNewsList(page: page, pageSize: pageSize);
+      await _localDataSource.cacheNewsList(news);
+      return news.map((e) => e.toEntity()).toList();
     } catch (e) {
-      throw AppError.unknown(e.toString());
+      final cached = await _localDataSource.getCachedNewsList();
+      if (cached.isEmpty) throw const AppError.unknown('获取新闻列表失败');
+      return cached.map((e) => e.toEntity()).toList();
     }
   }
 

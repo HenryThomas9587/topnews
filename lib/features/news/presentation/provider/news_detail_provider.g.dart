@@ -6,7 +6,8 @@ part of 'news_detail_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$newsDetailHash() => r'55e5aff3bed4f0808e151a15f3f678e8e143ea3d';
+String _$newsDetailNotifierHash() =>
+    r'82c6b503f7b27cc15b82189a81a902194acdf004';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -29,27 +30,36 @@ class _SystemHash {
   }
 }
 
-/// See also [newsDetail].
-@ProviderFor(newsDetail)
-const newsDetailProvider = NewsDetailFamily();
+abstract class _$NewsDetailNotifier
+    extends BuildlessAutoDisposeAsyncNotifier<NewsEntity> {
+  late final String newsId;
 
-/// See also [newsDetail].
-class NewsDetailFamily extends Family<AsyncValue<NewsEntity>> {
-  /// See also [newsDetail].
-  const NewsDetailFamily();
+  FutureOr<NewsEntity> build(
+    String newsId,
+  );
+}
 
-  /// See also [newsDetail].
-  NewsDetailProvider call(
+/// See also [NewsDetailNotifier].
+@ProviderFor(NewsDetailNotifier)
+const newsDetailNotifierProvider = NewsDetailNotifierFamily();
+
+/// See also [NewsDetailNotifier].
+class NewsDetailNotifierFamily extends Family<AsyncValue<NewsEntity>> {
+  /// See also [NewsDetailNotifier].
+  const NewsDetailNotifierFamily();
+
+  /// See also [NewsDetailNotifier].
+  NewsDetailNotifierProvider call(
     String newsId,
   ) {
-    return NewsDetailProvider(
+    return NewsDetailNotifierProvider(
       newsId,
     );
   }
 
   @override
-  NewsDetailProvider getProviderOverride(
-    covariant NewsDetailProvider provider,
+  NewsDetailNotifierProvider getProviderOverride(
+    covariant NewsDetailNotifierProvider provider,
   ) {
     return call(
       provider.newsId,
@@ -68,32 +78,30 @@ class NewsDetailFamily extends Family<AsyncValue<NewsEntity>> {
       _allTransitiveDependencies;
 
   @override
-  String? get name => r'newsDetailProvider';
+  String? get name => r'newsDetailNotifierProvider';
 }
 
-/// See also [newsDetail].
-class NewsDetailProvider extends AutoDisposeFutureProvider<NewsEntity> {
-  /// See also [newsDetail].
-  NewsDetailProvider(
+/// See also [NewsDetailNotifier].
+class NewsDetailNotifierProvider extends AutoDisposeAsyncNotifierProviderImpl<
+    NewsDetailNotifier, NewsEntity> {
+  /// See also [NewsDetailNotifier].
+  NewsDetailNotifierProvider(
     String newsId,
   ) : this._internal(
-          (ref) => newsDetail(
-            ref as NewsDetailRef,
-            newsId,
-          ),
-          from: newsDetailProvider,
-          name: r'newsDetailProvider',
+          () => NewsDetailNotifier()..newsId = newsId,
+          from: newsDetailNotifierProvider,
+          name: r'newsDetailNotifierProvider',
           debugGetCreateSourceHash:
               const bool.fromEnvironment('dart.vm.product')
                   ? null
-                  : _$newsDetailHash,
-          dependencies: NewsDetailFamily._dependencies,
+                  : _$newsDetailNotifierHash,
+          dependencies: NewsDetailNotifierFamily._dependencies,
           allTransitiveDependencies:
-              NewsDetailFamily._allTransitiveDependencies,
+              NewsDetailNotifierFamily._allTransitiveDependencies,
           newsId: newsId,
         );
 
-  NewsDetailProvider._internal(
+  NewsDetailNotifierProvider._internal(
     super._createNotifier, {
     required super.name,
     required super.dependencies,
@@ -106,13 +114,20 @@ class NewsDetailProvider extends AutoDisposeFutureProvider<NewsEntity> {
   final String newsId;
 
   @override
-  Override overrideWith(
-    FutureOr<NewsEntity> Function(NewsDetailRef provider) create,
+  FutureOr<NewsEntity> runNotifierBuild(
+    covariant NewsDetailNotifier notifier,
   ) {
+    return notifier.build(
+      newsId,
+    );
+  }
+
+  @override
+  Override overrideWith(NewsDetailNotifier Function() create) {
     return ProviderOverride(
       origin: this,
-      override: NewsDetailProvider._internal(
-        (ref) => create(ref as NewsDetailRef),
+      override: NewsDetailNotifierProvider._internal(
+        () => create()..newsId = newsId,
         from: from,
         name: null,
         dependencies: null,
@@ -124,13 +139,14 @@ class NewsDetailProvider extends AutoDisposeFutureProvider<NewsEntity> {
   }
 
   @override
-  AutoDisposeFutureProviderElement<NewsEntity> createElement() {
-    return _NewsDetailProviderElement(this);
+  AutoDisposeAsyncNotifierProviderElement<NewsDetailNotifier, NewsEntity>
+      createElement() {
+    return _NewsDetailNotifierProviderElement(this);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is NewsDetailProvider && other.newsId == newsId;
+    return other is NewsDetailNotifierProvider && other.newsId == newsId;
   }
 
   @override
@@ -144,17 +160,18 @@ class NewsDetailProvider extends AutoDisposeFutureProvider<NewsEntity> {
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
-mixin NewsDetailRef on AutoDisposeFutureProviderRef<NewsEntity> {
+mixin NewsDetailNotifierRef on AutoDisposeAsyncNotifierProviderRef<NewsEntity> {
   /// The parameter `newsId` of this provider.
   String get newsId;
 }
 
-class _NewsDetailProviderElement
-    extends AutoDisposeFutureProviderElement<NewsEntity> with NewsDetailRef {
-  _NewsDetailProviderElement(super.provider);
+class _NewsDetailNotifierProviderElement
+    extends AutoDisposeAsyncNotifierProviderElement<NewsDetailNotifier,
+        NewsEntity> with NewsDetailNotifierRef {
+  _NewsDetailNotifierProviderElement(super.provider);
 
   @override
-  String get newsId => (origin as NewsDetailProvider).newsId;
+  String get newsId => (origin as NewsDetailNotifierProvider).newsId;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

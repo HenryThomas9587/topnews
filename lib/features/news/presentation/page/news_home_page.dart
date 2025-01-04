@@ -37,11 +37,18 @@ class NewsHomePage extends HookConsumerWidget {
         onRefresh: () => ref.read(newsNotifierProvider.notifier).refresh(),
         child: newsAsyncValue.when(
           data: (newsList) => ListView.builder(
+            key: const PageStorageKey('news_list'),
             itemCount: newsList.length,
-            itemBuilder: (context, index) => NewsListItem(
-              news: newsList[index],
-              onTap: () => context.pushNewsDetail(newsList[index]),
-            ),
+            cacheExtent: 1000,
+            itemBuilder: (context, index) {
+              if (index == newsList.length - 5) {
+                ref.read(newsNotifierProvider.notifier).loadMore();
+              }
+              return NewsListItem(
+                news: newsList[index],
+                onTap: () => context.pushNewsDetail(newsList[index]),
+              );
+            },
           ),
           loading: () => const Center(child: CircularProgressIndicator()),
           error: (error, stack) => Center(

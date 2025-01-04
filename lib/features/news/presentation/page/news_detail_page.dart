@@ -15,7 +15,7 @@ class NewsDetailPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final newsDetailAsync = ref.watch(newsDetailProvider(newsId));
+    final newsDetailAsync = ref.watch(newsDetailNotifierProvider(newsId));
 
     return Scaffold(
       appBar: AppBar(
@@ -33,38 +33,52 @@ class NewsDetailPage extends ConsumerWidget {
   }
 
   Widget _buildDetail(BuildContext context, NewsEntity news) {
-    return SingleChildScrollView(
-      padding: const EdgeInsets.all(16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          if (news.imageUrl != null)
-            NewsImage(
-              imageUrl: news.imageUrl,
-              width: double.infinity,
-              height: 200,
+    return CustomScrollView(
+      slivers: [
+        SliverToBoxAdapter(
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                if (news.imageUrl != null)
+                  NewsImage(
+                    imageUrl: news.imageUrl,
+                    width: double.infinity,
+                    height: 200,
+                  ),
+                const SizedBox(height: 16),
+                Text(
+                  news.title,
+                  style: Theme.of(context).textTheme.titleLarge,
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  news.content,
+                  style: Theme.of(context).textTheme.bodyMedium,
+                ),
+                if (news.comments.isNotEmpty) ...[
+                  const SizedBox(height: 24),
+                  Text(
+                    '评论 (${news.comments.length})',
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                ],
+              ],
             ),
-          const SizedBox(height: 16),
-          Text(
-            news.title,
-            style: Theme.of(context).textTheme.titleLarge,
           ),
-          const SizedBox(height: 8),
-          Text(
-            news.content,
-            style: Theme.of(context).textTheme.bodyMedium,
-          ),
-          if (news.comments.isNotEmpty) ...[
-            const SizedBox(height: 24),
-            Text(
-              '评论 (${news.comments.length})',
-              style: Theme.of(context).textTheme.titleMedium,
+        ),
+        if (news.comments.isNotEmpty)
+          SliverPadding(
+            padding: const EdgeInsets.all(16),
+            sliver: SliverList(
+              delegate: SliverChildBuilderDelegate(
+                (context, index) => _CommentItem(comment: news.comments[index]),
+                childCount: news.comments.length,
+              ),
             ),
-            const SizedBox(height: 8),
-            ...news.comments.map((comment) => _CommentItem(comment: comment)),
-          ],
-        ],
-      ),
+          ),
+      ],
     );
   }
 }

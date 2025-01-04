@@ -7,11 +7,13 @@ class NewsImage extends StatelessWidget {
     required this.imageUrl,
     this.width,
     this.height,
+    this.preloadNext = true,
   });
 
   final String? imageUrl;
   final double? width;
   final double? height;
+  final bool preloadNext;
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +28,7 @@ class NewsImage extends StatelessWidget {
       fit: BoxFit.cover,
       placeholder: (context, url) => _buildPlaceholder(),
       errorWidget: (context, url, error) => _buildErrorWidget(),
+      fadeInDuration: const Duration(milliseconds: 300),
     );
   }
 
