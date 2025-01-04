@@ -45,10 +45,18 @@ class MockNewsRemoteDataSource extends _i1.Mock
   }
 
   @override
-  _i4.Future<List<_i2.NewsModel>> getNewsList() => (super.noSuchMethod(
+  _i4.Future<List<_i2.NewsModel>> getNewsList({
+    int? page = 1,
+    int? pageSize = 10,
+  }) =>
+      (super.noSuchMethod(
         Invocation.method(
           #getNewsList,
           [],
+          {
+            #page: page,
+            #pageSize: pageSize,
+          },
         ),
         returnValue: _i4.Future<List<_i2.NewsModel>>.value(<_i2.NewsModel>[]),
       ) as _i4.Future<List<_i2.NewsModel>>);
