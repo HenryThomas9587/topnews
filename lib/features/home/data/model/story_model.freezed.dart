@@ -30,6 +30,7 @@ mixin _$StoryModel {
   int get readTime => throw _privateConstructorUsedError;
   int get likes => throw _privateConstructorUsedError;
   int get comments => throw _privateConstructorUsedError;
+  int get views => throw _privateConstructorUsedError;
 
   /// Serializes this StoryModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -57,7 +58,8 @@ abstract class $StoryModelCopyWith<$Res> {
       DateTime publishedAt,
       int readTime,
       int likes,
-      int comments});
+      int comments,
+      int views});
 }
 
 /// @nodoc
@@ -85,6 +87,7 @@ class _$StoryModelCopyWithImpl<$Res, $Val extends StoryModel>
     Object? readTime = null,
     Object? likes = null,
     Object? comments = null,
+    Object? views = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -127,6 +130,10 @@ class _$StoryModelCopyWithImpl<$Res, $Val extends StoryModel>
           ? _value.comments
           : comments // ignore: cast_nullable_to_non_nullable
               as int,
+      views: null == views
+          ? _value.views
+          : views // ignore: cast_nullable_to_non_nullable
+              as int,
     ) as $Val);
   }
 }
@@ -149,7 +156,8 @@ abstract class _$$StoryModelImplCopyWith<$Res>
       DateTime publishedAt,
       int readTime,
       int likes,
-      int comments});
+      int comments,
+      int views});
 }
 
 /// @nodoc
@@ -175,6 +183,7 @@ class __$$StoryModelImplCopyWithImpl<$Res>
     Object? readTime = null,
     Object? likes = null,
     Object? comments = null,
+    Object? views = null,
   }) {
     return _then(_$StoryModelImpl(
       id: null == id
@@ -217,6 +226,10 @@ class __$$StoryModelImplCopyWithImpl<$Res>
           ? _value.comments
           : comments // ignore: cast_nullable_to_non_nullable
               as int,
+      views: null == views
+          ? _value.views
+          : views // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -234,7 +247,8 @@ class _$StoryModelImpl implements _StoryModel {
       required this.publishedAt,
       required this.readTime,
       required this.likes,
-      required this.comments});
+      required this.comments,
+      required this.views});
 
   factory _$StoryModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$StoryModelImplFromJson(json);
@@ -259,10 +273,12 @@ class _$StoryModelImpl implements _StoryModel {
   final int likes;
   @override
   final int comments;
+  @override
+  final int views;
 
   @override
   String toString() {
-    return 'StoryModel(id: $id, title: $title, content: $content, imageUrl: $imageUrl, author: $author, authorAvatar: $authorAvatar, publishedAt: $publishedAt, readTime: $readTime, likes: $likes, comments: $comments)';
+    return 'StoryModel(id: $id, title: $title, content: $content, imageUrl: $imageUrl, author: $author, authorAvatar: $authorAvatar, publishedAt: $publishedAt, readTime: $readTime, likes: $likes, comments: $comments, views: $views)';
   }
 
   @override
@@ -284,13 +300,14 @@ class _$StoryModelImpl implements _StoryModel {
                 other.readTime == readTime) &&
             (identical(other.likes, likes) || other.likes == likes) &&
             (identical(other.comments, comments) ||
-                other.comments == comments));
+                other.comments == comments) &&
+            (identical(other.views, views) || other.views == views));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, id, title, content, imageUrl,
-      author, authorAvatar, publishedAt, readTime, likes, comments);
+      author, authorAvatar, publishedAt, readTime, likes, comments, views);
 
   /// Create a copy of StoryModel
   /// with the given fields replaced by the non-null parameter values.
@@ -319,7 +336,8 @@ abstract class _StoryModel implements StoryModel {
       required final DateTime publishedAt,
       required final int readTime,
       required final int likes,
-      required final int comments}) = _$StoryModelImpl;
+      required final int comments,
+      required final int views}) = _$StoryModelImpl;
 
   factory _StoryModel.fromJson(Map<String, dynamic> json) =
       _$StoryModelImpl.fromJson;
@@ -344,6 +362,8 @@ abstract class _StoryModel implements StoryModel {
   int get likes;
   @override
   int get comments;
+  @override
+  int get views;
 
   /// Create a copy of StoryModel
   /// with the given fields replaced by the non-null parameter values.

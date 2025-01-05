@@ -26,6 +26,7 @@ class StoryRemoteDataSourceImpl implements StoryRemoteDataSource {
         readTime: 3 + (index % 5),
         likes: 10 + (index * 5),
         comments: 5 + (index * 3),
+        views: 100 + (index * 10),
       ),
     );
   }

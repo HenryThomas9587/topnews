@@ -8,6 +8,7 @@ class StoryEntity {
   final DateTime publishedAt;
   final int readTime;
   final int likes;
+  final int views;
   final int comments;
 
   String? category;
@@ -22,6 +23,7 @@ class StoryEntity {
     required this.publishedAt,
     required this.readTime,
     required this.likes,
+    required this.views,
     required this.comments,
     this.category,
   });

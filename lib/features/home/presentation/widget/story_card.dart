@@ -1,198 +1,32 @@
 import 'package:flutter/material.dart';
-import 'package:topnews/core/utils/date_formatter.dart';
+import 'package:topnews/core/theme/app_theme.dart';
+import 'package:topnews/core/util/date_formatter.dart';
 import 'package:topnews/features/home/domain/entity/story_entity.dart';
 import 'package:go_router/go_router.dart';
-import 'package:topnews/core/theme/app_theme.dart';
 
 class StoryCard extends StatelessWidget {
+  final StoryEntity story;
+
   const StoryCard({
     super.key,
     required this.story,
   });
 
-  final StoryEntity story;
-
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    final isWideScreen = screenWidth > 600;
-
     return Card(
-      margin: EdgeInsets.symmetric(
-        horizontal: AppTheme.spacing['md']!,
-        vertical: AppTheme.spacing['sm']!,
-      ),
       child: InkWell(
         onTap: () => context.push('/news/${story.id}'),
-        splashColor: Theme.of(context).colorScheme.primary.withOpacity(0.05),
-        hoverColor: Theme.of(context).colorScheme.primary.withOpacity(0.03),
-        borderRadius:
-            BorderRadius.circular(AppTheme.cardStyle['borderRadius']!),
         child: Padding(
-          padding: EdgeInsets.all(AppTheme.spacing['md']!),
+          padding: AppTheme.cardPadding,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // 头部作者信息
-              Row(
-                children: [
-                  CircleAvatar(
-                    radius: 16,
-                    backgroundImage: NetworkImage(story.authorAvatar),
-                  ),
-                  const SizedBox(width: 12),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          story.author,
-                          style:
-                              Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                        ),
-                        Text(
-                          DateFormatter.timeAgo(story.publishedAt),
-                          style:
-                              Theme.of(context).textTheme.bodySmall?.copyWith(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .onSurfaceVariant,
-                                  ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  IconButton(
-                    icon: const Icon(Icons.more_horiz),
-                    onPressed: () {},
-                  ),
-                ],
-              ),
+              _StoryMainContent(story: story),
               const SizedBox(height: 12),
-
-              // 内容和图片区域 - 宽屏时横向布局
-              if (isWideScreen)
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Expanded(
-                      flex: 3,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            story.title,
-                            style: Theme.of(context).textTheme.titleMedium,
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                          const SizedBox(height: 8),
-                          Text(
-                            story.content,
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyMedium
-                                ?.copyWith(
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .onSurfaceVariant,
-                                ),
-                            maxLines: 3,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(width: 16),
-                    Expanded(
-                      flex: 2,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(12),
-                        child: Image.network(
-                          story.imageUrl,
-                          height: 180,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
-                  ],
-                )
-              else
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      story.title,
-                      style: Theme.of(context).textTheme.titleMedium,
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    const SizedBox(height: 8),
-                    Text(
-                      story.content,
-                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                            color:
-                                Theme.of(context).colorScheme.onSurfaceVariant,
-                          ),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    const SizedBox(height: 12),
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(12),
-                      child: Image.network(
-                        story.imageUrl,
-                        width: double.infinity,
-                        height: 200,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ],
-                ),
+              _StoryAuthorInfo(story: story),
               const SizedBox(height: 12),
-
-              // 底部交互区
-              Row(
-                children: [
-                  Expanded(
-                    child: Row(
-                      children: [
-                        _InteractionButton(
-                          icon: Icons.remove_red_eye_outlined,
-                          count: story.readTime,
-                          label: 'min read',
-                          onPressed: () {},
-                        ),
-                      ],
-                    ),
-                  ),
-                  Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      _InteractionButton(
-                        icon: Icons.thumb_up_outlined,
-                        count: story.likes,
-                        onPressed: () {},
-                      ),
-                      const SizedBox(width: 16),
-                      _InteractionButton(
-                        icon: Icons.chat_bubble_outline,
-                        count: story.comments,
-                        onPressed: () {},
-                      ),
-                      const SizedBox(width: 16),
-                      IconButton(
-                        icon: const Icon(Icons.share_outlined),
-                        iconSize: 20,
-                        visualDensity: VisualDensity.compact,
-                        onPressed: () {},
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+              _StoryStats(story: story),
             ],
           ),
         ),
@@ -201,49 +35,192 @@ class StoryCard extends StatelessWidget {
   }
 }
 
-class _InteractionButton extends StatelessWidget {
-  const _InteractionButton({
-    required this.icon,
-    required this.count,
-    this.label,
-    required this.onPressed,
-  });
+class _StoryMainContent extends StatelessWidget {
+  final StoryEntity story;
 
-  final IconData icon;
-  final int count;
-  final String? label;
-  final VoidCallback onPressed;
+  const _StoryMainContent({required this.story});
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onPressed,
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(
-            icon,
-            size: 16,
-            color: Theme.of(context).colorScheme.onSurfaceVariant,
+    final theme = Theme.of(context);
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                story.title,
+                style: theme.textTheme.bodyLarge,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+              ),
+              const SizedBox(height: 4),
+              Text(
+                story.content,
+                style: theme.textTheme.bodyMedium,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ],
           ),
-          const SizedBox(width: 4),
-          Text(
-            count.toString(),
-            style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  color: Theme.of(context).colorScheme.onSurfaceVariant,
-                ),
-          ),
-          if (label != null) ...[
-            const SizedBox(width: 4),
-            Text(
-              label!,
-              style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: Theme.of(context).colorScheme.onSurfaceVariant,
-                  ),
-            ),
-          ],
+        ),
+        if (story.imageUrl.isNotEmpty) ...[
+          const SizedBox(width: 12),
+          _StoryImage(imageUrl: story.imageUrl),
         ],
+      ],
+    );
+  }
+}
+
+class _StoryImage extends StatelessWidget {
+  final String imageUrl;
+
+  const _StoryImage({required this.imageUrl});
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(8),
+      child: Image.network(
+        imageUrl,
+        width: 180,
+        height: 150,
+        fit: BoxFit.cover,
+        errorBuilder: (_, __, ___) => Container(
+          width: 180,
+          height: 150,
+          color: theme.colorScheme.surface,
+          child: Icon(
+            Icons.image_not_supported_outlined,
+            color: theme.colorScheme.outline,
+          ),
+        ),
       ),
+    );
+  }
+}
+
+class _StoryAuthorInfo extends StatelessWidget {
+  final StoryEntity story;
+
+  const _StoryAuthorInfo({required this.story});
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return Row(
+      children: [
+        CircleAvatar(
+          radius: 10,
+          backgroundImage: NetworkImage(story.authorAvatar),
+          backgroundColor: theme.colorScheme.surface,
+        ),
+        const SizedBox(width: 8),
+        Text(
+          story.author,
+          style: theme.textTheme.bodySmall?.copyWith(
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+        const Spacer(),
+        Text(
+          DateFormatter.timeAgo(story.publishedAt),
+          style: theme.textTheme.bodySmall?.copyWith(
+            color: theme.colorScheme.outline,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _StoryStats extends StatelessWidget {
+  final StoryEntity story;
+
+  const _StoryStats({required this.story});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        _StatItem(
+          icon: Icons.remove_red_eye_outlined,
+          value: story.views.toString(),
+        ),
+        const SizedBox(width: 16),
+        _StatItem(
+          icon: Icons.chat_bubble_outline,
+          value: story.comments.toString(),
+        ),
+        const Spacer(),
+        _ActionButton(
+          icon: Icons.share_outlined,
+          onPressed: () {},
+        ),
+        const SizedBox(width: 16),
+        _ActionButton(
+          icon: Icons.more_horiz,
+          onPressed: () {},
+        ),
+      ],
+    );
+  }
+}
+
+class _StatItem extends StatelessWidget {
+  final IconData icon;
+  final String value;
+
+  const _StatItem({
+    required this.icon,
+    required this.value,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return Row(
+      children: [
+        Icon(
+          icon,
+          size: 14,
+          color: theme.colorScheme.outline,
+        ),
+        const SizedBox(width: 4),
+        Text(
+          value,
+          style: theme.textTheme.bodySmall?.copyWith(
+            color: theme.colorScheme.outline,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _ActionButton extends StatelessWidget {
+  final IconData icon;
+  final VoidCallback onPressed;
+
+  const _ActionButton({
+    required this.icon,
+    required this.onPressed,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return IconButton(
+      icon: Icon(icon),
+      iconSize: 18,
+      color: theme.colorScheme.outline,
+      onPressed: onPressed,
+      padding: EdgeInsets.zero,
+      constraints: const BoxConstraints(),
     );
   }
 }

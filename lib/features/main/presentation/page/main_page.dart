@@ -1,76 +1,74 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:topnews/core/util/logger.dart';
+import 'package:topnews/features/home/presentation/page/home_page.dart';
+import 'package:topnews/features/main/presentation/provider/main_provider.dart';
+import 'package:topnews/features/main/domain/entity/tab_item.dart';
 
 class MainPage extends HookConsumerWidget {
-  const MainPage({
-    super.key,
-    required this.child,
-  });
+  const MainPage({super.key});
 
-  final Widget child;
+  Widget buildPage(TabItem tab, bool isBuilt) {
+    if (!isBuilt) {
+      return const SizedBox.shrink();
+    }
+    logDebug('MainPage: building page ${tab.id}');
+    switch (tab.route) {
+      case '/':
+        return const HomePage();
+      case '/explore':
+        return const Placeholder();
+      case '/bookmarks':
+        return const Placeholder();
+      case '/profile':
+        return const Placeholder();
+      default:
+        return const SizedBox.shrink();
+    }
+  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final selectedIndex = useState(0);
+    final tabsAsync = ref.watch(mainNotifierProvider);
+    final pageController = ref.watch(mainPageControllerProvider.notifier);
+
     return Scaffold(
-      body: child,
-      bottomNavigationBar: NavigationBar(
-        selectedIndex: _calculateSelectedIndex(context),
-        onDestinationSelected: (index) => _onItemTapped(index, context),
-        destinations: const [
-          NavigationDestination(
-            icon: Icon(Icons.home_outlined),
-            selectedIcon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          NavigationDestination(
-            icon: Icon(Icons.explore_outlined),
-            selectedIcon: Icon(Icons.explore),
-            label: 'Explore',
-          ),
-          NavigationDestination(
-            icon: Icon(Icons.bookmark_outline),
-            selectedIcon: Icon(Icons.bookmark),
-            label: 'Bookmarks',
-          ),
-          NavigationDestination(
-            icon: Icon(Icons.person_outline),
-            selectedIcon: Icon(Icons.person),
-            label: 'Profile',
-          ),
-        ],
+      body: tabsAsync.when(
+        data: (tabs) => IndexedStack(
+          index: selectedIndex.value,
+          children: tabs
+              .map((tab) => buildPage(
+                    tab,
+                    pageController.isPageBuilt(tab.id),
+                  ))
+              .toList(),
+        ),
+        loading: () => const Center(child: CircularProgressIndicator()),
+        error: (error, stack) => Center(child: Text('Error: $error')),
+      ),
+      bottomNavigationBar: tabsAsync.when(
+        data: (tabs) => NavigationBar(
+          selectedIndex: selectedIndex.value,
+          onDestinationSelected: (index) {
+            final tab = tabs[index];
+            pageController.markPageAsBuilt(tab.id);
+            selectedIndex.value = index;
+          },
+          destinations: tabs
+              .map(
+                (tab) => NavigationDestination(
+                  icon: Icon(tab.icon),
+                  selectedIcon: Icon(tab.selectedIcon),
+                  label: tab.label,
+                ),
+              )
+              .toList(),
+        ),
+        loading: () => const SizedBox.shrink(),
+        error: (_, __) => const SizedBox.shrink(),
       ),
     );
-  }
-
-  int _calculateSelectedIndex(BuildContext context) {
-    final location = GoRouterState.of(context).matchedLocation;
-    if (location.startsWith('/explore')) {
-      return 1;
-    }
-    if (location.startsWith('/bookmarks')) {
-      return 2;
-    }
-    if (location.startsWith('/profile')) {
-      return 3;
-    }
-    return 0;
-  }
-
-  void _onItemTapped(int index, BuildContext context) {
-    switch (index) {
-      case 0:
-        context.go('/');
-        break;
-      case 1:
-        context.go('/explore');
-        break;
-      case 2:
-        context.go('/bookmarks');
-        break;
-      case 3:
-        context.go('/profile');
-        break;
-    }
   }
 }

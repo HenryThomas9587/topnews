@@ -17,6 +17,7 @@ class StoryModel with _$StoryModel {
     required int readTime,
     required int likes,
     required int comments,
+    required int views,
   }) = _StoryModel;
 
   factory StoryModel.fromJson(Map<String, dynamic> json) =>
@@ -33,6 +34,7 @@ class StoryModel with _$StoryModel {
         readTime: entity.readTime,
         likes: entity.likes,
         comments: entity.comments,
+        views: entity.views,
       );
 }
 
@@ -48,5 +50,6 @@ extension StoryModelX on StoryModel {
         readTime: readTime,
         likes: likes,
         comments: comments,
+        views: views,
       );
 }

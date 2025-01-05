@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:topnews/core/theme/app_theme.dart';
-import 'package:topnews/core/widgets/app_card.dart';
+import 'package:topnews/core/widget/app_card.dart';
 import 'package:topnews/features/news/domain/entity/news_entity.dart';
 import 'package:topnews/features/news/presentation/widget/news_image.dart';
 
@@ -18,9 +18,9 @@ class NewsListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return AppCard(
       onTap: onTap,
-      margin: EdgeInsets.symmetric(
-        horizontal: AppTheme.spacing['md']!,
-        vertical: AppTheme.spacing['sm']!,
+      margin: const EdgeInsets.symmetric(
+        horizontal: AppTheme.spaceMd,
+        vertical: AppTheme.spaceSm,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -31,12 +31,12 @@ class NewsListItem extends StatelessWidget {
               width: double.infinity,
               height: 200,
             ),
-          SizedBox(height: AppTheme.spacing['md']),
+          const SizedBox(height: AppTheme.spaceMd),
           Text(
             news.title,
             style: Theme.of(context).textTheme.titleLarge,
           ),
-          SizedBox(height: AppTheme.spacing['xs']),
+          const SizedBox(height: AppTheme.spaceXs),
           Text(
             news.content,
             maxLines: 2,

@@ -32,11 +32,7 @@ class NewsLocalDataSourceImpl implements NewsLocalDataSource {
 
       return NewsModel.listFromJson(jsonString);
     } catch (e, stack) {
-      log(
-        '获取缓存新闻失败',
-        error: e,
-        stackTrace: stack,
-      );
+      logError('获取缓存新闻失败', e, stack);
       return [];
     }
   }
@@ -55,11 +51,7 @@ class NewsLocalDataSourceImpl implements NewsLocalDataSource {
       // 清理过期的缓存文件
       await _cleanupOldCache();
     } catch (e, stack) {
-      log(
-        '缓存新闻失败',
-        error: e,
-        stackTrace: stack,
-      );
+      logError('缓存新闻失败', e, stack);
     }
   }
 
@@ -82,11 +74,7 @@ class NewsLocalDataSourceImpl implements NewsLocalDataSource {
         }
       }
     } catch (e, stack) {
-      log(
-        '清理缓存失败',
-        error: e,
-        stackTrace: stack,
-      );
+      logError('清理缓存失败', e, stack);
     }
   }
 }

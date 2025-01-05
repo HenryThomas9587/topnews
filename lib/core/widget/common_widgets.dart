@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:topnews/features/home/presentation/provider/home_provider.dart';
 
 class LoadingIndicator extends StatelessWidget {
   const LoadingIndicator({super.key});

@@ -2,35 +2,29 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AppTheme {
-  // 添加间距定义
-  static const spacing = {
-    'xs': 4.0,
-    'sm': 8.0,
-    'md': 16.0,
-    'lg': 24.0,
-    'xl': 32.0,
-  };
-
   // 浅色主题颜色定义
   static const lightColors = {
-    'primary': Color(0xFF4CD964),
-    'secondary': Color.fromARGB(255, 26, 167, 49),
-    'surface': Colors.white,
-    'surfaceContainer': Colors.white,
-    'surfaceVariant': Color(0xFFF2F2F7),
-    'onPrimary': Colors.white,
-    'onSecondary': Colors.white,
-    'onSurface': Color(0xFF000000),
-    'onSurfaceVariant': Color(0xFF8E8E93),
-    'outline': Color(0xFFD1D1D6),
-    'outlineVariant': Color(0xFFD9D9D9),
+    'primary': Color(0xFF20958f), // primary: 主要颜色,用于主要按钮、重要操作等
+    'secondary': Color(0xFF20958f), // secondary: 次要颜色,用于次要按钮、辅助操作等
+    'surface': Colors.white, // surface: 表面颜色,用于卡片、对话框等容器背景
+    'surfaceTint': Colors.transparent, // surfaceTint: elevation 的表面上创建一个颜色叠加层
+    'surfaceContainer': Colors.white, // surfaceContainer: 容器表面颜色,用于页面主体背景
+    'surfaceVariant': Color(0xFFF7FFFE), // surfaceVariant: 表面变体颜色,用于不同层级的表面
+    'onPrimary': Colors.white, // onPrimary: 在主色上的文字颜色
+    'onSecondary': Colors.white, // onSecondary: 在次要颜色上的文字颜色
+    'onSurface': Color(0xFF1e1e1e), // onSurface: 在表面上的主要文字颜色
+    'onSurfaceVariant': Color(0xFF8E8E93), // onSurfaceVariant: 在表面上的次要文字颜色
+    'outline': Color(0xFFD1D1D6), // outline: 轮廓线颜色
+    'outlineVariant': Color(0xFFD9D9D9), // outlineVariant: 轮廓线变体颜色
+    'shadow': Color.fromARGB(255, 217, 217, 217), // shadow: 阴影颜色,用于卡片、对话框等容器背景
   };
 
-  // 深色主题颜色定义
+  // 深色主题下各颜色的用途与浅色主题相同,但使用更深的色调
   static const darkColors = {
-    'primary': Color(0xFF4CD964),
-    'secondary': Color.fromARGB(255, 26, 167, 49),
+    'primary': Color(0xFF20958f),
+    'secondary': Color(0xFF20958f),
     'surface': Color(0xFF121212),
+    'surfaceTint': Colors.transparent,
     'surfaceContainer': Color(0xFF212121),
     'surfaceVariant': Color(0xFF303030),
     'onPrimary': Colors.white,
@@ -39,28 +33,66 @@ class AppTheme {
     'onSurfaceVariant': Color(0xFFA1A1A1),
     'outline': Color(0xFF444444),
     'outlineVariant': Color(0xFF595959),
+    'shadow': Color.fromARGB(255, 217, 217, 217),
   };
 
   // 添加卡片样式常量
   static final cardStyle = <String, dynamic>{
-    'elevation': 1.0,
+    'elevation': 2.0,
     'borderRadius': 12.0,
     'imageRadius': 12.0,
     'imageBorderRadius': const BorderRadius.vertical(top: Radius.circular(12)),
     'categoryRadius': 20.0,
     'avatarRadius': 10.0,
+    'cardMargin': const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
   };
+
+  // 定义基础文本样式
+  static final _baseTextStyle = GoogleFonts.inter();
+
+  // 卡片配置
+  static final _cardBorderRadius = BorderRadius.circular(12.0);
+  static final _cardShape =
+      RoundedRectangleBorder(borderRadius: _cardBorderRadius);
+  static const _cardElevation = 2.0;
+  static const cardPadding = EdgeInsets.symmetric(horizontal: 16, vertical: 12);
+
+  // 文字配置
+  static const _textTheme = TextTheme(
+    titleLarge: TextStyle(fontSize: 22, fontWeight: FontWeight.w700),
+    titleMedium: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+    titleSmall: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+    bodyLarge: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+    bodyMedium: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+    bodySmall: TextStyle(fontSize: 14, fontWeight: FontWeight.w300),
+    labelLarge: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+    labelMedium: TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
+    labelSmall: TextStyle(fontSize: 12, fontWeight: FontWeight.w300),
+  );
+
+  // 底部导航栏配置
+  static const _navigationBarHeight = 64.0;
+  static const _navigationBarElevation = 1.0;
+
+  // 添加间距定义
+  static const spaceXs = 4.0;
+  static const spaceSm = 8.0;
+  static const spaceMd = 16.0;
+  static const spaceLg = 24.0;
+  static const spaceXl = 32.0;
+  static const contentPadding =
+      EdgeInsets.symmetric(horizontal: spaceMd, vertical: spaceMd);
 
   static final light = ThemeData(
     useMaterial3: true,
     brightness: Brightness.light,
+    fontFamily: _baseTextStyle.fontFamily,
     colorScheme: ColorScheme.fromSeed(
-      brightness: Brightness.light,
       seedColor: lightColors['primary']!,
       primary: lightColors['primary']!,
       secondary: lightColors['secondary']!,
       surface: lightColors['surface']!,
-      surfaceTint: lightColors['surfaceContainer']!,
+      surfaceTint: lightColors['surfaceTint']!,
       surfaceContainerHighest: lightColors['surfaceVariant']!,
       onPrimary: lightColors['onPrimary']!,
       onSecondary: lightColors['onSecondary']!,
@@ -68,98 +100,41 @@ class AppTheme {
       onSurfaceVariant: lightColors['onSurfaceVariant']!,
       outline: lightColors['outline']!,
       outlineVariant: lightColors['outlineVariant']!,
+      shadow: lightColors['shadow']!,
     ),
-    scaffoldBackgroundColor: lightColors['surfaceContainer']!,
+    splashColor: lightColors['primary']!.withOpacity(0.03),
+    hoverColor: lightColors['primary']!.withOpacity(0.03),
+    highlightColor: lightColors['primary']!.withOpacity(0.05),
+    scaffoldBackgroundColor: lightColors['surfaceContainer'],
     cardTheme: CardTheme(
-      elevation: cardStyle['elevation'],
-      shadowColor: Colors.black.withOpacity(0.1),
-      surfaceTintColor: Colors.transparent,
-      color: lightColors['surface']!,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(cardStyle['borderRadius']!),
-      ),
-      margin: EdgeInsets.zero,
+      elevation: _cardElevation,
+      shape: _cardShape,
+      color: lightColors['surface'],
     ),
     appBarTheme: AppBarTheme(
-      backgroundColor: lightColors['surface']!,
-      elevation: 0,
-      titleTextStyle: GoogleFonts.inter(
-        fontSize: 17,
-        fontWeight: FontWeight.w600,
-        color: lightColors['onSurface']!,
-      ),
-      iconTheme: IconThemeData(color: lightColors['onSurface']!),
+      elevation: _cardElevation,
+      titleTextStyle: _textTheme.titleLarge,
     ),
-    textTheme: TextTheme(
-      titleLarge: GoogleFonts.inter(
-        fontSize: 20,
-        fontWeight: FontWeight.w600,
-        color: lightColors['onSurface']!,
-        height: 1.3,
-      ),
-      titleMedium: GoogleFonts.inter(
-        fontSize: 17,
-        fontWeight: FontWeight.w600,
-        color: lightColors['onSurface']!,
-        height: 1.3,
-      ),
-      bodyMedium: GoogleFonts.inter(
-        fontSize: 15,
-        color: lightColors['onSurfaceVariant']!,
-        height: 1.4,
-      ),
-      bodySmall: GoogleFonts.inter(
-        fontSize: 13,
-        color: lightColors['onSurfaceVariant']!,
-        height: 1.4,
-      ),
-    ),
+    textTheme: _textTheme,
     // 底部导航栏主题
     navigationBarTheme: NavigationBarThemeData(
-      height: 64,
-      backgroundColor: lightColors['surface']!,
-      indicatorColor: lightColors['primary']!.withOpacity(0.12),
-      labelTextStyle: WidgetStateProperty.resolveWith((states) {
-        if (states.contains(WidgetState.selected)) {
-          return GoogleFonts.inter(
-            fontSize: 12,
-            fontWeight: FontWeight.w600,
-            color: lightColors['primary']!,
-          );
-        }
-        return GoogleFonts.inter(
-          fontSize: 12,
-          color: lightColors['onSurfaceVariant']!,
-        );
-      }),
-      iconTheme: WidgetStateProperty.resolveWith((states) {
-        if (states.contains(WidgetState.selected)) {
-          return IconThemeData(
-            size: 24,
-            color: lightColors['primary']!,
-          );
-        }
-        return IconThemeData(
-          size: 24,
-          color: lightColors['onSurfaceVariant']!,
-        );
-      }),
-      surfaceTintColor: Colors.transparent,
-      shadowColor: Colors.transparent,
-      elevation: 0,
+      backgroundColor: lightColors['surface'],
+      height: _navigationBarHeight,
+      elevation: _navigationBarElevation,
     ),
   );
 
   static final dark = ThemeData(
     useMaterial3: true,
     brightness: Brightness.dark,
+    fontFamily: _baseTextStyle.fontFamily,
     colorScheme: ColorScheme.fromSeed(
       brightness: Brightness.dark,
       seedColor: darkColors['primary']!,
       primary: darkColors['primary']!,
       secondary: darkColors['secondary']!,
       surface: darkColors['surface']!,
-      surfaceTint: darkColors['surfaceContainer']!,
+      surfaceTint: darkColors['surfaceTint']!,
       surfaceContainerHighest: darkColors['surfaceVariant']!,
       onPrimary: darkColors['onPrimary']!,
       onSecondary: darkColors['onSecondary']!,
@@ -167,85 +142,26 @@ class AppTheme {
       onSurfaceVariant: darkColors['onSurfaceVariant']!,
       outline: darkColors['outline']!,
       outlineVariant: darkColors['outlineVariant']!,
+      shadow: darkColors['shadow']!,
     ),
-    scaffoldBackgroundColor: darkColors['surfaceContainer']!,
+    splashColor: darkColors['primary']!.withOpacity(0.03),
+    hoverColor: darkColors['primary']!.withOpacity(0.03),
+    highlightColor: darkColors['primary']!.withOpacity(0.05),
+    scaffoldBackgroundColor: darkColors['surfaceContainer'],
     cardTheme: CardTheme(
-      elevation: cardStyle['elevation'],
-      shadowColor: Colors.black.withOpacity(0.2),
-      surfaceTintColor: Colors.transparent,
-      color: darkColors['surface']!,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(cardStyle['borderRadius']!),
-      ),
-      margin: EdgeInsets.zero,
+      elevation: _cardElevation,
+      shape: _cardShape,
+      color: darkColors['surface'],
     ),
     appBarTheme: AppBarTheme(
-      backgroundColor: darkColors['surface']!,
-      elevation: 0,
-      titleTextStyle: GoogleFonts.inter(
-        fontSize: 17,
-        fontWeight: FontWeight.w600,
-        color: darkColors['onSurface']!,
-      ),
-      iconTheme: IconThemeData(color: darkColors['onSurface']!),
+      elevation: _cardElevation,
+      titleTextStyle: _textTheme.titleLarge,
     ),
-    textTheme: TextTheme(
-      titleLarge: GoogleFonts.inter(
-        fontSize: 20,
-        fontWeight: FontWeight.w600,
-        color: darkColors['onSurface']!,
-        height: 1.3,
-      ),
-      titleMedium: GoogleFonts.inter(
-        fontSize: 17,
-        fontWeight: FontWeight.w600,
-        color: darkColors['onSurface']!,
-        height: 1.3,
-      ),
-      bodyMedium: GoogleFonts.inter(
-        fontSize: 15,
-        color: darkColors['onSurfaceVariant']!,
-        height: 1.4,
-      ),
-      bodySmall: GoogleFonts.inter(
-        fontSize: 13,
-        color: darkColors['onSurfaceVariant']!,
-        height: 1.4,
-      ),
-    ),
-    // 深色主题底部导航栏
+    textTheme: _textTheme,
     navigationBarTheme: NavigationBarThemeData(
-      height: 64,
-      backgroundColor: darkColors['surface']!,
-      indicatorColor: darkColors['primary']!.withOpacity(0.12),
-      labelTextStyle: WidgetStateProperty.resolveWith((states) {
-        if (states.contains(WidgetState.selected)) {
-          return GoogleFonts.inter(
-            fontSize: 12,
-            fontWeight: FontWeight.w600,
-            color: darkColors['primary']!,
-          );
-        }
-        return GoogleFonts.inter(
-          fontSize: 12,
-          color: darkColors['onSurfaceVariant']!,
-        );
-      }),
-      iconTheme: WidgetStateProperty.resolveWith((states) {
-        if (states.contains(WidgetState.selected)) {
-          return IconThemeData(
-            size: 24,
-            color: darkColors['primary']!,
-          );
-        }
-        return IconThemeData(
-          size: 24,
-          color: darkColors['onSurfaceVariant']!,
-        );
-      }),
-      surfaceTintColor: Colors.transparent,
-      shadowColor: Colors.transparent,
-      elevation: 0,
+      backgroundColor: darkColors['surface'],
+      height: _navigationBarHeight,
+      elevation: _navigationBarElevation,
     ),
   );
 }

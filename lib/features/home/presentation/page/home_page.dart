@@ -1,10 +1,10 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:topnews/core/theme/app_theme.dart';
 import 'package:topnews/features/home/domain/entity/home_section.dart';
 import 'package:topnews/features/home/presentation/provider/home_provider.dart';
-import 'package:topnews/core/widgets/common_widgets.dart';
+import 'package:topnews/core/widget/common_widgets.dart';
 import 'package:topnews/features/home/presentation/widget/home_app_bar.dart';
 import 'package:topnews/features/home/presentation/widget/section_renderer.dart';
 
@@ -58,8 +58,6 @@ class HomePage extends HookConsumerWidget {
         },
         displacement: 50,
         edgeOffset: 0,
-        color: Theme.of(context).colorScheme.primary,
-        backgroundColor: Theme.of(context).colorScheme.surface,
         strokeWidth: 2.5,
         child: sectionsAsyncValue.when(
           data: (sections) => ListView.builder(
@@ -67,7 +65,7 @@ class HomePage extends HookConsumerWidget {
             physics: const AlwaysScrollableScrollPhysics(
               parent: BouncingScrollPhysics(),
             ),
-            padding: const EdgeInsets.only(bottom: 20),
+            padding: AppTheme.contentPadding,
             itemCount: sections.length + 1,
             itemBuilder: (context, index) {
               if (index < sections.length) {
@@ -107,22 +105,5 @@ class HomePage extends HookConsumerWidget {
             )
           : null,
     );
-  }
-}
-
-// 添加防抖器类
-class Debouncer {
-  final int milliseconds;
-  Timer? _timer;
-
-  Debouncer({required this.milliseconds});
-
-  void run(VoidCallback action) {
-    _timer?.cancel();
-    _timer = Timer(Duration(milliseconds: milliseconds), action);
-  }
-
-  void dispose() {
-    _timer?.cancel();
   }
 }

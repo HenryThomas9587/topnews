@@ -18,6 +18,7 @@ _$StoryModelImpl _$$StoryModelImplFromJson(Map<String, dynamic> json) =>
       readTime: (json['readTime'] as num).toInt(),
       likes: (json['likes'] as num).toInt(),
       comments: (json['comments'] as num).toInt(),
+      views: (json['views'] as num).toInt(),
     );
 
 Map<String, dynamic> _$$StoryModelImplToJson(_$StoryModelImpl instance) =>
@@ -32,4 +33,5 @@ Map<String, dynamic> _$$StoryModelImplToJson(_$StoryModelImpl instance) =>
       'readTime': instance.readTime,
       'likes': instance.likes,
       'comments': instance.comments,
+      'views': instance.views,
     };
