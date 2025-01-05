@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:topnews/core/util/logger.dart';
+import 'package:topnews/core/theme/app_theme.dart';
+import 'package:topnews/core/widget/user_avatar.dart';
 
 class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
   const HomeAppBar({super.key});
@@ -9,38 +10,11 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       title: Row(
         children: [
-          CircleAvatar(
+          const UserAvatar(
+            imageUrl: 'https://i.pravatar.cc/150?img=1',
             radius: 20,
-            backgroundColor: Theme.of(context).colorScheme.primaryContainer,
-            child: ClipOval(
-              child: Image.network(
-                'https://i.pravatar.cc/150?img=1',
-                width: 40,
-                height: 40,
-                fit: BoxFit.cover,
-                errorBuilder: (context, error, stackTrace) {
-                  logError('Failed to load avatar', error, stackTrace);
-                  return Icon(
-                    Icons.person,
-                    color: Theme.of(context).colorScheme.onPrimaryContainer,
-                  );
-                },
-                loadingBuilder: (context, child, loadingProgress) {
-                  if (loadingProgress == null) return child;
-                  return Center(
-                    child: CircularProgressIndicator(
-                      value: loadingProgress.expectedTotalBytes != null
-                          ? loadingProgress.cumulativeBytesLoaded /
-                              loadingProgress.expectedTotalBytes!
-                          : null,
-                      strokeWidth: 2,
-                    ),
-                  );
-                },
-              ),
-            ),
           ),
-          const SizedBox(width: 12),
+          const SizedBox(width: AppTheme.spaceXs),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

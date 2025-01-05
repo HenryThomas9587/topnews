@@ -4,8 +4,8 @@ import 'package:google_fonts/google_fonts.dart';
 class AppTheme {
   // 浅色主题颜色定义
   static const lightColors = {
-    'primary': Color(0xFF20958f), // primary: 主要颜色,用于主要按钮、重要操作等
-    'secondary': Color(0xFF20958f), // secondary: 次要颜色,用于次要按钮、辅助操作等
+    'primary': Color(0xFF20958f), // primary: 主要颜色,用于主要按钮、重要操作等。
+    'secondary': Color(0xFF03A9F4), // secondary: 次要颜色,用于次要按钮、辅助操作等
     'surface': Colors.white, // surface: 表面颜色,用于卡片、对话框等容器背景
     'surfaceTint': Colors.transparent, // surfaceTint: elevation 的表面上创建一个颜色叠加层
     'surfaceContainer': Colors.white, // surfaceContainer: 容器表面颜色,用于页面主体背景
@@ -13,7 +13,7 @@ class AppTheme {
     'onPrimary': Colors.white, // onPrimary: 在主色上的文字颜色
     'onSecondary': Colors.white, // onSecondary: 在次要颜色上的文字颜色
     'onSurface': Color(0xFF1e1e1e), // onSurface: 在表面上的主要文字颜色
-    'onSurfaceVariant': Color(0xFF8E8E93), // onSurfaceVariant: 在表面上的次要文字颜色
+    'onSurfaceVariant': Color(0xFFA3A3A3), // onSurfaceVariant: 在表面上的次要文字颜色
     'outline': Color(0xFFD1D1D6), // outline: 轮廓线颜色
     'outlineVariant': Color(0xFFD9D9D9), // outlineVariant: 轮廓线变体颜色
     'shadow': Color.fromARGB(255, 217, 217, 217), // shadow: 阴影颜色,用于卡片、对话框等容器背景
@@ -22,7 +22,7 @@ class AppTheme {
   // 深色主题下各颜色的用途与浅色主题相同,但使用更深的色调
   static const darkColors = {
     'primary': Color(0xFF20958f),
-    'secondary': Color(0xFF20958f),
+    'secondary': Color(0xFF8F95FF),
     'surface': Color(0xFF121212),
     'surfaceTint': Colors.transparent,
     'surfaceContainer': Color(0xFF212121),
@@ -36,26 +36,27 @@ class AppTheme {
     'shadow': Color.fromARGB(255, 217, 217, 217),
   };
 
-  // 添加卡片样式常量
-  static final cardStyle = <String, dynamic>{
-    'elevation': 2.0,
-    'borderRadius': 12.0,
-    'imageRadius': 12.0,
-    'imageBorderRadius': const BorderRadius.vertical(top: Radius.circular(12)),
-    'categoryRadius': 20.0,
-    'avatarRadius': 10.0,
-    'cardMargin': const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
-  };
-
   // 定义基础文本样式
   static final _baseTextStyle = GoogleFonts.inter();
 
+  // 图片配置
+  static const avatarRadius = 10.0;
+  static const imageRadius = 12.0;
+  static const imageBorderTopRadius =
+      BorderRadius.vertical(top: Radius.circular(imageRadius));
+
   // 卡片配置
-  static final _cardBorderRadius = BorderRadius.circular(12.0);
+  static final cardBorderRadius = BorderRadius.circular(12.0);
   static final _cardShape =
-      RoundedRectangleBorder(borderRadius: _cardBorderRadius);
+      RoundedRectangleBorder(borderRadius: cardBorderRadius);
   static const _cardElevation = 2.0;
   static const cardPadding = EdgeInsets.symmetric(horizontal: 16, vertical: 12);
+
+  // box
+  static final boxBorderRadius = BorderRadius.circular(12.0);
+  static final boxShape = RoundedRectangleBorder(borderRadius: boxBorderRadius);
+  static const boxElevation = 2.0;
+  static const boxPadding = EdgeInsets.symmetric(horizontal: 16, vertical: 12);
 
   // 文字配置
   static const _textTheme = TextTheme(
@@ -115,7 +116,11 @@ class AppTheme {
       elevation: _cardElevation,
       titleTextStyle: _textTheme.titleLarge,
     ),
-    textTheme: _textTheme,
+    textTheme: _textTheme.copyWith(
+      bodySmall: _textTheme.bodySmall?.copyWith(
+        color: lightColors['onSurfaceVariant'],
+      ),
+    ),
     // 底部导航栏主题
     navigationBarTheme: NavigationBarThemeData(
       backgroundColor: lightColors['surface'],
@@ -157,7 +162,11 @@ class AppTheme {
       elevation: _cardElevation,
       titleTextStyle: _textTheme.titleLarge,
     ),
-    textTheme: _textTheme,
+    textTheme: _textTheme.copyWith(
+      bodySmall: _textTheme.bodySmall?.copyWith(
+        color: darkColors['onSurfaceVariant'],
+      ),
+    ),
     navigationBarTheme: NavigationBarThemeData(
       backgroundColor: darkColors['surface'],
       height: _navigationBarHeight,

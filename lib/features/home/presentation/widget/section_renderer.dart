@@ -19,17 +19,18 @@ class SectionRenderer extends StatelessWidget {
           },
         ),
       HomeSectionType.category => CategoryFilter(
+          title: 'Category',
           categories: section.category ?? [],
           selectedCategory: '',
           onCategorySelected: (category) {
             // TODO: 实现选择分类
           },
+          onViewAll: () {
+            // TODO: 实现查看全部
+          },
         ),
       HomeSectionType.story => section.item != null
-          ? Padding(
-              padding: const EdgeInsets.only(top: 24),
-              child: StoryCard(story: section.item!),
-            )
+          ? StoryCard(story: section.item!)
           : const SizedBox.shrink(),
     };
   }

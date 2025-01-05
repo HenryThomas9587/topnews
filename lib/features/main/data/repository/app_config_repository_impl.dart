@@ -20,7 +20,7 @@ class AppConfigRepositoryImpl implements AppConfigRepository {
       },
       {
         'id': 'explore',
-        'label': 'Explore',
+        'label': 'Discover',
         'icon': 'explore',
         'selectedIcon': 'explore_filled',
         'route': '/explore',

@@ -3,6 +3,7 @@ import 'package:topnews/core/theme/app_theme.dart';
 import 'package:topnews/core/util/date_formatter.dart';
 import 'package:topnews/features/home/domain/entity/story_entity.dart';
 import 'package:go_router/go_router.dart';
+import 'package:topnews/core/widget/user_avatar.dart';
 
 class StoryCard extends StatelessWidget {
   final StoryEntity story;
@@ -60,7 +61,7 @@ class _StoryMainContent extends StatelessWidget {
               Text(
                 story.content,
                 style: theme.textTheme.bodyMedium,
-                maxLines: 2,
+                maxLines: 3,
                 overflow: TextOverflow.ellipsis,
               ),
             ],
@@ -88,11 +89,11 @@ class _StoryImage extends StatelessWidget {
       child: Image.network(
         imageUrl,
         width: 180,
-        height: 150,
+        height: 130,
         fit: BoxFit.cover,
         errorBuilder: (_, __, ___) => Container(
           width: 180,
-          height: 150,
+          height: 130,
           color: theme.colorScheme.surface,
           child: Icon(
             Icons.image_not_supported_outlined,
@@ -114,24 +115,18 @@ class _StoryAuthorInfo extends StatelessWidget {
     final theme = Theme.of(context);
     return Row(
       children: [
-        CircleAvatar(
-          radius: 10,
-          backgroundImage: NetworkImage(story.authorAvatar),
-          backgroundColor: theme.colorScheme.surface,
+        UserAvatar(
+          imageUrl: story.authorAvatar,
         ),
-        const SizedBox(width: 8),
+        const SizedBox(width: AppTheme.spaceXs),
         Text(
           story.author,
-          style: theme.textTheme.bodySmall?.copyWith(
-            fontWeight: FontWeight.w500,
-          ),
+          style: theme.textTheme.bodySmall,
         ),
         const Spacer(),
         Text(
           DateFormatter.timeAgo(story.publishedAt),
-          style: theme.textTheme.bodySmall?.copyWith(
-            color: theme.colorScheme.outline,
-          ),
+          style: theme.textTheme.bodySmall,
         ),
       ],
     );
@@ -188,14 +183,12 @@ class _StatItem extends StatelessWidget {
         Icon(
           icon,
           size: 14,
-          color: theme.colorScheme.outline,
+          color: theme.colorScheme.onSurfaceVariant,
         ),
         const SizedBox(width: 4),
         Text(
           value,
-          style: theme.textTheme.bodySmall?.copyWith(
-            color: theme.colorScheme.outline,
-          ),
+          style: theme.textTheme.bodySmall,
         ),
       ],
     );
@@ -217,7 +210,7 @@ class _ActionButton extends StatelessWidget {
     return IconButton(
       icon: Icon(icon),
       iconSize: 18,
-      color: theme.colorScheme.outline,
+      color: theme.colorScheme.onSurface,
       onPressed: onPressed,
       padding: EdgeInsets.zero,
       constraints: const BoxConstraints(),

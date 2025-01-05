@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:topnews/features/home/domain/entity/trending_news_entity.dart';
-import 'package:topnews/features/home/presentation/widget/base_section.dart';
+import 'package:topnews/core/widget/base_section.dart';
 import 'package:topnews/features/home/presentation/widget/trending_card.dart';
 
 class TrendingSection extends StatelessWidget {

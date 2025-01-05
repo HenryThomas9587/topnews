@@ -7,6 +7,8 @@ class TrendingNewsEntity {
   final String authorAvatar;
   final String category;
   final DateTime publishedAt;
+  final int views;
+  final int comments;
 
   const TrendingNewsEntity({
     required this.id,
@@ -17,5 +19,7 @@ class TrendingNewsEntity {
     required this.authorAvatar,
     required this.category,
     required this.publishedAt,
+    this.views = 0,
+    this.comments = 0,
   });
 }
