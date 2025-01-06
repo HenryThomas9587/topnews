@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:topnews/core/router/router_extension.dart';
 import 'package:topnews/features/home/domain/entity/home_section.dart';
-import 'package:topnews/features/home/presentation/widget/story_card.dart';
-import 'package:topnews/features/home/presentation/widget/trending_section.dart';
-import 'package:topnews/features/home/presentation/widget/category_filter.dart';
+import 'package:topnews/features/news/presentation/widget/news_card.dart';
+import 'package:topnews/features/news/presentation/widget/trending_section.dart';
+import 'package:topnews/features/news/presentation/widget/category_filter.dart';
 
 class SectionRenderer extends StatelessWidget {
   final HomeSection section;
@@ -15,22 +16,20 @@ class SectionRenderer extends StatelessWidget {
       HomeSectionType.trending => TrendingSection(
           items: section.trendingNews ?? [],
           onViewAll: () {
-            // TODO: 实现查看全部
+            context.pushNewsList('Trending');
           },
         ),
       HomeSectionType.category => CategoryFilter(
-          title: 'Category',
-          categories: section.category ?? [],
-          selectedCategory: '',
-          onCategorySelected: (category) {
-            // TODO: 实现选择分类
-          },
+          title: 'Recent Stories',
+          categories: section.categorys ?? [],
+          selectedCategory: null,
+          onCategorySelected: (category) {},
           onViewAll: () {
-            // TODO: 实现查看全部
+            context.pushNewsTab('Recent Stories');
           },
         ),
       HomeSectionType.story => section.item != null
-          ? StoryCard(story: section.item!)
+          ? NewsCard(news: section.item!)
           : const SizedBox.shrink(),
     };
   }

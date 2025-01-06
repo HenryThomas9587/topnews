@@ -6,7 +6,7 @@ part of 'get_home_sections_usecase.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$getHomeSectionsHash() => r'23e6ccf675503036d4be9f0a32f0304a44899745';
+String _$getHomeSectionsHash() => r'05d5b309d83816cf8d9549126fac4598b2e0c9d8';
 
 /// See also [getHomeSections].
 @ProviderFor(getHomeSections)

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ChipItem {
-  final String id;
+  final int id;
   final String label;
   final dynamic data;
 
@@ -14,7 +14,7 @@ class ChipItem {
 
 class HorizontalChipList extends StatelessWidget {
   final List<ChipItem> items;
-  final String? selectedId;
+  final int? selectedId;
   final ValueChanged<ChipItem>? onSelected;
   final double height;
   final double spacing;

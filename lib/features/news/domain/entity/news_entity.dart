@@ -1,18 +1,33 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:topnews/features/news/data/model/comment_model.dart';
+class NewsEntity {
+  final String id;
+  final String title;
+  final String content;
+  final DateTime publishedAt;
+  final String? imageUrl;
+  final String? author;
+  final String? authorAvatar;
+  final String? category;
+  final int? categoryId;
+  final int readTime;
+  final int likes;
+  final int views;
+  final int comments;
+  final bool isFavorite;
 
-part 'news_entity.freezed.dart';
-
-@freezed
-class NewsEntity with _$NewsEntity {
-  const factory NewsEntity({
-    required String id,
-    required String title,
-    required String content,
-    required DateTime publishedAt,
-    String? imageUrl,
-    String? thumbnailUrl,
-    int? userId,
-    @Default([]) List<CommentModel> comments,
-  }) = _NewsEntity;
+  const NewsEntity({
+    required this.id,
+    required this.title,
+    required this.content,
+    required this.publishedAt,
+    this.imageUrl,
+    this.author,
+    this.authorAvatar,
+    this.category,
+    this.categoryId,
+    this.readTime = 0,
+    this.likes = 0,
+    this.views = 0,
+    this.comments = 0,
+    this.isFavorite = false,
+  });
 }

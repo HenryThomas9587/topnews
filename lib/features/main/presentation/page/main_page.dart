@@ -5,6 +5,7 @@ import 'package:topnews/core/util/logger.dart';
 import 'package:topnews/features/home/presentation/page/home_page.dart';
 import 'package:topnews/features/main/presentation/provider/main_provider.dart';
 import 'package:topnews/features/main/domain/entity/tab_item.dart';
+import 'package:topnews/features/profile/presentation/page/profile_page.dart';
 
 class MainPage extends HookConsumerWidget {
   const MainPage({super.key});
@@ -22,7 +23,7 @@ class MainPage extends HookConsumerWidget {
       case '/bookmarks':
         return const Placeholder();
       case '/profile':
-        return const Placeholder();
+        return const ProfilePage();
       default:
         return const SizedBox.shrink();
     }

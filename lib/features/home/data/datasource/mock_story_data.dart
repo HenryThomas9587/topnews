@@ -1,6 +1,6 @@
 import 'dart:math';
-import 'package:topnews/features/home/data/datasource/mock_data_sets.dart';
-import 'package:topnews/features/home/domain/entity/story_entity.dart';
+import 'package:topnews/features/news/data/datasource/mock/mock_data_sets.dart';
+import 'package:topnews/features/news/domain/entity/news_entity.dart';
 
 class MockStoryData {
   static final _random = Random();
@@ -37,10 +37,10 @@ class MockStoryData {
     ));
   }
 
-  static List<StoryEntity> mockStories(int pageSize) {
+  static List<NewsEntity> mockStories(int pageSize) {
     return List.generate(
       pageSize,
-      (index) => StoryEntity(
+      (index) => NewsEntity(
         id: DateTime.now().millisecondsSinceEpoch.toString() + index.toString(),
         title: MockStoryData.getRandomTitle(),
         content: MockStoryData.getRandomContent(),

@@ -1,52 +1,45 @@
-import 'package:dio/dio.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:topnews/core/error/app_error.dart';
-import 'package:topnews/features/news/data/datasource/news_remote_data_source.dart';
-import 'package:topnews/features/news/data/datasource/news_remote_data_source_impl.dart';
-import 'package:topnews/features/news/data/datasource/news_local_data_source.dart';
+import 'package:topnews/features/news/data/datasource/news_data_source.dart';
 import 'package:topnews/features/news/domain/entity/news_entity.dart';
 import 'package:topnews/features/news/domain/repository/news_repository.dart';
 
-part 'news_repository_impl.g.dart';
-
 class NewsRepositoryImpl implements NewsRepository {
-  NewsRepositoryImpl(this._remoteDataSource, this._localDataSource);
+  final NewsRemoteDataSource remoteDataSource;
+  final NewsLocalDataSource localDataSource;
 
-  final NewsRemoteDataSource _remoteDataSource;
-  final NewsLocalDataSource _localDataSource;
+  NewsRepositoryImpl({
+    required this.remoteDataSource,
+    required this.localDataSource,
+  });
 
   @override
-  Future<List<NewsEntity>> getNewsList(
-      {int page = 1, int pageSize = 10}) async {
+  Future<List<NewsEntity>> getNews({
+    int page = 1,
+    int pageSize = 10,
+    int? categoryId,
+  }) async {
     try {
-      final news =
-          await _remoteDataSource.getNewsList(page: page, pageSize: pageSize);
-      await _localDataSource.cacheNewsList(news);
-      return news.map((e) => e.toEntity()).toList();
+      final news = await remoteDataSource.getNews(
+        page: page,
+        pageSize: pageSize,
+      );
+
+      if (categoryId != null && categoryId != 0) {
+        return news.where((item) => item.categoryId == categoryId).toList();
+      }
+      return news;
     } catch (e) {
-      final cached = await _localDataSource.getCachedNewsList();
-      if (cached.isEmpty) throw const AppError.unknown('获取新闻列表失败');
-      return cached.map((e) => e.toEntity()).toList();
+      final cachedNews = await localDataSource.getCachedNews();
+      if (categoryId != null && categoryId != 0) {
+        return cachedNews
+            .where((item) => item.categoryId == categoryId)
+            .toList();
+      }
+      return cachedNews;
     }
   }
 
   @override
-  Future<NewsEntity> getNewsDetail(String id) async {
-    try {
-      final model = await _remoteDataSource.getNewsDetail(id);
-      return model.toEntity();
-    } on DioException catch (e) {
-      throw AppError.fromDioError(e);
-    } catch (e) {
-      throw AppError.unknown(e.toString());
-    }
+  Future<void> refreshNews() async {
+    await localDataSource.clearCache();
   }
-}
-
-@riverpod
-NewsRepository newsRepository(Ref ref) {
-  final remoteDataSource = ref.watch(newsRemoteDataSourceProvider);
-  final localDataSource = ref.watch(newsLocalDataSourceProvider);
-  return NewsRepositoryImpl(remoteDataSource, localDataSource);
 }

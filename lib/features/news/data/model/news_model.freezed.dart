@@ -20,15 +20,34 @@ NewsModel _$NewsModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$NewsModel {
+  @HiveField(0)
   String get id => throw _privateConstructorUsedError;
+  @HiveField(1)
   String get title => throw _privateConstructorUsedError;
+  @HiveField(2)
   String get content => throw _privateConstructorUsedError;
+  @HiveField(3)
+  int? get categoryId => throw _privateConstructorUsedError;
+  @HiveField(4)
+  String? get category => throw _privateConstructorUsedError;
+  @HiveField(5)
+  DateTime get publishedAt => throw _privateConstructorUsedError;
+  @HiveField(6)
   String? get imageUrl => throw _privateConstructorUsedError;
-  String? get thumbnailUrl => throw _privateConstructorUsedError;
-  int? get userId => throw _privateConstructorUsedError;
-  int get commentCount => throw _privateConstructorUsedError;
-  List<CommentModel> get comments => throw _privateConstructorUsedError;
-  DateTime? get publishedAt => throw _privateConstructorUsedError;
+  @HiveField(7)
+  String? get author => throw _privateConstructorUsedError;
+  @HiveField(8)
+  String? get authorAvatar => throw _privateConstructorUsedError;
+  @HiveField(9)
+  int get readTime => throw _privateConstructorUsedError;
+  @HiveField(10)
+  int get likes => throw _privateConstructorUsedError;
+  @HiveField(11)
+  int get views => throw _privateConstructorUsedError;
+  @HiveField(12)
+  int get comments => throw _privateConstructorUsedError;
+  @HiveField(13)
+  bool get isFavorite => throw _privateConstructorUsedError;
 
   /// Serializes this NewsModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -46,15 +65,20 @@ abstract class $NewsModelCopyWith<$Res> {
       _$NewsModelCopyWithImpl<$Res, NewsModel>;
   @useResult
   $Res call(
-      {String id,
-      String title,
-      String content,
-      String? imageUrl,
-      String? thumbnailUrl,
-      int? userId,
-      int commentCount,
-      List<CommentModel> comments,
-      DateTime? publishedAt});
+      {@HiveField(0) String id,
+      @HiveField(1) String title,
+      @HiveField(2) String content,
+      @HiveField(3) int? categoryId,
+      @HiveField(4) String? category,
+      @HiveField(5) DateTime publishedAt,
+      @HiveField(6) String? imageUrl,
+      @HiveField(7) String? author,
+      @HiveField(8) String? authorAvatar,
+      @HiveField(9) int readTime,
+      @HiveField(10) int likes,
+      @HiveField(11) int views,
+      @HiveField(12) int comments,
+      @HiveField(13) bool isFavorite});
 }
 
 /// @nodoc
@@ -75,12 +99,17 @@ class _$NewsModelCopyWithImpl<$Res, $Val extends NewsModel>
     Object? id = null,
     Object? title = null,
     Object? content = null,
+    Object? categoryId = freezed,
+    Object? category = freezed,
+    Object? publishedAt = null,
     Object? imageUrl = freezed,
-    Object? thumbnailUrl = freezed,
-    Object? userId = freezed,
-    Object? commentCount = null,
+    Object? author = freezed,
+    Object? authorAvatar = freezed,
+    Object? readTime = null,
+    Object? likes = null,
+    Object? views = null,
     Object? comments = null,
-    Object? publishedAt = freezed,
+    Object? isFavorite = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -95,30 +124,50 @@ class _$NewsModelCopyWithImpl<$Res, $Val extends NewsModel>
           ? _value.content
           : content // ignore: cast_nullable_to_non_nullable
               as String,
+      categoryId: freezed == categoryId
+          ? _value.categoryId
+          : categoryId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      category: freezed == category
+          ? _value.category
+          : category // ignore: cast_nullable_to_non_nullable
+              as String?,
+      publishedAt: null == publishedAt
+          ? _value.publishedAt
+          : publishedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
       imageUrl: freezed == imageUrl
           ? _value.imageUrl
           : imageUrl // ignore: cast_nullable_to_non_nullable
               as String?,
-      thumbnailUrl: freezed == thumbnailUrl
-          ? _value.thumbnailUrl
-          : thumbnailUrl // ignore: cast_nullable_to_non_nullable
+      author: freezed == author
+          ? _value.author
+          : author // ignore: cast_nullable_to_non_nullable
               as String?,
-      userId: freezed == userId
-          ? _value.userId
-          : userId // ignore: cast_nullable_to_non_nullable
-              as int?,
-      commentCount: null == commentCount
-          ? _value.commentCount
-          : commentCount // ignore: cast_nullable_to_non_nullable
+      authorAvatar: freezed == authorAvatar
+          ? _value.authorAvatar
+          : authorAvatar // ignore: cast_nullable_to_non_nullable
+              as String?,
+      readTime: null == readTime
+          ? _value.readTime
+          : readTime // ignore: cast_nullable_to_non_nullable
+              as int,
+      likes: null == likes
+          ? _value.likes
+          : likes // ignore: cast_nullable_to_non_nullable
+              as int,
+      views: null == views
+          ? _value.views
+          : views // ignore: cast_nullable_to_non_nullable
               as int,
       comments: null == comments
           ? _value.comments
           : comments // ignore: cast_nullable_to_non_nullable
-              as List<CommentModel>,
-      publishedAt: freezed == publishedAt
-          ? _value.publishedAt
-          : publishedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
+              as int,
+      isFavorite: null == isFavorite
+          ? _value.isFavorite
+          : isFavorite // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -132,15 +181,20 @@ abstract class _$$NewsModelImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String id,
-      String title,
-      String content,
-      String? imageUrl,
-      String? thumbnailUrl,
-      int? userId,
-      int commentCount,
-      List<CommentModel> comments,
-      DateTime? publishedAt});
+      {@HiveField(0) String id,
+      @HiveField(1) String title,
+      @HiveField(2) String content,
+      @HiveField(3) int? categoryId,
+      @HiveField(4) String? category,
+      @HiveField(5) DateTime publishedAt,
+      @HiveField(6) String? imageUrl,
+      @HiveField(7) String? author,
+      @HiveField(8) String? authorAvatar,
+      @HiveField(9) int readTime,
+      @HiveField(10) int likes,
+      @HiveField(11) int views,
+      @HiveField(12) int comments,
+      @HiveField(13) bool isFavorite});
 }
 
 /// @nodoc
@@ -159,12 +213,17 @@ class __$$NewsModelImplCopyWithImpl<$Res>
     Object? id = null,
     Object? title = null,
     Object? content = null,
+    Object? categoryId = freezed,
+    Object? category = freezed,
+    Object? publishedAt = null,
     Object? imageUrl = freezed,
-    Object? thumbnailUrl = freezed,
-    Object? userId = freezed,
-    Object? commentCount = null,
+    Object? author = freezed,
+    Object? authorAvatar = freezed,
+    Object? readTime = null,
+    Object? likes = null,
+    Object? views = null,
     Object? comments = null,
-    Object? publishedAt = freezed,
+    Object? isFavorite = null,
   }) {
     return _then(_$NewsModelImpl(
       id: null == id
@@ -179,30 +238,50 @@ class __$$NewsModelImplCopyWithImpl<$Res>
           ? _value.content
           : content // ignore: cast_nullable_to_non_nullable
               as String,
+      categoryId: freezed == categoryId
+          ? _value.categoryId
+          : categoryId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      category: freezed == category
+          ? _value.category
+          : category // ignore: cast_nullable_to_non_nullable
+              as String?,
+      publishedAt: null == publishedAt
+          ? _value.publishedAt
+          : publishedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
       imageUrl: freezed == imageUrl
           ? _value.imageUrl
           : imageUrl // ignore: cast_nullable_to_non_nullable
               as String?,
-      thumbnailUrl: freezed == thumbnailUrl
-          ? _value.thumbnailUrl
-          : thumbnailUrl // ignore: cast_nullable_to_non_nullable
+      author: freezed == author
+          ? _value.author
+          : author // ignore: cast_nullable_to_non_nullable
               as String?,
-      userId: freezed == userId
-          ? _value.userId
-          : userId // ignore: cast_nullable_to_non_nullable
-              as int?,
-      commentCount: null == commentCount
-          ? _value.commentCount
-          : commentCount // ignore: cast_nullable_to_non_nullable
+      authorAvatar: freezed == authorAvatar
+          ? _value.authorAvatar
+          : authorAvatar // ignore: cast_nullable_to_non_nullable
+              as String?,
+      readTime: null == readTime
+          ? _value.readTime
+          : readTime // ignore: cast_nullable_to_non_nullable
+              as int,
+      likes: null == likes
+          ? _value.likes
+          : likes // ignore: cast_nullable_to_non_nullable
+              as int,
+      views: null == views
+          ? _value.views
+          : views // ignore: cast_nullable_to_non_nullable
               as int,
       comments: null == comments
-          ? _value._comments
+          ? _value.comments
           : comments // ignore: cast_nullable_to_non_nullable
-              as List<CommentModel>,
-      publishedAt: freezed == publishedAt
-          ? _value.publishedAt
-          : publishedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
+              as int,
+      isFavorite: null == isFavorite
+          ? _value.isFavorite
+          : isFavorite // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -211,52 +290,76 @@ class __$$NewsModelImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$NewsModelImpl extends _NewsModel {
   const _$NewsModelImpl(
-      {required this.id,
-      required this.title,
-      required this.content,
-      this.imageUrl,
-      this.thumbnailUrl,
-      this.userId,
-      this.commentCount = 0,
-      final List<CommentModel> comments = const [],
-      this.publishedAt = null})
-      : _comments = comments,
-        super._();
+      {@HiveField(0) required this.id,
+      @HiveField(1) required this.title,
+      @HiveField(2) required this.content,
+      @HiveField(3) this.categoryId,
+      @HiveField(4) this.category,
+      @HiveField(5) required this.publishedAt,
+      @HiveField(6) this.imageUrl,
+      @HiveField(7) this.author,
+      @HiveField(8) this.authorAvatar,
+      @HiveField(9) this.readTime = 0,
+      @HiveField(10) this.likes = 0,
+      @HiveField(11) this.views = 0,
+      @HiveField(12) this.comments = 0,
+      @HiveField(13) this.isFavorite = false})
+      : super._();
 
   factory _$NewsModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$NewsModelImplFromJson(json);
 
   @override
+  @HiveField(0)
   final String id;
   @override
+  @HiveField(1)
   final String title;
   @override
+  @HiveField(2)
   final String content;
   @override
+  @HiveField(3)
+  final int? categoryId;
+  @override
+  @HiveField(4)
+  final String? category;
+  @override
+  @HiveField(5)
+  final DateTime publishedAt;
+  @override
+  @HiveField(6)
   final String? imageUrl;
   @override
-  final String? thumbnailUrl;
+  @HiveField(7)
+  final String? author;
   @override
-  final int? userId;
-  @override
-  @JsonKey()
-  final int commentCount;
-  final List<CommentModel> _comments;
+  @HiveField(8)
+  final String? authorAvatar;
   @override
   @JsonKey()
-  List<CommentModel> get comments {
-    if (_comments is EqualUnmodifiableListView) return _comments;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_comments);
-  }
-
+  @HiveField(9)
+  final int readTime;
   @override
   @JsonKey()
-  final DateTime? publishedAt;
+  @HiveField(10)
+  final int likes;
+  @override
+  @JsonKey()
+  @HiveField(11)
+  final int views;
+  @override
+  @JsonKey()
+  @HiveField(12)
+  final int comments;
+  @override
+  @JsonKey()
+  @HiveField(13)
+  final bool isFavorite;
 
   @override
   String toString() {
-    return 'NewsModel(id: $id, title: $title, content: $content, imageUrl: $imageUrl, thumbnailUrl: $thumbnailUrl, userId: $userId, commentCount: $commentCount, comments: $comments, publishedAt: $publishedAt)';
+    return 'NewsModel(id: $id, title: $title, content: $content, categoryId: $categoryId, category: $category, publishedAt: $publishedAt, imageUrl: $imageUrl, author: $author, authorAvatar: $authorAvatar, readTime: $readTime, likes: $likes, views: $views, comments: $comments, isFavorite: $isFavorite)';
   }
 
   @override
@@ -267,16 +370,25 @@ class _$NewsModelImpl extends _NewsModel {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.title, title) || other.title == title) &&
             (identical(other.content, content) || other.content == content) &&
+            (identical(other.categoryId, categoryId) ||
+                other.categoryId == categoryId) &&
+            (identical(other.category, category) ||
+                other.category == category) &&
+            (identical(other.publishedAt, publishedAt) ||
+                other.publishedAt == publishedAt) &&
             (identical(other.imageUrl, imageUrl) ||
                 other.imageUrl == imageUrl) &&
-            (identical(other.thumbnailUrl, thumbnailUrl) ||
-                other.thumbnailUrl == thumbnailUrl) &&
-            (identical(other.userId, userId) || other.userId == userId) &&
-            (identical(other.commentCount, commentCount) ||
-                other.commentCount == commentCount) &&
-            const DeepCollectionEquality().equals(other._comments, _comments) &&
-            (identical(other.publishedAt, publishedAt) ||
-                other.publishedAt == publishedAt));
+            (identical(other.author, author) || other.author == author) &&
+            (identical(other.authorAvatar, authorAvatar) ||
+                other.authorAvatar == authorAvatar) &&
+            (identical(other.readTime, readTime) ||
+                other.readTime == readTime) &&
+            (identical(other.likes, likes) || other.likes == likes) &&
+            (identical(other.views, views) || other.views == views) &&
+            (identical(other.comments, comments) ||
+                other.comments == comments) &&
+            (identical(other.isFavorite, isFavorite) ||
+                other.isFavorite == isFavorite));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -286,12 +398,17 @@ class _$NewsModelImpl extends _NewsModel {
       id,
       title,
       content,
+      categoryId,
+      category,
+      publishedAt,
       imageUrl,
-      thumbnailUrl,
-      userId,
-      commentCount,
-      const DeepCollectionEquality().hash(_comments),
-      publishedAt);
+      author,
+      authorAvatar,
+      readTime,
+      likes,
+      views,
+      comments,
+      isFavorite);
 
   /// Create a copy of NewsModel
   /// with the given fields replaced by the non-null parameter values.
@@ -311,38 +428,67 @@ class _$NewsModelImpl extends _NewsModel {
 
 abstract class _NewsModel extends NewsModel {
   const factory _NewsModel(
-      {required final String id,
-      required final String title,
-      required final String content,
-      final String? imageUrl,
-      final String? thumbnailUrl,
-      final int? userId,
-      final int commentCount,
-      final List<CommentModel> comments,
-      final DateTime? publishedAt}) = _$NewsModelImpl;
+      {@HiveField(0) required final String id,
+      @HiveField(1) required final String title,
+      @HiveField(2) required final String content,
+      @HiveField(3) final int? categoryId,
+      @HiveField(4) final String? category,
+      @HiveField(5) required final DateTime publishedAt,
+      @HiveField(6) final String? imageUrl,
+      @HiveField(7) final String? author,
+      @HiveField(8) final String? authorAvatar,
+      @HiveField(9) final int readTime,
+      @HiveField(10) final int likes,
+      @HiveField(11) final int views,
+      @HiveField(12) final int comments,
+      @HiveField(13) final bool isFavorite}) = _$NewsModelImpl;
   const _NewsModel._() : super._();
 
   factory _NewsModel.fromJson(Map<String, dynamic> json) =
       _$NewsModelImpl.fromJson;
 
   @override
+  @HiveField(0)
   String get id;
   @override
+  @HiveField(1)
   String get title;
   @override
+  @HiveField(2)
   String get content;
   @override
+  @HiveField(3)
+  int? get categoryId;
+  @override
+  @HiveField(4)
+  String? get category;
+  @override
+  @HiveField(5)
+  DateTime get publishedAt;
+  @override
+  @HiveField(6)
   String? get imageUrl;
   @override
-  String? get thumbnailUrl;
+  @HiveField(7)
+  String? get author;
   @override
-  int? get userId;
+  @HiveField(8)
+  String? get authorAvatar;
   @override
-  int get commentCount;
+  @HiveField(9)
+  int get readTime;
   @override
-  List<CommentModel> get comments;
+  @HiveField(10)
+  int get likes;
   @override
-  DateTime? get publishedAt;
+  @HiveField(11)
+  int get views;
+  @override
+  @HiveField(12)
+  int get comments;
+  @override
+  @HiveField(13)
+  bool get isFavorite;
 
   /// Create a copy of NewsModel
   /// with the given fields replaced by the non-null parameter values.
