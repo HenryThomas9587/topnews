@@ -12,6 +12,24 @@ class NewsRepositoryImpl implements NewsRepository {
   });
 
   @override
+  Future<List<NewsEntity>> getTrendingNews() async {
+    final news = await remoteDataSource.getTrendingNews();
+    return news.map((item) => item.toEntity()).toList();
+  }
+
+  @override
+  Future<List<NewsEntity>> getTopNews() async {
+    final news = await remoteDataSource.getTopNews();
+    return news.map((item) => item.toEntity()).toList();
+  }
+
+  @override
+  Future<List<NewsEntity>> getRecommendedNews() async {
+    final news = await remoteDataSource.getRecommendedNews();
+    return news.map((item) => item.toEntity()).toList();
+  }
+
+  @override
   Future<List<NewsEntity>> getNews({
     int page = 1,
     int pageSize = 10,
@@ -21,25 +39,24 @@ class NewsRepositoryImpl implements NewsRepository {
       final news = await remoteDataSource.getNews(
         page: page,
         pageSize: pageSize,
+        categoryId: categoryId,
       );
-
       if (categoryId != null && categoryId != 0) {
-        return news.where((item) => item.categoryId == categoryId).toList();
+        return news
+            .map((item) => item.toEntity())
+            .where((item) => item.categoryId == categoryId)
+            .toList();
       }
-      return news;
+      return news.map((item) => item.toEntity()).toList();
     } catch (e) {
       final cachedNews = await localDataSource.getCachedNews();
       if (categoryId != null && categoryId != 0) {
         return cachedNews
+            .map((item) => item.toEntity())
             .where((item) => item.categoryId == categoryId)
             .toList();
       }
-      return cachedNews;
+      return cachedNews.map((item) => item.toEntity()).toList();
     }
-  }
-
-  @override
-  Future<void> refreshNews() async {
-    await localDataSource.clearCache();
   }
 }

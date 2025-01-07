@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:topnews/core/util/logger.dart';
+import 'package:topnews/features/discover/presentation/page/discover_page.dart';
 import 'package:topnews/features/home/presentation/page/home_page.dart';
 import 'package:topnews/features/main/presentation/provider/main_provider.dart';
 import 'package:topnews/features/main/domain/entity/tab_item.dart';
@@ -19,7 +20,7 @@ class MainPage extends HookConsumerWidget {
       case '/':
         return const HomePage();
       case '/explore':
-        return const Placeholder();
+        return const DiscoverPage();
       case '/bookmarks':
         return const Placeholder();
       case '/profile':

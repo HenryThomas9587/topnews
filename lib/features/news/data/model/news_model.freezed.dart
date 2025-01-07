@@ -25,28 +25,32 @@ mixin _$NewsModel {
   @HiveField(1)
   String get title => throw _privateConstructorUsedError;
   @HiveField(2)
-  String get content => throw _privateConstructorUsedError;
+  String? get subtitle => throw _privateConstructorUsedError;
   @HiveField(3)
-  int? get categoryId => throw _privateConstructorUsedError;
+  String get content => throw _privateConstructorUsedError;
   @HiveField(4)
-  String? get category => throw _privateConstructorUsedError;
-  @HiveField(5)
   DateTime get publishedAt => throw _privateConstructorUsedError;
-  @HiveField(6)
+  @HiveField(5)
   String? get imageUrl => throw _privateConstructorUsedError;
+  @HiveField(6)
+  String? get cover => throw _privateConstructorUsedError;
   @HiveField(7)
   String? get author => throw _privateConstructorUsedError;
   @HiveField(8)
   String? get authorAvatar => throw _privateConstructorUsedError;
   @HiveField(9)
-  int get readTime => throw _privateConstructorUsedError;
+  String? get category => throw _privateConstructorUsedError;
   @HiveField(10)
-  int get likes => throw _privateConstructorUsedError;
+  int? get categoryId => throw _privateConstructorUsedError;
   @HiveField(11)
-  int get views => throw _privateConstructorUsedError;
+  int get readTime => throw _privateConstructorUsedError;
   @HiveField(12)
-  int get comments => throw _privateConstructorUsedError;
+  int get likes => throw _privateConstructorUsedError;
   @HiveField(13)
+  int get views => throw _privateConstructorUsedError;
+  @HiveField(14)
+  int get comments => throw _privateConstructorUsedError;
+  @HiveField(15)
   bool get isFavorite => throw _privateConstructorUsedError;
 
   /// Serializes this NewsModel to a JSON map.
@@ -67,18 +71,20 @@ abstract class $NewsModelCopyWith<$Res> {
   $Res call(
       {@HiveField(0) String id,
       @HiveField(1) String title,
-      @HiveField(2) String content,
-      @HiveField(3) int? categoryId,
-      @HiveField(4) String? category,
-      @HiveField(5) DateTime publishedAt,
-      @HiveField(6) String? imageUrl,
+      @HiveField(2) String? subtitle,
+      @HiveField(3) String content,
+      @HiveField(4) DateTime publishedAt,
+      @HiveField(5) String? imageUrl,
+      @HiveField(6) String? cover,
       @HiveField(7) String? author,
       @HiveField(8) String? authorAvatar,
-      @HiveField(9) int readTime,
-      @HiveField(10) int likes,
-      @HiveField(11) int views,
-      @HiveField(12) int comments,
-      @HiveField(13) bool isFavorite});
+      @HiveField(9) String? category,
+      @HiveField(10) int? categoryId,
+      @HiveField(11) int readTime,
+      @HiveField(12) int likes,
+      @HiveField(13) int views,
+      @HiveField(14) int comments,
+      @HiveField(15) bool isFavorite});
 }
 
 /// @nodoc
@@ -98,13 +104,15 @@ class _$NewsModelCopyWithImpl<$Res, $Val extends NewsModel>
   $Res call({
     Object? id = null,
     Object? title = null,
+    Object? subtitle = freezed,
     Object? content = null,
-    Object? categoryId = freezed,
-    Object? category = freezed,
     Object? publishedAt = null,
     Object? imageUrl = freezed,
+    Object? cover = freezed,
     Object? author = freezed,
     Object? authorAvatar = freezed,
+    Object? category = freezed,
+    Object? categoryId = freezed,
     Object? readTime = null,
     Object? likes = null,
     Object? views = null,
@@ -120,18 +128,14 @@ class _$NewsModelCopyWithImpl<$Res, $Val extends NewsModel>
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
+      subtitle: freezed == subtitle
+          ? _value.subtitle
+          : subtitle // ignore: cast_nullable_to_non_nullable
+              as String?,
       content: null == content
           ? _value.content
           : content // ignore: cast_nullable_to_non_nullable
               as String,
-      categoryId: freezed == categoryId
-          ? _value.categoryId
-          : categoryId // ignore: cast_nullable_to_non_nullable
-              as int?,
-      category: freezed == category
-          ? _value.category
-          : category // ignore: cast_nullable_to_non_nullable
-              as String?,
       publishedAt: null == publishedAt
           ? _value.publishedAt
           : publishedAt // ignore: cast_nullable_to_non_nullable
@@ -139,6 +143,10 @@ class _$NewsModelCopyWithImpl<$Res, $Val extends NewsModel>
       imageUrl: freezed == imageUrl
           ? _value.imageUrl
           : imageUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
+      cover: freezed == cover
+          ? _value.cover
+          : cover // ignore: cast_nullable_to_non_nullable
               as String?,
       author: freezed == author
           ? _value.author
@@ -148,6 +156,14 @@ class _$NewsModelCopyWithImpl<$Res, $Val extends NewsModel>
           ? _value.authorAvatar
           : authorAvatar // ignore: cast_nullable_to_non_nullable
               as String?,
+      category: freezed == category
+          ? _value.category
+          : category // ignore: cast_nullable_to_non_nullable
+              as String?,
+      categoryId: freezed == categoryId
+          ? _value.categoryId
+          : categoryId // ignore: cast_nullable_to_non_nullable
+              as int?,
       readTime: null == readTime
           ? _value.readTime
           : readTime // ignore: cast_nullable_to_non_nullable
@@ -183,18 +199,20 @@ abstract class _$$NewsModelImplCopyWith<$Res>
   $Res call(
       {@HiveField(0) String id,
       @HiveField(1) String title,
-      @HiveField(2) String content,
-      @HiveField(3) int? categoryId,
-      @HiveField(4) String? category,
-      @HiveField(5) DateTime publishedAt,
-      @HiveField(6) String? imageUrl,
+      @HiveField(2) String? subtitle,
+      @HiveField(3) String content,
+      @HiveField(4) DateTime publishedAt,
+      @HiveField(5) String? imageUrl,
+      @HiveField(6) String? cover,
       @HiveField(7) String? author,
       @HiveField(8) String? authorAvatar,
-      @HiveField(9) int readTime,
-      @HiveField(10) int likes,
-      @HiveField(11) int views,
-      @HiveField(12) int comments,
-      @HiveField(13) bool isFavorite});
+      @HiveField(9) String? category,
+      @HiveField(10) int? categoryId,
+      @HiveField(11) int readTime,
+      @HiveField(12) int likes,
+      @HiveField(13) int views,
+      @HiveField(14) int comments,
+      @HiveField(15) bool isFavorite});
 }
 
 /// @nodoc
@@ -212,13 +230,15 @@ class __$$NewsModelImplCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? title = null,
+    Object? subtitle = freezed,
     Object? content = null,
-    Object? categoryId = freezed,
-    Object? category = freezed,
     Object? publishedAt = null,
     Object? imageUrl = freezed,
+    Object? cover = freezed,
     Object? author = freezed,
     Object? authorAvatar = freezed,
+    Object? category = freezed,
+    Object? categoryId = freezed,
     Object? readTime = null,
     Object? likes = null,
     Object? views = null,
@@ -234,18 +254,14 @@ class __$$NewsModelImplCopyWithImpl<$Res>
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
+      subtitle: freezed == subtitle
+          ? _value.subtitle
+          : subtitle // ignore: cast_nullable_to_non_nullable
+              as String?,
       content: null == content
           ? _value.content
           : content // ignore: cast_nullable_to_non_nullable
               as String,
-      categoryId: freezed == categoryId
-          ? _value.categoryId
-          : categoryId // ignore: cast_nullable_to_non_nullable
-              as int?,
-      category: freezed == category
-          ? _value.category
-          : category // ignore: cast_nullable_to_non_nullable
-              as String?,
       publishedAt: null == publishedAt
           ? _value.publishedAt
           : publishedAt // ignore: cast_nullable_to_non_nullable
@@ -253,6 +269,10 @@ class __$$NewsModelImplCopyWithImpl<$Res>
       imageUrl: freezed == imageUrl
           ? _value.imageUrl
           : imageUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
+      cover: freezed == cover
+          ? _value.cover
+          : cover // ignore: cast_nullable_to_non_nullable
               as String?,
       author: freezed == author
           ? _value.author
@@ -262,6 +282,14 @@ class __$$NewsModelImplCopyWithImpl<$Res>
           ? _value.authorAvatar
           : authorAvatar // ignore: cast_nullable_to_non_nullable
               as String?,
+      category: freezed == category
+          ? _value.category
+          : category // ignore: cast_nullable_to_non_nullable
+              as String?,
+      categoryId: freezed == categoryId
+          ? _value.categoryId
+          : categoryId // ignore: cast_nullable_to_non_nullable
+              as int?,
       readTime: null == readTime
           ? _value.readTime
           : readTime // ignore: cast_nullable_to_non_nullable
@@ -292,18 +320,20 @@ class _$NewsModelImpl extends _NewsModel {
   const _$NewsModelImpl(
       {@HiveField(0) required this.id,
       @HiveField(1) required this.title,
-      @HiveField(2) required this.content,
-      @HiveField(3) this.categoryId,
-      @HiveField(4) this.category,
-      @HiveField(5) required this.publishedAt,
-      @HiveField(6) this.imageUrl,
+      @HiveField(2) this.subtitle,
+      @HiveField(3) required this.content,
+      @HiveField(4) required this.publishedAt,
+      @HiveField(5) this.imageUrl,
+      @HiveField(6) this.cover,
       @HiveField(7) this.author,
       @HiveField(8) this.authorAvatar,
-      @HiveField(9) this.readTime = 0,
-      @HiveField(10) this.likes = 0,
-      @HiveField(11) this.views = 0,
-      @HiveField(12) this.comments = 0,
-      @HiveField(13) this.isFavorite = false})
+      @HiveField(9) this.category,
+      @HiveField(10) this.categoryId,
+      @HiveField(11) this.readTime = 0,
+      @HiveField(12) this.likes = 0,
+      @HiveField(13) this.views = 0,
+      @HiveField(14) this.comments = 0,
+      @HiveField(15) this.isFavorite = false})
       : super._();
 
   factory _$NewsModelImpl.fromJson(Map<String, dynamic> json) =>
@@ -317,19 +347,19 @@ class _$NewsModelImpl extends _NewsModel {
   final String title;
   @override
   @HiveField(2)
-  final String content;
+  final String? subtitle;
   @override
   @HiveField(3)
-  final int? categoryId;
+  final String content;
   @override
   @HiveField(4)
-  final String? category;
-  @override
-  @HiveField(5)
   final DateTime publishedAt;
   @override
-  @HiveField(6)
+  @HiveField(5)
   final String? imageUrl;
+  @override
+  @HiveField(6)
+  final String? cover;
   @override
   @HiveField(7)
   final String? author;
@@ -337,29 +367,35 @@ class _$NewsModelImpl extends _NewsModel {
   @HiveField(8)
   final String? authorAvatar;
   @override
-  @JsonKey()
   @HiveField(9)
-  final int readTime;
+  final String? category;
   @override
-  @JsonKey()
   @HiveField(10)
-  final int likes;
+  final int? categoryId;
   @override
   @JsonKey()
   @HiveField(11)
-  final int views;
+  final int readTime;
   @override
   @JsonKey()
   @HiveField(12)
-  final int comments;
+  final int likes;
   @override
   @JsonKey()
   @HiveField(13)
+  final int views;
+  @override
+  @JsonKey()
+  @HiveField(14)
+  final int comments;
+  @override
+  @JsonKey()
+  @HiveField(15)
   final bool isFavorite;
 
   @override
   String toString() {
-    return 'NewsModel(id: $id, title: $title, content: $content, categoryId: $categoryId, category: $category, publishedAt: $publishedAt, imageUrl: $imageUrl, author: $author, authorAvatar: $authorAvatar, readTime: $readTime, likes: $likes, views: $views, comments: $comments, isFavorite: $isFavorite)';
+    return 'NewsModel(id: $id, title: $title, subtitle: $subtitle, content: $content, publishedAt: $publishedAt, imageUrl: $imageUrl, cover: $cover, author: $author, authorAvatar: $authorAvatar, category: $category, categoryId: $categoryId, readTime: $readTime, likes: $likes, views: $views, comments: $comments, isFavorite: $isFavorite)';
   }
 
   @override
@@ -369,18 +405,21 @@ class _$NewsModelImpl extends _NewsModel {
             other is _$NewsModelImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.title, title) || other.title == title) &&
+            (identical(other.subtitle, subtitle) ||
+                other.subtitle == subtitle) &&
             (identical(other.content, content) || other.content == content) &&
-            (identical(other.categoryId, categoryId) ||
-                other.categoryId == categoryId) &&
-            (identical(other.category, category) ||
-                other.category == category) &&
             (identical(other.publishedAt, publishedAt) ||
                 other.publishedAt == publishedAt) &&
             (identical(other.imageUrl, imageUrl) ||
                 other.imageUrl == imageUrl) &&
+            (identical(other.cover, cover) || other.cover == cover) &&
             (identical(other.author, author) || other.author == author) &&
             (identical(other.authorAvatar, authorAvatar) ||
                 other.authorAvatar == authorAvatar) &&
+            (identical(other.category, category) ||
+                other.category == category) &&
+            (identical(other.categoryId, categoryId) ||
+                other.categoryId == categoryId) &&
             (identical(other.readTime, readTime) ||
                 other.readTime == readTime) &&
             (identical(other.likes, likes) || other.likes == likes) &&
@@ -397,13 +436,15 @@ class _$NewsModelImpl extends _NewsModel {
       runtimeType,
       id,
       title,
+      subtitle,
       content,
-      categoryId,
-      category,
       publishedAt,
       imageUrl,
+      cover,
       author,
       authorAvatar,
+      category,
+      categoryId,
       readTime,
       likes,
       views,
@@ -430,18 +471,20 @@ abstract class _NewsModel extends NewsModel {
   const factory _NewsModel(
       {@HiveField(0) required final String id,
       @HiveField(1) required final String title,
-      @HiveField(2) required final String content,
-      @HiveField(3) final int? categoryId,
-      @HiveField(4) final String? category,
-      @HiveField(5) required final DateTime publishedAt,
-      @HiveField(6) final String? imageUrl,
+      @HiveField(2) final String? subtitle,
+      @HiveField(3) required final String content,
+      @HiveField(4) required final DateTime publishedAt,
+      @HiveField(5) final String? imageUrl,
+      @HiveField(6) final String? cover,
       @HiveField(7) final String? author,
       @HiveField(8) final String? authorAvatar,
-      @HiveField(9) final int readTime,
-      @HiveField(10) final int likes,
-      @HiveField(11) final int views,
-      @HiveField(12) final int comments,
-      @HiveField(13) final bool isFavorite}) = _$NewsModelImpl;
+      @HiveField(9) final String? category,
+      @HiveField(10) final int? categoryId,
+      @HiveField(11) final int readTime,
+      @HiveField(12) final int likes,
+      @HiveField(13) final int views,
+      @HiveField(14) final int comments,
+      @HiveField(15) final bool isFavorite}) = _$NewsModelImpl;
   const _NewsModel._() : super._();
 
   factory _NewsModel.fromJson(Map<String, dynamic> json) =
@@ -455,19 +498,19 @@ abstract class _NewsModel extends NewsModel {
   String get title;
   @override
   @HiveField(2)
-  String get content;
+  String? get subtitle;
   @override
   @HiveField(3)
-  int? get categoryId;
+  String get content;
   @override
   @HiveField(4)
-  String? get category;
-  @override
-  @HiveField(5)
   DateTime get publishedAt;
   @override
-  @HiveField(6)
+  @HiveField(5)
   String? get imageUrl;
+  @override
+  @HiveField(6)
+  String? get cover;
   @override
   @HiveField(7)
   String? get author;
@@ -476,18 +519,24 @@ abstract class _NewsModel extends NewsModel {
   String? get authorAvatar;
   @override
   @HiveField(9)
-  int get readTime;
+  String? get category;
   @override
   @HiveField(10)
-  int get likes;
+  int? get categoryId;
   @override
   @HiveField(11)
-  int get views;
+  int get readTime;
   @override
   @HiveField(12)
-  int get comments;
+  int get likes;
   @override
   @HiveField(13)
+  int get views;
+  @override
+  @HiveField(14)
+  int get comments;
+  @override
+  @HiveField(15)
   bool get isFavorite;
 
   /// Create a copy of NewsModel

@@ -11,36 +11,56 @@ class NewsModel with _$NewsModel {
   const factory NewsModel({
     @HiveField(0) required String id,
     @HiveField(1) required String title,
-    @HiveField(2) required String content,
-    @HiveField(3) int? categoryId,
-    @HiveField(4) String? category,
-    @HiveField(5) required DateTime publishedAt,
-    @HiveField(6) String? imageUrl,
+    @HiveField(2) String? subtitle,
+    @HiveField(3) required String content,
+    @HiveField(4) required DateTime publishedAt,
+    @HiveField(5) String? imageUrl,
+    @HiveField(6) String? cover,
     @HiveField(7) String? author,
     @HiveField(8) String? authorAvatar,
-    @HiveField(9) @Default(0) int readTime,
-    @HiveField(10) @Default(0) int likes,
-    @HiveField(11) @Default(0) int views,
-    @HiveField(12) @Default(0) int comments,
-    @HiveField(13) @Default(false) bool isFavorite,
+    @HiveField(9) String? category,
+    @HiveField(10) int? categoryId,
+    @HiveField(11) @Default(0) int readTime,
+    @HiveField(12) @Default(0) int likes,
+    @HiveField(13) @Default(0) int views,
+    @HiveField(14) @Default(0) int comments,
+    @HiveField(15) @Default(false) bool isFavorite,
   }) = _NewsModel;
 
-  factory NewsModel.fromJson(Map<String, dynamic> json) =>
-      _$NewsModelFromJson(json);
-
-  const NewsModel._();
+  factory NewsModel.fromEntity(NewsEntity entity) {
+    return NewsModel(
+      id: entity.id,
+      title: entity.title,
+      subtitle: entity.subtitle,
+      content: entity.content,
+      publishedAt: entity.publishedAt,
+      imageUrl: entity.imageUrl,
+      cover: entity.cover,
+      author: entity.author,
+      authorAvatar: entity.authorAvatar,
+      category: entity.category,
+      categoryId: entity.categoryId,
+      readTime: entity.readTime,
+      likes: entity.likes,
+      views: entity.views,
+      comments: entity.comments,
+      isFavorite: entity.isFavorite,
+    );
+  }
 
   NewsEntity toEntity() {
     return NewsEntity(
       id: id,
       title: title,
+      subtitle: subtitle ?? '',
       content: content,
-      categoryId: categoryId,
-      category: category,
+      imageUrl: imageUrl ?? '',
+      cover: cover ?? '',
       publishedAt: publishedAt,
-      imageUrl: imageUrl,
-      author: author,
-      authorAvatar: authorAvatar,
+      author: author ?? '',
+      authorAvatar: authorAvatar ?? '',
+      category: category ?? '',
+      categoryId: categoryId ?? 0,
       readTime: readTime,
       likes: likes,
       views: views,
@@ -49,22 +69,8 @@ class NewsModel with _$NewsModel {
     );
   }
 
-  static NewsModel fromEntity(NewsEntity entity) {
-    return NewsModel(
-      id: entity.id,
-      title: entity.title,
-      content: entity.content,
-      categoryId: entity.categoryId,
-      category: entity.category,
-      publishedAt: entity.publishedAt,
-      imageUrl: entity.imageUrl,
-      author: entity.author,
-      authorAvatar: entity.authorAvatar,
-      readTime: entity.readTime,
-      likes: entity.likes,
-      views: entity.views,
-      comments: entity.comments,
-      isFavorite: entity.isFavorite,
-    );
-  }
+  const NewsModel._();
+
+  factory NewsModel.fromJson(Map<String, dynamic> json) =>
+      _$NewsModelFromJson(json);
 }

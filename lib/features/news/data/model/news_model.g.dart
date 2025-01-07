@@ -19,52 +19,58 @@ class NewsModelAdapter extends TypeAdapter<NewsModel> {
     return NewsModel(
       id: fields[0] as String,
       title: fields[1] as String,
-      content: fields[2] as String,
-      categoryId: fields[3] as int?,
-      category: fields[4] as String?,
-      publishedAt: fields[5] as DateTime,
-      imageUrl: fields[6] as String?,
+      subtitle: fields[2] as String?,
+      content: fields[3] as String,
+      publishedAt: fields[4] as DateTime,
+      imageUrl: fields[5] as String?,
+      cover: fields[6] as String?,
       author: fields[7] as String?,
       authorAvatar: fields[8] as String?,
-      readTime: fields[9] as int,
-      likes: fields[10] as int,
-      views: fields[11] as int,
-      comments: fields[12] as int,
-      isFavorite: fields[13] as bool,
+      category: fields[9] as String?,
+      categoryId: fields[10] as int?,
+      readTime: fields[11] as int,
+      likes: fields[12] as int,
+      views: fields[13] as int,
+      comments: fields[14] as int,
+      isFavorite: fields[15] as bool,
     );
   }
 
   @override
   void write(BinaryWriter writer, NewsModel obj) {
     writer
-      ..writeByte(14)
+      ..writeByte(16)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
       ..write(obj.title)
       ..writeByte(2)
-      ..write(obj.content)
+      ..write(obj.subtitle)
       ..writeByte(3)
-      ..write(obj.categoryId)
+      ..write(obj.content)
       ..writeByte(4)
-      ..write(obj.category)
-      ..writeByte(5)
       ..write(obj.publishedAt)
-      ..writeByte(6)
+      ..writeByte(5)
       ..write(obj.imageUrl)
+      ..writeByte(6)
+      ..write(obj.cover)
       ..writeByte(7)
       ..write(obj.author)
       ..writeByte(8)
       ..write(obj.authorAvatar)
       ..writeByte(9)
-      ..write(obj.readTime)
+      ..write(obj.category)
       ..writeByte(10)
-      ..write(obj.likes)
+      ..write(obj.categoryId)
       ..writeByte(11)
-      ..write(obj.views)
+      ..write(obj.readTime)
       ..writeByte(12)
-      ..write(obj.comments)
+      ..write(obj.likes)
       ..writeByte(13)
+      ..write(obj.views)
+      ..writeByte(14)
+      ..write(obj.comments)
+      ..writeByte(15)
       ..write(obj.isFavorite);
   }
 
@@ -87,13 +93,15 @@ _$NewsModelImpl _$$NewsModelImplFromJson(Map<String, dynamic> json) =>
     _$NewsModelImpl(
       id: json['id'] as String,
       title: json['title'] as String,
+      subtitle: json['subtitle'] as String?,
       content: json['content'] as String,
-      categoryId: (json['categoryId'] as num?)?.toInt(),
-      category: json['category'] as String?,
       publishedAt: DateTime.parse(json['publishedAt'] as String),
       imageUrl: json['imageUrl'] as String?,
+      cover: json['cover'] as String?,
       author: json['author'] as String?,
       authorAvatar: json['authorAvatar'] as String?,
+      category: json['category'] as String?,
+      categoryId: (json['categoryId'] as num?)?.toInt(),
       readTime: (json['readTime'] as num?)?.toInt() ?? 0,
       likes: (json['likes'] as num?)?.toInt() ?? 0,
       views: (json['views'] as num?)?.toInt() ?? 0,
@@ -105,13 +113,15 @@ Map<String, dynamic> _$$NewsModelImplToJson(_$NewsModelImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'title': instance.title,
+      'subtitle': instance.subtitle,
       'content': instance.content,
-      'categoryId': instance.categoryId,
-      'category': instance.category,
       'publishedAt': instance.publishedAt.toIso8601String(),
       'imageUrl': instance.imageUrl,
+      'cover': instance.cover,
       'author': instance.author,
       'authorAvatar': instance.authorAvatar,
+      'category': instance.category,
+      'categoryId': instance.categoryId,
       'readTime': instance.readTime,
       'likes': instance.likes,
       'views': instance.views,

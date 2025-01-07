@@ -9,9 +9,11 @@ class ImageErrorPlaceholder extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: Theme.of(context).colorScheme.surfaceContainerHighest,
-      child: Icon(
-        Icons.error_outline,
-        color: Theme.of(context).colorScheme.onSurfaceVariant,
+      child: Center(
+        child: Icon(
+          Icons.error_outline,
+          color: Theme.of(context).colorScheme.onSurfaceVariant,
+        ),
       ),
     );
   }

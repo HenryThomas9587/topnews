@@ -1,13 +1,15 @@
 class NewsEntity {
   final String id;
   final String title;
+  final String subtitle;
   final String content;
+  final String cover;
+  final String imageUrl;
   final DateTime publishedAt;
-  final String? imageUrl;
-  final String? author;
-  final String? authorAvatar;
-  final String? category;
-  final int? categoryId;
+  final String author;
+  final String authorAvatar;
+  final String category;
+  final int categoryId;
   final int readTime;
   final int likes;
   final int views;
@@ -19,11 +21,13 @@ class NewsEntity {
     required this.title,
     required this.content,
     required this.publishedAt,
-    this.imageUrl,
-    this.author,
-    this.authorAvatar,
-    this.category,
-    this.categoryId,
+    required this.author,
+    this.subtitle = '',
+    this.cover = '',
+    this.imageUrl = '',
+    this.authorAvatar = '',
+    this.category = '',
+    this.categoryId = 0,
     this.readTime = 0,
     this.likes = 0,
     this.views = 0,

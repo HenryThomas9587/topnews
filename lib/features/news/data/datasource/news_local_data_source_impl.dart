@@ -1,6 +1,5 @@
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:topnews/features/news/data/model/news_model.dart';
-import 'package:topnews/features/news/domain/entity/news_entity.dart';
 import 'package:topnews/features/news/data/datasource/news_data_source.dart';
 
 class NewsLocalDataSourceImpl implements NewsLocalDataSource {
@@ -9,16 +8,15 @@ class NewsLocalDataSourceImpl implements NewsLocalDataSource {
   NewsLocalDataSourceImpl(this._box);
 
   @override
-  Future<List<NewsEntity>> getCachedNews() async {
+  Future<List<NewsModel>> getCachedNews() async {
     final models = _box.values.toList();
-    return models.map((model) => model.toEntity()).toList();
+    return models;
   }
 
   @override
-  Future<void> cacheNews(List<NewsEntity> news) async {
+  Future<void> cacheNews(List<NewsModel> news) async {
     await _box.clear();
-    final models = news.map((news) => NewsModel.fromEntity(news)).toList();
-    await _box.addAll(models);
+    await _box.addAll(news);
   }
 
   @override

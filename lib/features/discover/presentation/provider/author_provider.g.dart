@@ -1,28 +1,26 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'get_home_sections_usecase.dart';
+part of 'author_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$getHomeSectionsHash() => r'68703afa106db2d919bf3e0f39fd18469b9992a7';
+String _$authorNotifierHash() => r'05d2bd7853a5a9d1dc9b9c9f66f6e7b165431d0f';
 
-/// See also [getHomeSections].
-@ProviderFor(getHomeSections)
-final getHomeSectionsProvider =
-    AutoDisposeProvider<GetHomeSectionsUseCase>.internal(
-  getHomeSections,
-  name: r'getHomeSectionsProvider',
+/// See also [AuthorNotifier].
+@ProviderFor(AuthorNotifier)
+final authorNotifierProvider = AutoDisposeAsyncNotifierProvider<AuthorNotifier,
+    List<AuthorEntity>>.internal(
+  AuthorNotifier.new,
+  name: r'authorNotifierProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$getHomeSectionsHash,
+      : _$authorNotifierHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef GetHomeSectionsRef = AutoDisposeProviderRef<GetHomeSectionsUseCase>;
+typedef _$AuthorNotifier = AutoDisposeAsyncNotifier<List<AuthorEntity>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
