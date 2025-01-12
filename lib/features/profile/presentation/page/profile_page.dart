@@ -33,7 +33,7 @@ class ProfilePage extends HookConsumerWidget {
             ),
             IconButton(
               icon: const Icon(Icons.edit),
-              onPressed: () => context.pushSettings(),
+              onPressed: () => context.pushNewsPublish(),
             ),
             IconButton(
               icon: const Icon(Icons.settings),

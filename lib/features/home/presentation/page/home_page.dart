@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:topnews/core/theme/app_theme.dart';
-import 'package:topnews/features/home/domain/entity/home_section.dart';
 import 'package:topnews/features/home/presentation/provider/home_provider.dart';
 import 'package:topnews/core/widget/common_widgets.dart';
 import 'package:topnews/features/home/presentation/widget/home_app_bar.dart';
@@ -13,10 +12,10 @@ class HomePage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final scrollController = useScrollController();
-    final sectionsAsyncValue = ref.watch(homeNotifierProvider);
-    final notifier = ref.watch(homeNotifierProvider.notifier);
     final showToTopButton = useState(false);
+    final scrollController = useScrollController();
+    final homeState = ref.watch(homeNotifierProvider);
+    final notifier = ref.read(homeNotifierProvider.notifier);
 
     void scrollToTop() {
       scrollController.animateTo(
@@ -39,15 +38,14 @@ class HomePage extends HookConsumerWidget {
           showToTopButton.value = false;
         }
 
-        if (!notifier.isLoadingMore &&
-            position.pixels >= position.maxScrollExtent - 200) {
+        if (position.pixels >= position.maxScrollExtent - 200) {
           notifier.loadMoreData();
         }
       }
 
       scrollController.addListener(onScroll);
       return () => scrollController.removeListener(onScroll);
-    }, [scrollController]);
+    }, [scrollController, homeState]); // 添加 homeState 作为依赖
 
     return Scaffold(
       appBar: const HomeAppBar(),
@@ -59,34 +57,35 @@ class HomePage extends HookConsumerWidget {
         displacement: 50,
         edgeOffset: 0,
         strokeWidth: 2.5,
-        child: sectionsAsyncValue.when(
-          data: (sections) => ListView.builder(
+        child: homeState.when(
+          data: (state) => ListView.builder(
             controller: scrollController,
             physics: const AlwaysScrollableScrollPhysics(
               parent: BouncingScrollPhysics(),
             ),
             padding: AppTheme.contentPadding,
-            itemCount: sections.length + 1,
+            itemCount: state.sections.length +
+                (state.hasMore || state.isLoadingMore ? 1 : 0),
             itemBuilder: (context, index) {
-              if (index < sections.length) {
-                return SectionRenderer(section: sections[index]);
+              if (index < state.sections.length) {
+                return SectionRenderer(section: state.sections[index]);
               }
 
-              if (notifier.isLoadingMore) {
+              // 优化：根据 state.isLoadingMore 决定是否显示加载更多
+              if (state.isLoadingMore) {
                 return const Padding(
                   padding: EdgeInsets.symmetric(vertical: 16),
                   child: LoadingIndicator(),
                 );
               }
-
-              if (!sections.any((s) => s.type == HomeSectionType.story)) {
+              // 优化：根据 state.hasMore 判断是否显示 "No More Data"
+              if (!state.hasMore && state.sections.isNotEmpty) {
                 return const Padding(
                   padding: EdgeInsets.symmetric(vertical: 16),
                   child: NoMoreDataWidget(),
                 );
               }
-
-              return const SizedBox(height: 20);
+              return const SizedBox(height: 20); // 可以移除，因为 itemCount 已经做了控制
             },
           ),
           loading: () => const Center(

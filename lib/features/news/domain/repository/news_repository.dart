@@ -1,15 +1,18 @@
 import 'package:topnews/features/news/domain/entity/news_entity.dart';
 
 abstract class NewsRepository {
-  Future<List<NewsEntity>> getTrendingNews();
+  Future<List<NewsEntity>> getTrendingNews(int page, int pageSize);
+
+  Future<List<NewsEntity>> getLatestNews(int page, int pageSize);
 
   Future<List<NewsEntity>> getTopNews();
 
-  Future<List<NewsEntity>> getRecommendedNews();
+  Future<List<NewsEntity>> getRecommendedNews(int page, int pageSize);
 
-  Future<List<NewsEntity>> getNews({
-    int page = 1,
-    int pageSize = 10,
-    int? categoryId,
-  });
+  Future<List<NewsEntity>> getCategoryNews(
+      int page, int pageSize, String categoryId);
+
+  Future<List<NewsEntity>> searchNews(int page, int pageSize, String keyword);
+
+  Future<NewsEntity> getNewsDetail(String newsId);
 }

@@ -11,6 +11,7 @@ class AuthorModel with _$AuthorModel {
     required String name,
     required String imageUrl,
     @Default(false) bool isFollowing,
+    @Default('') String userType,
   }) = _AuthorModel;
 
   factory AuthorModel.fromJson(Map<String, dynamic> json) =>
@@ -24,6 +25,7 @@ extension AuthorModelX on AuthorModel {
       name: name,
       imageUrl: imageUrl,
       isFollowing: isFollowing,
+      userType: userType,
     );
   }
 }

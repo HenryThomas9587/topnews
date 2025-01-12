@@ -3,7 +3,7 @@ import 'package:topnews/features/discover/data/model/publisher_model.dart';
 
 abstract class DiscoverDataSource {
   Future<List<PublisherModel>> getPublishers();
-  Future<List<AuthorModel>> getAuthors();
+  Future<List<AuthorModel>> getAuthors(int page, int pageSize);
 
   Future<void> followPublisher(String publisherId);
   Future<void> unfollowPublisher(String publisherId);

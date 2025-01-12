@@ -24,7 +24,7 @@ class DiscoverRemoteDataSourceImpl implements DiscoverDataSource {
   }
 
   @override
-  Future<List<AuthorModel>> getAuthors() async {
+  Future<List<AuthorModel>> getAuthors(int page, int pageSize) async {
     await Future.delayed(const Duration(milliseconds: 800));
     final authors = MockDiscoverData.getAuthors();
     // 更新关注状态

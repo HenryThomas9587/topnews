@@ -24,6 +24,7 @@ mixin _$AppError {
     required TResult Function(String message) server,
     required TResult Function(String message) unauthorized,
     required TResult Function(String message) unknown,
+    required TResult Function(String message) custom,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -33,6 +34,7 @@ mixin _$AppError {
     TResult? Function(String message)? server,
     TResult? Function(String message)? unauthorized,
     TResult? Function(String message)? unknown,
+    TResult? Function(String message)? custom,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -42,6 +44,7 @@ mixin _$AppError {
     TResult Function(String message)? server,
     TResult Function(String message)? unauthorized,
     TResult Function(String message)? unknown,
+    TResult Function(String message)? custom,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -52,6 +55,7 @@ mixin _$AppError {
     required TResult Function(ServerError value) server,
     required TResult Function(UnauthorizedError value) unauthorized,
     required TResult Function(UnknownError value) unknown,
+    required TResult Function(CustomError value) custom,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -61,6 +65,7 @@ mixin _$AppError {
     TResult? Function(ServerError value)? server,
     TResult? Function(UnauthorizedError value)? unauthorized,
     TResult? Function(UnknownError value)? unknown,
+    TResult? Function(CustomError value)? custom,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -70,6 +75,7 @@ mixin _$AppError {
     TResult Function(ServerError value)? server,
     TResult Function(UnauthorizedError value)? unauthorized,
     TResult Function(UnknownError value)? unknown,
+    TResult Function(CustomError value)? custom,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -190,6 +196,7 @@ class _$NetworkErrorImpl implements NetworkError {
     required TResult Function(String message) server,
     required TResult Function(String message) unauthorized,
     required TResult Function(String message) unknown,
+    required TResult Function(String message) custom,
   }) {
     return network(message);
   }
@@ -202,6 +209,7 @@ class _$NetworkErrorImpl implements NetworkError {
     TResult? Function(String message)? server,
     TResult? Function(String message)? unauthorized,
     TResult? Function(String message)? unknown,
+    TResult? Function(String message)? custom,
   }) {
     return network?.call(message);
   }
@@ -214,6 +222,7 @@ class _$NetworkErrorImpl implements NetworkError {
     TResult Function(String message)? server,
     TResult Function(String message)? unauthorized,
     TResult Function(String message)? unknown,
+    TResult Function(String message)? custom,
     required TResult orElse(),
   }) {
     if (network != null) {
@@ -230,6 +239,7 @@ class _$NetworkErrorImpl implements NetworkError {
     required TResult Function(ServerError value) server,
     required TResult Function(UnauthorizedError value) unauthorized,
     required TResult Function(UnknownError value) unknown,
+    required TResult Function(CustomError value) custom,
   }) {
     return network(this);
   }
@@ -242,6 +252,7 @@ class _$NetworkErrorImpl implements NetworkError {
     TResult? Function(ServerError value)? server,
     TResult? Function(UnauthorizedError value)? unauthorized,
     TResult? Function(UnknownError value)? unknown,
+    TResult? Function(CustomError value)? custom,
   }) {
     return network?.call(this);
   }
@@ -254,6 +265,7 @@ class _$NetworkErrorImpl implements NetworkError {
     TResult Function(ServerError value)? server,
     TResult Function(UnauthorizedError value)? unauthorized,
     TResult Function(UnknownError value)? unknown,
+    TResult Function(CustomError value)? custom,
     required TResult orElse(),
   }) {
     if (network != null) {
@@ -352,6 +364,7 @@ class _$NotFoundErrorImpl implements NotFoundError {
     required TResult Function(String message) server,
     required TResult Function(String message) unauthorized,
     required TResult Function(String message) unknown,
+    required TResult Function(String message) custom,
   }) {
     return notFound(message);
   }
@@ -364,6 +377,7 @@ class _$NotFoundErrorImpl implements NotFoundError {
     TResult? Function(String message)? server,
     TResult? Function(String message)? unauthorized,
     TResult? Function(String message)? unknown,
+    TResult? Function(String message)? custom,
   }) {
     return notFound?.call(message);
   }
@@ -376,6 +390,7 @@ class _$NotFoundErrorImpl implements NotFoundError {
     TResult Function(String message)? server,
     TResult Function(String message)? unauthorized,
     TResult Function(String message)? unknown,
+    TResult Function(String message)? custom,
     required TResult orElse(),
   }) {
     if (notFound != null) {
@@ -392,6 +407,7 @@ class _$NotFoundErrorImpl implements NotFoundError {
     required TResult Function(ServerError value) server,
     required TResult Function(UnauthorizedError value) unauthorized,
     required TResult Function(UnknownError value) unknown,
+    required TResult Function(CustomError value) custom,
   }) {
     return notFound(this);
   }
@@ -404,6 +420,7 @@ class _$NotFoundErrorImpl implements NotFoundError {
     TResult? Function(ServerError value)? server,
     TResult? Function(UnauthorizedError value)? unauthorized,
     TResult? Function(UnknownError value)? unknown,
+    TResult? Function(CustomError value)? custom,
   }) {
     return notFound?.call(this);
   }
@@ -416,6 +433,7 @@ class _$NotFoundErrorImpl implements NotFoundError {
     TResult Function(ServerError value)? server,
     TResult Function(UnauthorizedError value)? unauthorized,
     TResult Function(UnknownError value)? unknown,
+    TResult Function(CustomError value)? custom,
     required TResult orElse(),
   }) {
     if (notFound != null) {
@@ -514,6 +532,7 @@ class _$ServerErrorImpl implements ServerError {
     required TResult Function(String message) server,
     required TResult Function(String message) unauthorized,
     required TResult Function(String message) unknown,
+    required TResult Function(String message) custom,
   }) {
     return server(message);
   }
@@ -526,6 +545,7 @@ class _$ServerErrorImpl implements ServerError {
     TResult? Function(String message)? server,
     TResult? Function(String message)? unauthorized,
     TResult? Function(String message)? unknown,
+    TResult? Function(String message)? custom,
   }) {
     return server?.call(message);
   }
@@ -538,6 +558,7 @@ class _$ServerErrorImpl implements ServerError {
     TResult Function(String message)? server,
     TResult Function(String message)? unauthorized,
     TResult Function(String message)? unknown,
+    TResult Function(String message)? custom,
     required TResult orElse(),
   }) {
     if (server != null) {
@@ -554,6 +575,7 @@ class _$ServerErrorImpl implements ServerError {
     required TResult Function(ServerError value) server,
     required TResult Function(UnauthorizedError value) unauthorized,
     required TResult Function(UnknownError value) unknown,
+    required TResult Function(CustomError value) custom,
   }) {
     return server(this);
   }
@@ -566,6 +588,7 @@ class _$ServerErrorImpl implements ServerError {
     TResult? Function(ServerError value)? server,
     TResult? Function(UnauthorizedError value)? unauthorized,
     TResult? Function(UnknownError value)? unknown,
+    TResult? Function(CustomError value)? custom,
   }) {
     return server?.call(this);
   }
@@ -578,6 +601,7 @@ class _$ServerErrorImpl implements ServerError {
     TResult Function(ServerError value)? server,
     TResult Function(UnauthorizedError value)? unauthorized,
     TResult Function(UnknownError value)? unknown,
+    TResult Function(CustomError value)? custom,
     required TResult orElse(),
   }) {
     if (server != null) {
@@ -677,6 +701,7 @@ class _$UnauthorizedErrorImpl implements UnauthorizedError {
     required TResult Function(String message) server,
     required TResult Function(String message) unauthorized,
     required TResult Function(String message) unknown,
+    required TResult Function(String message) custom,
   }) {
     return unauthorized(message);
   }
@@ -689,6 +714,7 @@ class _$UnauthorizedErrorImpl implements UnauthorizedError {
     TResult? Function(String message)? server,
     TResult? Function(String message)? unauthorized,
     TResult? Function(String message)? unknown,
+    TResult? Function(String message)? custom,
   }) {
     return unauthorized?.call(message);
   }
@@ -701,6 +727,7 @@ class _$UnauthorizedErrorImpl implements UnauthorizedError {
     TResult Function(String message)? server,
     TResult Function(String message)? unauthorized,
     TResult Function(String message)? unknown,
+    TResult Function(String message)? custom,
     required TResult orElse(),
   }) {
     if (unauthorized != null) {
@@ -717,6 +744,7 @@ class _$UnauthorizedErrorImpl implements UnauthorizedError {
     required TResult Function(ServerError value) server,
     required TResult Function(UnauthorizedError value) unauthorized,
     required TResult Function(UnknownError value) unknown,
+    required TResult Function(CustomError value) custom,
   }) {
     return unauthorized(this);
   }
@@ -729,6 +757,7 @@ class _$UnauthorizedErrorImpl implements UnauthorizedError {
     TResult? Function(ServerError value)? server,
     TResult? Function(UnauthorizedError value)? unauthorized,
     TResult? Function(UnknownError value)? unknown,
+    TResult? Function(CustomError value)? custom,
   }) {
     return unauthorized?.call(this);
   }
@@ -741,6 +770,7 @@ class _$UnauthorizedErrorImpl implements UnauthorizedError {
     TResult Function(ServerError value)? server,
     TResult Function(UnauthorizedError value)? unauthorized,
     TResult Function(UnknownError value)? unknown,
+    TResult Function(CustomError value)? custom,
     required TResult orElse(),
   }) {
     if (unauthorized != null) {
@@ -840,6 +870,7 @@ class _$UnknownErrorImpl implements UnknownError {
     required TResult Function(String message) server,
     required TResult Function(String message) unauthorized,
     required TResult Function(String message) unknown,
+    required TResult Function(String message) custom,
   }) {
     return unknown(message);
   }
@@ -852,6 +883,7 @@ class _$UnknownErrorImpl implements UnknownError {
     TResult? Function(String message)? server,
     TResult? Function(String message)? unauthorized,
     TResult? Function(String message)? unknown,
+    TResult? Function(String message)? custom,
   }) {
     return unknown?.call(message);
   }
@@ -864,6 +896,7 @@ class _$UnknownErrorImpl implements UnknownError {
     TResult Function(String message)? server,
     TResult Function(String message)? unauthorized,
     TResult Function(String message)? unknown,
+    TResult Function(String message)? custom,
     required TResult orElse(),
   }) {
     if (unknown != null) {
@@ -880,6 +913,7 @@ class _$UnknownErrorImpl implements UnknownError {
     required TResult Function(ServerError value) server,
     required TResult Function(UnauthorizedError value) unauthorized,
     required TResult Function(UnknownError value) unknown,
+    required TResult Function(CustomError value) custom,
   }) {
     return unknown(this);
   }
@@ -892,6 +926,7 @@ class _$UnknownErrorImpl implements UnknownError {
     TResult? Function(ServerError value)? server,
     TResult? Function(UnauthorizedError value)? unauthorized,
     TResult? Function(UnknownError value)? unknown,
+    TResult? Function(CustomError value)? custom,
   }) {
     return unknown?.call(this);
   }
@@ -904,6 +939,7 @@ class _$UnknownErrorImpl implements UnknownError {
     TResult Function(ServerError value)? server,
     TResult Function(UnauthorizedError value)? unauthorized,
     TResult Function(UnknownError value)? unknown,
+    TResult Function(CustomError value)? custom,
     required TResult orElse(),
   }) {
     if (unknown != null) {
@@ -924,5 +960,173 @@ abstract class UnknownError implements AppError {
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$UnknownErrorImplCopyWith<_$UnknownErrorImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$CustomErrorImplCopyWith<$Res>
+    implements $AppErrorCopyWith<$Res> {
+  factory _$$CustomErrorImplCopyWith(
+          _$CustomErrorImpl value, $Res Function(_$CustomErrorImpl) then) =
+      __$$CustomErrorImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String message});
+}
+
+/// @nodoc
+class __$$CustomErrorImplCopyWithImpl<$Res>
+    extends _$AppErrorCopyWithImpl<$Res, _$CustomErrorImpl>
+    implements _$$CustomErrorImplCopyWith<$Res> {
+  __$$CustomErrorImplCopyWithImpl(
+      _$CustomErrorImpl _value, $Res Function(_$CustomErrorImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of AppError
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? message = null,
+  }) {
+    return _then(_$CustomErrorImpl(
+      null == message
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$CustomErrorImpl implements CustomError {
+  const _$CustomErrorImpl(this.message);
+
+  @override
+  final String message;
+
+  @override
+  String toString() {
+    return 'AppError.custom(message: $message)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$CustomErrorImpl &&
+            (identical(other.message, message) || other.message == message));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, message);
+
+  /// Create a copy of AppError
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$CustomErrorImplCopyWith<_$CustomErrorImpl> get copyWith =>
+      __$$CustomErrorImplCopyWithImpl<_$CustomErrorImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String message) network,
+    required TResult Function(String message) notFound,
+    required TResult Function(String message) server,
+    required TResult Function(String message) unauthorized,
+    required TResult Function(String message) unknown,
+    required TResult Function(String message) custom,
+  }) {
+    return custom(message);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String message)? network,
+    TResult? Function(String message)? notFound,
+    TResult? Function(String message)? server,
+    TResult? Function(String message)? unauthorized,
+    TResult? Function(String message)? unknown,
+    TResult? Function(String message)? custom,
+  }) {
+    return custom?.call(message);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String message)? network,
+    TResult Function(String message)? notFound,
+    TResult Function(String message)? server,
+    TResult Function(String message)? unauthorized,
+    TResult Function(String message)? unknown,
+    TResult Function(String message)? custom,
+    required TResult orElse(),
+  }) {
+    if (custom != null) {
+      return custom(message);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(NetworkError value) network,
+    required TResult Function(NotFoundError value) notFound,
+    required TResult Function(ServerError value) server,
+    required TResult Function(UnauthorizedError value) unauthorized,
+    required TResult Function(UnknownError value) unknown,
+    required TResult Function(CustomError value) custom,
+  }) {
+    return custom(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(NetworkError value)? network,
+    TResult? Function(NotFoundError value)? notFound,
+    TResult? Function(ServerError value)? server,
+    TResult? Function(UnauthorizedError value)? unauthorized,
+    TResult? Function(UnknownError value)? unknown,
+    TResult? Function(CustomError value)? custom,
+  }) {
+    return custom?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(NetworkError value)? network,
+    TResult Function(NotFoundError value)? notFound,
+    TResult Function(ServerError value)? server,
+    TResult Function(UnauthorizedError value)? unauthorized,
+    TResult Function(UnknownError value)? unknown,
+    TResult Function(CustomError value)? custom,
+    required TResult orElse(),
+  }) {
+    if (custom != null) {
+      return custom(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class CustomError implements AppError {
+  const factory CustomError(final String message) = _$CustomErrorImpl;
+
+  @override
+  String get message;
+
+  /// Create a copy of AppError
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$CustomErrorImplCopyWith<_$CustomErrorImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

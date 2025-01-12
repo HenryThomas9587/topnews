@@ -3,7 +3,7 @@ import 'package:topnews/features/discover/domain/entity/publisher_entity.dart';
 
 abstract class DiscoverRepository {
   Future<List<PublisherEntity>> getPublishers();
-  Future<List<AuthorEntity>> getAuthors();
+  Future<List<AuthorEntity>> getAuthors(int page, int pageSize);
 
   Future<void> followPublisher(String publisherId);
   Future<void> unfollowPublisher(String publisherId);

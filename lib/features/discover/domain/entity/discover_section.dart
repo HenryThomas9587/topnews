@@ -3,13 +3,14 @@ import 'package:topnews/features/discover/domain/entity/publisher_entity.dart';
 import 'package:topnews/features/news/domain/entity/news_entity.dart';
 
 enum DiscoverType {
-  topStories('Top Stories'),
-  publishers('Publishers'),
-  authors('Authors'),
-  recommended('Recommended');
+  topStories(name: 'topStories', value: 'Top Stories'),
+  publishers(name: 'publishers', value: 'Publishers'),
+  authors(name: 'authors', value: 'Authors'),
+  recommended(name: 'recommended', value: 'Recommended');
 
+  final String name;
   final String value;
-  const DiscoverType(this.value);
+  const DiscoverType({required this.name, required this.value});
 }
 
 class DiscoverSection {

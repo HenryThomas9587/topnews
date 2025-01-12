@@ -7,7 +7,7 @@ part of 'discover_repository_impl.dart';
 // **************************************************************************
 
 String _$discoverRepositoryHash() =>
-    r'0c325d029183a2ab876939391e56ef811b9f5f68';
+    r'abca177c594847fc329ab530f7787d745de28cc1';
 
 /// See also [discoverRepository].
 @ProviderFor(discoverRepository)

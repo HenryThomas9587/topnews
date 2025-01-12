@@ -28,8 +28,8 @@ class DiscoverRepositoryImpl implements DiscoverRepository {
   }
 
   @override
-  Future<List<AuthorEntity>> getAuthors() async {
-    final authors = await _dataSource.getAuthors();
+  Future<List<AuthorEntity>> getAuthors(int page, int pageSize) async {
+    final authors = await _dataSource.getAuthors(page, pageSize);
     return authors.map((item) => item.toEntity()).toList();
   }
 

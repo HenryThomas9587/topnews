@@ -20,6 +20,7 @@ mixin _$AuthorEntity {
   String get name => throw _privateConstructorUsedError;
   String get imageUrl => throw _privateConstructorUsedError;
   bool get isFollowing => throw _privateConstructorUsedError;
+  String get userType => throw _privateConstructorUsedError;
 
   /// Create a copy of AuthorEntity
   /// with the given fields replaced by the non-null parameter values.
@@ -34,7 +35,12 @@ abstract class $AuthorEntityCopyWith<$Res> {
           AuthorEntity value, $Res Function(AuthorEntity) then) =
       _$AuthorEntityCopyWithImpl<$Res, AuthorEntity>;
   @useResult
-  $Res call({String id, String name, String imageUrl, bool isFollowing});
+  $Res call(
+      {String id,
+      String name,
+      String imageUrl,
+      bool isFollowing,
+      String userType});
 }
 
 /// @nodoc
@@ -56,6 +62,7 @@ class _$AuthorEntityCopyWithImpl<$Res, $Val extends AuthorEntity>
     Object? name = null,
     Object? imageUrl = null,
     Object? isFollowing = null,
+    Object? userType = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -74,6 +81,10 @@ class _$AuthorEntityCopyWithImpl<$Res, $Val extends AuthorEntity>
           ? _value.isFollowing
           : isFollowing // ignore: cast_nullable_to_non_nullable
               as bool,
+      userType: null == userType
+          ? _value.userType
+          : userType // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -86,7 +97,12 @@ abstract class _$$AuthorEntityImplCopyWith<$Res>
       __$$AuthorEntityImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, String name, String imageUrl, bool isFollowing});
+  $Res call(
+      {String id,
+      String name,
+      String imageUrl,
+      bool isFollowing,
+      String userType});
 }
 
 /// @nodoc
@@ -106,6 +122,7 @@ class __$$AuthorEntityImplCopyWithImpl<$Res>
     Object? name = null,
     Object? imageUrl = null,
     Object? isFollowing = null,
+    Object? userType = null,
   }) {
     return _then(_$AuthorEntityImpl(
       id: null == id
@@ -124,6 +141,10 @@ class __$$AuthorEntityImplCopyWithImpl<$Res>
           ? _value.isFollowing
           : isFollowing // ignore: cast_nullable_to_non_nullable
               as bool,
+      userType: null == userType
+          ? _value.userType
+          : userType // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -135,7 +156,8 @@ class _$AuthorEntityImpl implements _AuthorEntity {
       {required this.id,
       required this.name,
       required this.imageUrl,
-      required this.isFollowing});
+      required this.isFollowing,
+      required this.userType});
 
   @override
   final String id;
@@ -145,10 +167,12 @@ class _$AuthorEntityImpl implements _AuthorEntity {
   final String imageUrl;
   @override
   final bool isFollowing;
+  @override
+  final String userType;
 
   @override
   String toString() {
-    return 'AuthorEntity(id: $id, name: $name, imageUrl: $imageUrl, isFollowing: $isFollowing)';
+    return 'AuthorEntity(id: $id, name: $name, imageUrl: $imageUrl, isFollowing: $isFollowing, userType: $userType)';
   }
 
   @override
@@ -161,11 +185,14 @@ class _$AuthorEntityImpl implements _AuthorEntity {
             (identical(other.imageUrl, imageUrl) ||
                 other.imageUrl == imageUrl) &&
             (identical(other.isFollowing, isFollowing) ||
-                other.isFollowing == isFollowing));
+                other.isFollowing == isFollowing) &&
+            (identical(other.userType, userType) ||
+                other.userType == userType));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, id, name, imageUrl, isFollowing);
+  int get hashCode =>
+      Object.hash(runtimeType, id, name, imageUrl, isFollowing, userType);
 
   /// Create a copy of AuthorEntity
   /// with the given fields replaced by the non-null parameter values.
@@ -181,7 +208,8 @@ abstract class _AuthorEntity implements AuthorEntity {
       {required final String id,
       required final String name,
       required final String imageUrl,
-      required final bool isFollowing}) = _$AuthorEntityImpl;
+      required final bool isFollowing,
+      required final String userType}) = _$AuthorEntityImpl;
 
   @override
   String get id;
@@ -191,6 +219,8 @@ abstract class _AuthorEntity implements AuthorEntity {
   String get imageUrl;
   @override
   bool get isFollowing;
+  @override
+  String get userType;
 
   /// Create a copy of AuthorEntity
   /// with the given fields replaced by the non-null parameter values.

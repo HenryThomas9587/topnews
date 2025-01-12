@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:topnews/core/router/router_extension.dart';
 import 'package:topnews/core/theme/app_theme.dart';
 import 'package:topnews/core/util/date_formatter.dart';
-import 'package:topnews/core/widget/image_error_placeholder.dart';
 import 'package:topnews/core/widget/user_avatar.dart';
 import 'package:topnews/features/news/domain/entity/news_entity.dart';
 import 'package:topnews/core/widget/app_label.dart';
 import 'package:topnews/core/widget/news_action_bar.dart';
+import 'package:cached_network_image/cached_network_image.dart'; // 假设您使用了 CachedNetworkImage
 
 class StoryCard extends StatelessWidget {
   const StoryCard({
@@ -19,62 +19,53 @@ class StoryCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    const cardPadding = EdgeInsets.all(AppTheme.spaceMd);
 
     return Card(
-      clipBehavior: Clip.hardEdge,
+      clipBehavior: Clip.hardEdge, // Card 本身可以设置 clipBehavior
       child: InkWell(
         onTap: () => context.pushNewsDetail(item.id),
         child: SizedBox(
-          width: 280,
+          width: AppTheme.storyCardWidth,
+          height: AppTheme.storyCardHeight,
           child: Column(
             children: [
-              // 图片部分 - 固定高度
+              // 图片部分 - 使用 Container 和 BoxDecoration
               SizedBox(
-                height: 140,
+                height: AppTheme.storyCardImageHeight,
                 width: double.infinity,
                 child: Stack(
                   children: [
                     _buildCoverImage(),
                     Padding(
-                      padding: const EdgeInsets.all(AppTheme.spaceMd),
+                      padding: cardPadding,
                       child: AppLabel(text: item.category),
                     ),
                   ],
                 ),
               ),
-              // 内容部分 - 使用 Expanded 确保底部对齐
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.all(12),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // 标题部分 - 使用 Expanded 自适应高度
-                      Expanded(
-                        child: Text(
-                          item.title,
-                          style: theme.textTheme.bodyLarge,
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
-                      // 底部信息 - 固定高度部分
-                      const SizedBox(height: 8),
-                      Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          _buildAuthorInfo(theme),
-                          const SizedBox(height: 4),
-                          NewsActionBar(
-                            views: item.views,
-                            comments: item.comments,
-                            onShare: () {},
-                            onBookmark: () {},
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
+              // 内容部分
+              Padding(
+                padding: AppTheme.storyCardPadding,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      item.title,
+                      style: theme.textTheme.bodyLarge,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    const SizedBox(height: 8),
+                    _buildAuthorInfo(theme),
+                    const SizedBox(height: 4),
+                    NewsActionBar(
+                      views: item.views,
+                      comments: item.comments,
+                      onShare: () {},
+                      onBookmark: () {},
+                    ),
+                  ],
                 ),
               ),
             ],
@@ -85,14 +76,14 @@ class StoryCard extends StatelessWidget {
   }
 
   Widget _buildCoverImage() {
-    return ClipRRect(
-      borderRadius: AppTheme.imageBorderTopRadius,
-      child: Image.network(
-        item.cover,
-        width: double.infinity,
-        height: double.infinity,
-        fit: BoxFit.cover,
-        errorBuilder: (_, __, ___) => const ImageErrorPlaceholder(),
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: AppTheme.imageBorderTopRadius, // 应用圆角
+        image: DecorationImage(
+          image: CachedNetworkImageProvider(
+              item.cover), // 使用 CachedNetworkImageProvider
+          fit: BoxFit.cover,
+        ),
       ),
     );
   }
@@ -115,9 +106,11 @@ class StoryCard extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                 ),
               ),
-              Text(
+              const Text(
                 ' • ',
-                style: theme.textTheme.bodyMedium,
+                style: TextStyle(
+                    // ... theme.textTheme.bodyMedium 的属性
+                    ),
               ),
               Text(
                 DateFormatter.timeAgo(item.publishedAt),

@@ -84,6 +84,16 @@ class AppTheme {
   static const contentPadding =
       EdgeInsets.symmetric(horizontal: spaceMd, vertical: spaceMd);
 
+  // 卡片尺寸配置
+  static const storyCardWidth = 280.0;
+  static const storyCardHeight = 280.0;
+  static const storyCardImageHeight = 140.0;
+  static const storyCardPadding = EdgeInsets.all(12.0);
+
+  static const followCardWidth = 100.0;
+  static const followCardHeight = 140.0;
+  static const followCardPadding = EdgeInsets.all(12.0);
+
   static final light = ThemeData(
     useMaterial3: true,
     brightness: Brightness.light,

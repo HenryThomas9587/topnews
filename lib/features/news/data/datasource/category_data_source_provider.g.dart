@@ -27,7 +27,7 @@ final categoryRemoteDataSourceProvider =
 typedef CategoryRemoteDataSourceRef
     = AutoDisposeProviderRef<CategoryRemoteDataSource>;
 String _$categoryLocalDataSourceHash() =>
-    r'f153525d9fa679485f1fc074f2f6b954dcf10fdf';
+    r'6997853c427bd15c88e64266468a1e3cf49035ae';
 
 /// See also [categoryLocalDataSource].
 @ProviderFor(categoryLocalDataSource)

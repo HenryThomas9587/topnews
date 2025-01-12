@@ -24,6 +24,7 @@ mixin _$AuthorModel {
   String get name => throw _privateConstructorUsedError;
   String get imageUrl => throw _privateConstructorUsedError;
   bool get isFollowing => throw _privateConstructorUsedError;
+  String get userType => throw _privateConstructorUsedError;
 
   /// Serializes this AuthorModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -41,7 +42,12 @@ abstract class $AuthorModelCopyWith<$Res> {
           AuthorModel value, $Res Function(AuthorModel) then) =
       _$AuthorModelCopyWithImpl<$Res, AuthorModel>;
   @useResult
-  $Res call({String id, String name, String imageUrl, bool isFollowing});
+  $Res call(
+      {String id,
+      String name,
+      String imageUrl,
+      bool isFollowing,
+      String userType});
 }
 
 /// @nodoc
@@ -63,6 +69,7 @@ class _$AuthorModelCopyWithImpl<$Res, $Val extends AuthorModel>
     Object? name = null,
     Object? imageUrl = null,
     Object? isFollowing = null,
+    Object? userType = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -81,6 +88,10 @@ class _$AuthorModelCopyWithImpl<$Res, $Val extends AuthorModel>
           ? _value.isFollowing
           : isFollowing // ignore: cast_nullable_to_non_nullable
               as bool,
+      userType: null == userType
+          ? _value.userType
+          : userType // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -93,7 +104,12 @@ abstract class _$$AuthorModelImplCopyWith<$Res>
       __$$AuthorModelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, String name, String imageUrl, bool isFollowing});
+  $Res call(
+      {String id,
+      String name,
+      String imageUrl,
+      bool isFollowing,
+      String userType});
 }
 
 /// @nodoc
@@ -113,6 +129,7 @@ class __$$AuthorModelImplCopyWithImpl<$Res>
     Object? name = null,
     Object? imageUrl = null,
     Object? isFollowing = null,
+    Object? userType = null,
   }) {
     return _then(_$AuthorModelImpl(
       id: null == id
@@ -131,6 +148,10 @@ class __$$AuthorModelImplCopyWithImpl<$Res>
           ? _value.isFollowing
           : isFollowing // ignore: cast_nullable_to_non_nullable
               as bool,
+      userType: null == userType
+          ? _value.userType
+          : userType // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -142,7 +163,8 @@ class _$AuthorModelImpl implements _AuthorModel {
       {required this.id,
       required this.name,
       required this.imageUrl,
-      this.isFollowing = false});
+      this.isFollowing = false,
+      this.userType = ''});
 
   factory _$AuthorModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$AuthorModelImplFromJson(json);
@@ -156,10 +178,13 @@ class _$AuthorModelImpl implements _AuthorModel {
   @override
   @JsonKey()
   final bool isFollowing;
+  @override
+  @JsonKey()
+  final String userType;
 
   @override
   String toString() {
-    return 'AuthorModel(id: $id, name: $name, imageUrl: $imageUrl, isFollowing: $isFollowing)';
+    return 'AuthorModel(id: $id, name: $name, imageUrl: $imageUrl, isFollowing: $isFollowing, userType: $userType)';
   }
 
   @override
@@ -172,12 +197,15 @@ class _$AuthorModelImpl implements _AuthorModel {
             (identical(other.imageUrl, imageUrl) ||
                 other.imageUrl == imageUrl) &&
             (identical(other.isFollowing, isFollowing) ||
-                other.isFollowing == isFollowing));
+                other.isFollowing == isFollowing) &&
+            (identical(other.userType, userType) ||
+                other.userType == userType));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, id, name, imageUrl, isFollowing);
+  int get hashCode =>
+      Object.hash(runtimeType, id, name, imageUrl, isFollowing, userType);
 
   /// Create a copy of AuthorModel
   /// with the given fields replaced by the non-null parameter values.
@@ -200,7 +228,8 @@ abstract class _AuthorModel implements AuthorModel {
       {required final String id,
       required final String name,
       required final String imageUrl,
-      final bool isFollowing}) = _$AuthorModelImpl;
+      final bool isFollowing,
+      final String userType}) = _$AuthorModelImpl;
 
   factory _AuthorModel.fromJson(Map<String, dynamic> json) =
       _$AuthorModelImpl.fromJson;
@@ -213,6 +242,8 @@ abstract class _AuthorModel implements AuthorModel {
   String get imageUrl;
   @override
   bool get isFollowing;
+  @override
+  String get userType;
 
   /// Create a copy of AuthorModel
   /// with the given fields replaced by the non-null parameter values.

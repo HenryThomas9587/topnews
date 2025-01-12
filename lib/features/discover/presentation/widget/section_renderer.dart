@@ -1,37 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:topnews/core/router/router_extension.dart';
+import 'package:topnews/features/discover/config/user_type.dart';
 import 'package:topnews/features/discover/domain/entity/discover_section.dart';
-import 'package:topnews/features/discover/presentation/widget/author_list.dart';
-import 'package:topnews/features/discover/presentation/widget/publisher_list.dart';
-import 'package:topnews/features/news/presentation/widget/story_section.dart';
+import 'package:topnews/features/discover/presentation/widget/author_recommended_list.dart';
+import 'package:topnews/features/news/config/news_type.dart';
+import 'package:topnews/features/news/presentation/widget/story_recommended_list.dart';
 
 class SectionRenderer extends StatelessWidget {
-  const SectionRenderer({
-    super.key,
-    required this.section,
-  });
-
   final DiscoverSection section;
+
+  const SectionRenderer({super.key, required this.section});
 
   @override
   Widget build(BuildContext context) {
     return switch (section.type) {
-      DiscoverType.topStories => StorySection(
-          title: section.type.value,
-          items: section.topStories ?? [],
-          onViewAll: () {
-            context.pushNewsList(section.type.value);
-          },
+      DiscoverType.topStories => const StoryRecommendedList(
+          newsType: NewsType.top,
         ),
-      DiscoverType.publishers => const PublisherList(),
-      DiscoverType.authors => const AuthorList(),
-      DiscoverType.recommended => StorySection(
-          title: section.type.value,
-          items: section.recommended ?? [],
-          onViewAll: () {
-            context.pushNewsList(section.type.value);
-          },
-        ),
+      DiscoverType.publishers =>
+        const AuthorRecommendedList(userType: UserType.publisher),
+      DiscoverType.authors =>
+        const AuthorRecommendedList(userType: UserType.author),
+      DiscoverType.recommended => const StoryRecommendedList(
+          newsType: NewsType.recommended,
+        )
     };
   }
 }

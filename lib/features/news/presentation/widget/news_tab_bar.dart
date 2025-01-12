@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:topnews/core/theme/app_theme.dart';
 import 'package:topnews/features/news/domain/entity/category_entity.dart';
 
-class NewsTabBar extends StatelessWidget implements PreferredSizeWidget {
+class NewsTabBar extends StatelessWidget {
   const NewsTabBar({
     super.key,
     required this.tabs,
@@ -66,7 +66,4 @@ class NewsTabBar extends StatelessWidget implements PreferredSizeWidget {
       ),
     );
   }
-
-  @override
-  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }

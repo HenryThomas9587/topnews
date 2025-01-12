@@ -3,12 +3,24 @@ import 'package:go_router/go_router.dart';
 import 'package:topnews/features/profile/domain/entity/user_profile_entity.dart';
 
 extension RouterExtension on BuildContext {
-  void pushNewsList(String title) {
-    push('/news/$title');
+  void pushNewsPublish() {
+    push('/newsPublish');
   }
 
-  void pushNewsTab(String title) {
-    push('/newsTab/$title');
+  void pushNewsDraft(String id) {
+    push('/newsDraft/$id');
+  }
+
+  void pushNewsList(String type, String? query) {
+    if (query != null) {
+      push('/newsList/$type?query=$query');
+    } else {
+      push('/newsList/$type');
+    }
+  }
+
+  void pushNewsTab(String type) {
+    push('/newsTab/$type');
   }
 
   void pushNewsDetail(String id) {
@@ -29,5 +41,13 @@ extension RouterExtension on BuildContext {
 
   void pushNotificationSettings() {
     push('/settings/notification');
+  }
+
+  void pushSearch() {
+    push('/search/record');
+  }
+
+  void pushSearchResults(String query) {
+    push('/search/results?q=$query');
   }
 }

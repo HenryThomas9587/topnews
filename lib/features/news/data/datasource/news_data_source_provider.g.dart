@@ -26,7 +26,7 @@ final newsRemoteDataSourceProvider =
 // ignore: unused_element
 typedef NewsRemoteDataSourceRef = AutoDisposeProviderRef<NewsRemoteDataSource>;
 String _$newsLocalDataSourceHash() =>
-    r'71a8828caf383b40436f14b8ec3ac6203c2512bb';
+    r'0ae3e06d0a08edd3f61e89d456093b887a576892';
 
 /// See also [newsLocalDataSource].
 @ProviderFor(newsLocalDataSource)

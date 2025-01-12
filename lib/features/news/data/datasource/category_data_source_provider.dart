@@ -3,8 +3,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:topnews/core/storage/hive_storage.dart';
 import 'package:topnews/features/news/data/datasource/category_data_source.dart';
-import 'package:topnews/features/news/data/datasource/category_local_data_source_impl.dart';
-import 'package:topnews/features/news/data/datasource/category_remote_data_source_impl.dart';
+import 'package:topnews/features/news/data/datasource/local/category_local_data_source_impl.dart';
+import 'package:topnews/features/news/data/datasource/remote/category_remote_data_source_impl.dart';
 import 'package:topnews/features/news/data/model/category_model.dart';
 
 part 'category_data_source_provider.g.dart';
@@ -16,6 +16,6 @@ CategoryRemoteDataSource categoryRemoteDataSource(Ref ref) {
 
 @riverpod
 CategoryLocalDataSource categoryLocalDataSource(Ref ref) {
-  final box = Hive.box<CategoryModel>(HiveStorage.categoriesBox);
+  final box = Hive.box<List<CategoryModel>>(HiveStorage.categoriesCacheBox);
   return CategoryLocalDataSourceImpl(box);
 }

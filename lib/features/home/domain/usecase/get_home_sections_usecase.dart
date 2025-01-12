@@ -19,41 +19,47 @@ class GetHomeSectionsUseCase {
     required this.categoryRepository,
   });
 
-  Future<List<HomeSection>> execute({int page = 1, int pageSize = 10}) async {
+  Future<List<HomeSection>> execute(
+      {int page = 1, int pageSize = 10, String? categoryId}) async {
     if (page == 1) {
       // 并行请求所有section数据
       final results = await Future.wait([
-        newsRepository.getTrendingNews(),
+        newsRepository.getTrendingNews(page, pageSize),
         categoryRepository.getCategories(),
-        newsRepository.getNews(
-          page: page,
-          pageSize: pageSize,
-        ),
+        newsRepository.getCategoryNews(page, pageSize, categoryId ?? ''),
       ]);
-
-      final trending = results[0] as List<NewsEntity>;
+      final trendingNews = results[0] as List<NewsEntity>;
       final categories = results[1] as List<CategoryEntity>;
-      final news = results[2] as List<NewsEntity>;
+      categories.insert(
+        0,
+        const CategoryEntity(
+          id: 0,
+          name: 'all',
+          label: 'All',
+        ),
+      );
+      final categoryNews = results[2] as List<NewsEntity>;
       final sectionList = [
         HomeSection(
           type: HomeSectionType.trending,
-          trendingNews: trending,
+          trendingList: trendingNews,
         ),
         HomeSection(
           type: HomeSectionType.category,
-          categorys: categories,
+          categoryList: categories,
         ),
       ];
-      sectionList.addAll(news.map((story) => HomeSection(
+      sectionList.addAll(categoryNews.map((story) => HomeSection(
             type: HomeSectionType.story,
             item: story,
           )));
       return sectionList;
     } else {
       // 后续页面只加载stories
-      final stories = await newsRepository.getNews(
-        page: page,
-        pageSize: pageSize,
+      final stories = await newsRepository.getCategoryNews(
+        page,
+        pageSize,
+        categoryId ?? '',
       );
       return stories
           .map((story) => HomeSection(

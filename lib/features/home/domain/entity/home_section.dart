@@ -13,13 +13,13 @@ enum HomeSectionType {
 class HomeSection {
   final HomeSectionType type;
   final NewsEntity? item;
-  final List<NewsEntity>? trendingNews;
-  final List<CategoryEntity>? categorys;
+  final List<NewsEntity>? trendingList;
+  final List<CategoryEntity>? categoryList;
 
   const HomeSection({
     required this.type,
     this.item,
-    this.trendingNews,
-    this.categorys,
+    this.trendingList,
+    this.categoryList,
   });
 }

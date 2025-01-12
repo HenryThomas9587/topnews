@@ -62,7 +62,7 @@ class DiscoverPage extends HookConsumerWidget {
             padding: AppTheme.contentPadding,
             itemCount: sections.length,
             separatorBuilder: (context, index) =>
-                const SizedBox(height: AppTheme.spaceLg),
+                const SizedBox(height: AppTheme.spaceMd),
             itemBuilder: (context, index) {
               return SectionRenderer(section: sections[index]);
             },
@@ -71,7 +71,10 @@ class DiscoverPage extends HookConsumerWidget {
             child: CircularProgressIndicator(),
           ),
           error: (error, stack) => Center(
-            child: ErrorView(error: error),
+            child: ErrorView(
+              error: error,
+              onRetry: () => notifier.refresh(),
+            ),
           ),
         ),
       ),

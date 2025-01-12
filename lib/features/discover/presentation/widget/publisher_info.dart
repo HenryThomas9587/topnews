@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:topnews/core/theme/app_theme.dart';
-import 'package:topnews/core/widget/follow_button.dart';
+import 'package:topnews/core/widget/app_button.dart';
 import 'package:topnews/core/widget/user_avatar.dart';
 
 class PublisherInfo extends StatelessWidget {
@@ -37,9 +37,11 @@ class PublisherInfo extends StatelessWidget {
               name,
               style: theme.textTheme.titleSmall,
             ),
-            FollowButton(
-              isFollowing: isFollowing,
+            AppButton(
+              isChecked: isFollowing,
               onTap: onFollowTap,
+              text: 'Follow',
+              checkedText: 'Following',
             ),
           ],
         ),

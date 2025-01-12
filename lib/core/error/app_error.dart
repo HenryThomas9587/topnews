@@ -10,6 +10,7 @@ class AppError with _$AppError {
   const factory AppError.server(String message) = ServerError;
   const factory AppError.unauthorized(String message) = UnauthorizedError;
   const factory AppError.unknown(String message) = UnknownError;
+  const factory AppError.custom(String message) = CustomError;
 
   factory AppError.fromDioError(DioException error) {
     switch (error.type) {

@@ -1,15 +1,17 @@
 import 'package:topnews/features/news/data/model/news_model.dart';
 
 abstract class NewsRemoteDataSource {
-  Future<List<NewsModel>> getTrendingNews();
+  Future<List<NewsModel>> getTrendingNews(int page, int pageSize);
   Future<List<NewsModel>> getTopNews();
-  Future<List<NewsModel>> getRecommendedNews();
-  Future<List<NewsModel>> getNews(
-      {int page = 1, int pageSize = 10, int? categoryId});
+  Future<List<NewsModel>> getRecommendedNews(int page, int pageSize);
+  Future<List<NewsModel>> getLatestNews(int page, int pageSize);
+  Future<List<NewsModel>> searchNews(int page, int pageSize, String keyword);
+  Future<List<NewsModel>> getCategoryNews(int page, int pageSize, String categoryId);
+  Future<NewsModel> getNewsDetail(String newsId);
 }
 
 abstract class NewsLocalDataSource {
-  Future<List<NewsModel>> getCachedNews();
-  Future<void> cacheNews(List<NewsModel> news);
-  Future<void> clearCache();
+  Future<List<NewsModel>> getCachedNews(String key);
+  Future<void> cacheNews(String key, List<NewsModel> news);
+  Future<void> clearCache(String key);
 }
