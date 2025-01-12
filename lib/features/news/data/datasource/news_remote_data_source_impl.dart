@@ -50,9 +50,9 @@ class NewsRemoteDataSourceImpl implements NewsRemoteDataSource {
   }
 
   @override
-  Future<NewsModel> getNewsDetail(String id) async {
+  Future<NewsModel> getNewsDetail(String newsId) async {
     // 模拟网络延迟
     await Future.delayed(const Duration(milliseconds: 1000));
-    return mockNewsDataSource.getNewsDetailById(id);
+    return mockNewsDataSource.getNewsDetailById(newsId);
   }
 }

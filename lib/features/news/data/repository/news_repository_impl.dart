@@ -59,8 +59,8 @@ class NewsRepositoryImpl implements NewsRepository {
   }
 
   @override
-  Future<NewsEntity> getNewsDetail(String newsId) async {
-    final news = await remoteDataSource.getNewsDetail(newsId);
+  Future<NewsEntity> getNewsDetail(String id) async {
+    final news = await remoteDataSource.getNewsDetail(id);
     return news.toEntity();
   }
 }

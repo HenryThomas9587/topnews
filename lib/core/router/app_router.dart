@@ -22,9 +22,9 @@ final appRouter = GoRouter(
       builder: (context, state) => const MainPage(),
       routes: [
         GoRoute(
-          path: 'newsDetail/:newsId',
+          path: 'newsDetail/:id',
           builder: (context, state) => NewsDetailPage(
-            newsId: state.pathParameters['newsId']!,
+            id: state.pathParameters['id']!,
           ),
         ),
       ],

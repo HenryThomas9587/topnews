@@ -14,5 +14,5 @@ abstract class NewsRepository {
 
   Future<List<NewsEntity>> searchNews(int page, int pageSize, String keyword);
 
-  Future<NewsEntity> getNewsDetail(String newsId);
+  Future<NewsEntity> getNewsDetail(String id);
 }

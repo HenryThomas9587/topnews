@@ -3,6 +3,7 @@ import 'package:string_similarity/string_similarity.dart';
 
 import 'package:topnews/features/news/data/datasource/mock/mock_auth_data_sets.dart';
 import 'package:topnews/features/news/data/datasource/mock/mock_category_data_sets.dart';
+import 'package:topnews/features/news/data/datasource/mock/quill_delta_sample.dart';
 import 'package:topnews/features/news/data/model/news_model.dart';
 
 class MockNewsDataSource {
@@ -111,7 +112,8 @@ class MockNewsDataSource {
   }
 
   NewsModel getNewsDetailById(String newsId) {
-    return mockNewsList.firstWhere((news) => news.id == newsId);
+    NewsModel news = mockNewsList.firstWhere((news) => news.id == newsId);
+    return news.copyWith(content: kQuillDefaultSampleJson);
   }
 
   List<NewsModel> getCategoryNews(int page, int pageSize, String categoryId) {

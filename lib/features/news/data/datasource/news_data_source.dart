@@ -6,8 +6,9 @@ abstract class NewsRemoteDataSource {
   Future<List<NewsModel>> getRecommendedNews(int page, int pageSize);
   Future<List<NewsModel>> getLatestNews(int page, int pageSize);
   Future<List<NewsModel>> searchNews(int page, int pageSize, String keyword);
-  Future<List<NewsModel>> getCategoryNews(int page, int pageSize, String categoryId);
-  Future<NewsModel> getNewsDetail(String newsId);
+  Future<List<NewsModel>> getCategoryNews(
+      int page, int pageSize, String categoryId);
+  Future<NewsModel> getNewsDetail(String id);
 }
 
 abstract class NewsLocalDataSource {
