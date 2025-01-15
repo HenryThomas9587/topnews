@@ -14,10 +14,11 @@ class NewsListPage extends StatelessWidget {
   final String? query;
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     final newsType = NewsType.fromString(type);
     return Scaffold(
       appBar: AppBar(
-        title: Text(newsType.label),
+        title: Text(newsType.label, style: theme.textTheme.titleLarge),
       ),
       body: Padding(
         padding: const EdgeInsets.all(AppTheme.spaceMd), // 使用主题中的间距常量

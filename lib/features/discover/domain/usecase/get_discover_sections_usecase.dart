@@ -39,7 +39,7 @@ class GetDiscoverSectionsUseCase {
       ),
       DiscoverSection(
         type: DiscoverType.recommended,
-        recommended: results[1] as List<NewsEntity>?,
+        recommendList: results[1] as List<NewsEntity>?,
       ),
     ];
 

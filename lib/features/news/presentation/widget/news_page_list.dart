@@ -21,7 +21,7 @@ class NewsPageList extends HookConsumerWidget {
   final String? query;
 
   static const _loadMoreOffset = 200; // 距离底部多少像素时触发加载更多
-  static const _separatorHeight = AppTheme.spaceMd; // 列表项之间的间距
+  static const _separatorHeight = AppTheme.spaceSm; // 列表项之间的间距
   static const _throttleLoadMoreTime = 300; // 加载更多的节流时间
   static const _throttleUpdateOffsetTime = 300; // 更新滚动偏移量的节流时间
   static const _throttleLoadMoreDuration =

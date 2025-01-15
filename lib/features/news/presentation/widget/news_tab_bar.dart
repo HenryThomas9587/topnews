@@ -15,7 +15,6 @@ class NewsTabBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-
     return Container(
       height: kToolbarHeight,
       margin: const EdgeInsets.symmetric(vertical: AppTheme.spaceSm),

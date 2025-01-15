@@ -18,13 +18,13 @@ class DiscoverSection {
   final List<NewsEntity>? topStories;
   final List<PublisherEntity>? publishers;
   final List<AuthorEntity>? authors;
-  final List<NewsEntity>? recommended;
+  final List<NewsEntity>? recommendList;
 
   const DiscoverSection({
     required this.type,
     this.topStories,
     this.publishers,
     this.authors,
-    this.recommended,
+    this.recommendList,
   });
 }

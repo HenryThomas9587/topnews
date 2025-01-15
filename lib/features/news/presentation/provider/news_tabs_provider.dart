@@ -19,7 +19,7 @@ class NewsTabsProvider extends _$NewsTabsProvider {
     state = await AsyncValue.guard(() async {
       final categories = await repository.getCategories();
       return [
-        const CategoryEntity(id: 0, name: 'All', label: 'All'),
+        const CategoryEntity(id: 0, name: 'all', label: 'All'),
         ...categories.where((c) => c.isActive),
       ];
     });

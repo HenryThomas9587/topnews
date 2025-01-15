@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:topnews/core/theme/app_theme.dart';
 import 'package:topnews/core/widget/common_widgets.dart';
 import 'package:topnews/features/news/config/news_type.dart';
 import 'package:topnews/features/news/domain/entity/category_entity.dart';
@@ -14,11 +15,12 @@ class NewsTabsPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final theme = Theme.of(context);
     final tabsAsync = ref.watch(newsTabsProviderProvider);
     final type = NewsType.values.firstWhere((e) => e.name == this.type);
     return Scaffold(
       appBar: AppBar(
-        title: Text(type.label),
+        title: Text(type.label, style: theme.textTheme.titleLarge),
       ),
       body: tabsAsync.when(
         data: (tabs) => DefaultTabController(
@@ -44,14 +46,17 @@ class NewsTabsPage extends ConsumerWidget {
   }
 
   Widget _buildTabView(List<CategoryEntity> tabs, TabController controller) {
-    return TabBarView(
-      controller: controller,
-      children: tabs
-          .map((category) => NewsPageList(
-                newsType: NewsType.search,
-                query: category.name,
-              ))
-          .toList(),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: AppTheme.spaceMd),
+      child: TabBarView(
+        controller: controller,
+        children: tabs
+            .map((category) => NewsPageList(
+                  newsType: NewsType.category,
+                  query: category.id.toString(),
+                ))
+            .toList(),
+      ),
     );
   }
 }
