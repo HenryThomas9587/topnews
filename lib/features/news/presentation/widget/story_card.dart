@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:topnews/core/router/router_extension.dart';
 import 'package:topnews/core/theme/app_theme.dart';
-import 'package:topnews/core/util/date_formatter.dart';
-import 'package:topnews/core/widget/user_avatar.dart';
 import 'package:topnews/features/news/domain/entity/news_entity.dart';
 import 'package:topnews/core/widget/app_label.dart';
 import 'package:topnews/core/widget/news_action_bar.dart';
-import 'package:cached_network_image/cached_network_image.dart'; // 假设您使用了 CachedNetworkImage
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:topnews/features/news/presentation/widget/author_info.dart'; // 假设您使用了 CachedNetworkImage
 
 class StoryCard extends StatelessWidget {
   // 固定尺寸常量 - 考虑是否真的需要全部固定
@@ -60,7 +59,7 @@ class StoryCard extends StatelessWidget {
                     // 作者信息
                     SizedBox(
                       height: authorInfoHeight,
-                      child: _AuthorInfo(
+                      child: AuthorInfo(
                         avatar: item.authorAvatar,
                         author: item.author,
                         publishedAt: item.publishedAt,
@@ -148,55 +147,6 @@ class _ImageError extends StatelessWidget {
         Icons.image_not_supported_outlined,
         color: theme.colorScheme.outline,
       ),
-    );
-  }
-}
-
-class _AuthorInfo extends StatelessWidget {
-  final String avatar;
-  final String author;
-  final DateTime publishedAt;
-
-  const _AuthorInfo({
-    required this.avatar,
-    required this.author,
-    required this.publishedAt,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final textStyle = theme.textTheme.bodySmall;
-    final secondaryStyle = textStyle?.copyWith(
-      color: theme.colorScheme.onSurfaceVariant,
-    );
-
-    return Row(
-      children: [
-        UserAvatar(
-          imageUrl: avatar,
-          radius: 8,
-        ),
-        const SizedBox(width: 4),
-        Expanded(
-          child: Row(
-            children: [
-              Flexible(
-                child: Text(
-                  author,
-                  style: textStyle,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ),
-              Text(' • ', style: secondaryStyle),
-              Text(
-                DateFormatter.timeAgo(publishedAt),
-                style: secondaryStyle,
-              ),
-            ],
-          ),
-        ),
-      ],
     );
   }
 }

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:topnews/core/router/router_extension.dart';
 import 'package:topnews/core/theme/app_theme.dart';
-import 'package:topnews/core/util/date_formatter.dart';
+import 'package:topnews/core/widget/news_action_bar.dart';
 import 'package:topnews/features/news/domain/entity/news_entity.dart';
-import 'package:topnews/core/widget/user_avatar.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:topnews/features/news/presentation/widget/author_info.dart';
 
 class NewsCard extends StatelessWidget {
   final NewsEntity news;
@@ -25,10 +25,20 @@ class NewsCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               _NewsMainContent(news: news),
-              const SizedBox(height: 12),
-              _NewsAuthorInfo(news: news),
-              const SizedBox(height: 12),
-              _NewsStats(story: news),
+              AppTheme.vSpaceMd,
+              AuthorInfo(
+                avatar: news.authorAvatar,
+                author: news.author,
+                publishedAt: news.publishedAt,
+              ),
+              AppTheme.vSpaceXs,
+              NewsActionBar(
+                views: news.views,
+                comments: news.comments,
+                onShare: () {},
+                onBookmark: () {},
+                onMore: () {},
+              ),
             ],
           ),
         ),
@@ -58,7 +68,7 @@ class _NewsMainContent extends StatelessWidget {
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
               ),
-              const SizedBox(height: 4),
+              AppTheme.vSpaceXs,
               Text(
                 news.content,
                 style: theme.textTheme.bodyMedium,
@@ -68,10 +78,8 @@ class _NewsMainContent extends StatelessWidget {
             ],
           ),
         ),
-        ...[
-          const SizedBox(width: 12),
-          _NewsImage(imageUrl: news.imageUrl),
-        ],
+        AppTheme.hSpaceMd,
+        _NewsImage(imageUrl: news.imageUrl),
       ],
     );
   }
@@ -84,131 +92,55 @@ class _NewsImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     return Container(
-      width: 150,
-      height: 120,
-      decoration: BoxDecoration(
+      width: 120,
+      height: 100,
+      clipBehavior: Clip.hardEdge,
+      decoration: const BoxDecoration(
         borderRadius: AppTheme.imageBorderRadius,
-        color: theme.colorScheme.surface,
-        image: DecorationImage(
-          image: CachedNetworkImageProvider(imageUrl),
-          fit: BoxFit.cover,
+      ),
+      child: CachedNetworkImage(
+        width: 120,
+        height: 100,
+        imageUrl: imageUrl,
+        fit: BoxFit.cover,
+        placeholder: (_, __) => const _ImagePlaceholder(),
+        errorWidget: (_, __, ___) => const _ImageError(),
+      ),
+    );
+  }
+}
+
+class _ImagePlaceholder extends StatelessWidget {
+  const _ImagePlaceholder();
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return ColoredBox(
+      color: theme.colorScheme.surfaceContainerHighest,
+      child: Center(
+        child: CircularProgressIndicator(
+          strokeWidth: 2,
+          color: theme.colorScheme.primary,
         ),
       ),
     );
   }
 }
 
-class _NewsAuthorInfo extends StatelessWidget {
-  final NewsEntity news;
-
-  const _NewsAuthorInfo({required this.news});
+class _ImageError extends StatelessWidget {
+  const _ImageError();
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return Row(
-      children: [
-        UserAvatar(
-          imageUrl: news.authorAvatar,
-        ),
-        const SizedBox(width: AppTheme.spaceXs),
-        Text(
-          news.author ?? '',
-          style: theme.textTheme.bodySmall,
-        ),
-        const Spacer(),
-        Text(
-          DateFormatter.timeAgo(news.publishedAt),
-          style: theme.textTheme.bodySmall,
-        ),
-      ],
-    );
-  }
-}
-
-class _NewsStats extends StatelessWidget {
-  final NewsEntity story;
-
-  const _NewsStats({required this.story});
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        _StatItem(
-          icon: Icons.remove_red_eye_outlined,
-          value: story.views.toString(),
-        ),
-        const SizedBox(width: 16),
-        _StatItem(
-          icon: Icons.chat_bubble_outline,
-          value: story.comments.toString(),
-        ),
-        const Spacer(),
-        _ActionButton(
-          icon: Icons.share_outlined,
-          onPressed: () {},
-        ),
-        const SizedBox(width: 16),
-        _ActionButton(
-          icon: Icons.more_horiz,
-          onPressed: () {},
-        ),
-      ],
-    );
-  }
-}
-
-class _StatItem extends StatelessWidget {
-  final IconData icon;
-  final String value;
-
-  const _StatItem({
-    required this.icon,
-    required this.value,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    return Row(
-      children: [
-        Icon(
-          icon,
-          size: 14,
-          color: theme.colorScheme.onSurfaceVariant,
-        ),
-        const SizedBox(width: 4),
-        Text(
-          value,
-          style: theme.textTheme.bodySmall,
-        ),
-      ],
-    );
-  }
-}
-
-class _ActionButton extends StatelessWidget {
-  final IconData icon;
-  final VoidCallback onPressed;
-
-  const _ActionButton({
-    required this.icon,
-    required this.onPressed,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    return IconButton(
-      icon: Icon(icon),
-      iconSize: 18,
-      color: theme.colorScheme.onSurface,
-      onPressed: onPressed,
-      padding: EdgeInsets.zero,
-      constraints: const BoxConstraints(),
+    return ColoredBox(
+      color: theme.colorScheme.surfaceContainerHighest,
+      child: Icon(
+        Icons.image_not_supported_outlined,
+        color: theme.colorScheme.outline,
+      ),
     );
   }
 }
