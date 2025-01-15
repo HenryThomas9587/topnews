@@ -28,11 +28,10 @@ class HomeNotifier extends _$HomeNotifier {
         hasMore: sections.length >= _pageSize);
   }
 
-  Future<List<HomeSection>> _fetchSections() async {
-    final currentState = await future;
-    logDebug('HomeNotifier _fetchSections: page=${currentState.currentPage}');
+  Future<List<HomeSection>> _fetchSections(int page) async {
+    logDebug('HomeNotifier _fetchSections: page=$page');
     return ref.read(getHomeSectionsProvider).execute(
-          page: currentState.currentPage,
+          page: page,
           pageSize: _pageSize,
         );
   }
@@ -51,12 +50,13 @@ class HomeNotifier extends _$HomeNotifier {
         AsyncValue.data(currentState.copyWith(isLoadingMore: true)); // 设置加载更多状态
 
     try {
-      final nextSections = await _fetchSections();
+      final currentPage = currentState.currentPage;
+      final nextSections = await _fetchSections(currentPage);
       final hasMore = nextSections.length >= _pageSize;
-      final currentPage = hasMore ? currentState.currentPage + 1 : 1;
+      final nextPage = hasMore ? currentPage + 1 : 1;
       state = AsyncValue.data(currentState.copyWith(
         sections: [...currentState.sections, ...nextSections],
-        currentPage: currentPage,
+        currentPage: nextPage,
         hasMore: hasMore,
         isLoadingMore: false,
       ));
@@ -80,15 +80,14 @@ class HomeNotifier extends _$HomeNotifier {
     state =
         AsyncValue.data(currentState.copyWith(isRefreshing: true)); // 设置刷新状态
     try {
-      // Reset to page 1 for refresh
-      state = AsyncValue.data(currentState.copyWith(currentPage: 1));
-      final sections = await _fetchSections();
+      final sections = await _fetchSections(1);
       final hasMore = sections.length >= _pageSize;
-      final currentPage = hasMore ? currentState.currentPage + 1 : 1;
-      state = AsyncValue.data(HomeState(
+      state = AsyncValue.data(currentState.copyWith(
         sections: sections,
-        currentPage: currentPage,
+        currentPage: hasMore ? 2 : 1,
         hasMore: hasMore,
+        isRefreshing: false,
+        isLoadingMore: false,
       ));
       logDebug('HomeNotifier refresh: refreshed successfully');
     } catch (e, stack) {

@@ -83,6 +83,8 @@ dependencies:
   flutter_quill: ^10.8.5
   flutter_quill_extensions: ^10.8.5
 
+  device_info_plus: ^10.0.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

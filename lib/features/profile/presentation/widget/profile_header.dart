@@ -5,40 +5,21 @@ import 'package:topnews/features/profile/domain/entity/user_profile_entity.dart'
 
 class ProfileHeader extends StatelessWidget {
   final UserProfileEntity user;
+  final VoidCallback onAvatarTap;
 
   const ProfileHeader({
     super.key,
     required this.user,
+    required this.onAvatarTap,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(AppTheme.spaceLg),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              UserAvatar(
-                imageUrl: user.avatarUrl,
-                radius: 32,
-              ),
-              const SizedBox(width: AppTheme.spaceMd),
-              Expanded(
-                child: _UserInfo(user: user),
-              ),
-            ],
-          ),
-          if (user.bio.isNotEmpty) ...[
-            const SizedBox(height: AppTheme.spaceMd),
-            Text(user.bio),
-          ],
-          if (user.website.isNotEmpty) ...[
-            const SizedBox(height: AppTheme.spaceSm),
-            _WebsiteLink(website: user.website),
-          ],
-        ],
+    return GestureDetector(
+      onTap: onAvatarTap,
+      child: CircleAvatar(
+        radius: 50,
+        backgroundImage: NetworkImage(user.avatarUrl),
       ),
     );
   }

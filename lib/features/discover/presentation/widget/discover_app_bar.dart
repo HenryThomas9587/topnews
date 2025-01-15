@@ -8,7 +8,10 @@ class DiscoverAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      title: const Text('Discover'),
+      title: Text(
+        'Discover',
+        style: Theme.of(context).textTheme.titleLarge,
+      ),
       actions: [
         SearchButton(
           onPressed: () => context.pushSearch(),

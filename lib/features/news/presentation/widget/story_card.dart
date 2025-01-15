@@ -9,61 +9,71 @@ import 'package:topnews/core/widget/news_action_bar.dart';
 import 'package:cached_network_image/cached_network_image.dart'; // 假设您使用了 CachedNetworkImage
 
 class StoryCard extends StatelessWidget {
+  // 固定尺寸常量 - 考虑是否真的需要全部固定
+  static const double width = 280.0;
+  static const double height = 300; // 增加总高度
+  static const double imageHeight = 157; // 16:9 ratio of width
+  static const double titleHeight = 48.0;
+  static const double authorInfoHeight = 20.0;
+  static const double actionBarHeight = 20.0;
+  static const _contentPadding =
+      EdgeInsets.symmetric(horizontal: 16, vertical: 8);
+
+  final NewsEntity item;
+
   const StoryCard({
     super.key,
     required this.item,
   });
 
-  final NewsEntity item;
-
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    const cardPadding = EdgeInsets.all(AppTheme.spaceMd);
-
-    return Card(
-      clipBehavior: Clip.hardEdge, // Card 本身可以设置 clipBehavior
-      child: InkWell(
-        onTap: () => context.pushNewsDetail(item.id),
-        child: SizedBox(
-          width: AppTheme.storyCardWidth,
-          height: AppTheme.storyCardHeight,
+    return SizedBox(
+      width: width,
+      height: height,
+      child: Card(
+        clipBehavior: Clip.hardEdge,
+        child: InkWell(
+          onTap: () => context.pushNewsDetail(item.id),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start, // 默认左对齐
             children: [
-              // 图片部分 - 使用 Container 和 BoxDecoration
+              // 图片部分
               SizedBox(
-                height: AppTheme.storyCardImageHeight,
-                width: double.infinity,
-                child: Stack(
-                  children: [
-                    _buildCoverImage(),
-                    Padding(
-                      padding: cardPadding,
-                      child: AppLabel(text: item.category),
-                    ),
-                  ],
+                height: imageHeight,
+                child: _CoverImage(
+                  imageUrl: item.cover,
+                  category: item.category,
                 ),
               ),
-              // 内容部分
               Padding(
-                padding: AppTheme.storyCardPadding,
+                padding: _contentPadding,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      item.title,
-                      style: theme.textTheme.bodyLarge,
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
+                    // 标题
+                    SizedBox(
+                      height: titleHeight,
+                      child: _StoryTitle(title: item.title),
                     ),
-                    const SizedBox(height: 8),
-                    _buildAuthorInfo(theme),
-                    const SizedBox(height: 4),
+                    AppTheme.vSpaceSm,
+                    // 作者信息
+                    SizedBox(
+                      height: authorInfoHeight,
+                      child: _AuthorInfo(
+                        avatar: item.authorAvatar,
+                        author: item.author,
+                        publishedAt: item.publishedAt,
+                      ),
+                    ),
+                    AppTheme.vSpaceSm,
+                    // 操作栏
                     NewsActionBar(
                       views: item.views,
                       comments: item.comments,
                       onShare: () {},
                       onBookmark: () {},
+                      onMore: () {},
                     ),
                   ],
                 ),
@@ -74,52 +84,135 @@ class StoryCard extends StatelessWidget {
       ),
     );
   }
+}
 
-  Widget _buildCoverImage() {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: AppTheme.imageBorderTopRadius, // 应用圆角
-        image: DecorationImage(
-          image: CachedNetworkImageProvider(
-              item.cover), // 使用 CachedNetworkImageProvider
+class _CoverImage extends StatelessWidget {
+  final String imageUrl;
+  final String category;
+
+  const _CoverImage({
+    required this.imageUrl,
+    required this.category,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      fit: StackFit.expand,
+      children: [
+        CachedNetworkImage(
+          width: StoryCard.width,
+          height: StoryCard.imageHeight,
+          imageUrl: imageUrl,
           fit: BoxFit.cover,
+          placeholder: (_, __) => const _ImagePlaceholder(),
+          errorWidget: (_, __, ___) => const _ImageError(),
+        ),
+        Positioned(
+          top: 16,
+          left: 16,
+          child: AppLabel(text: category),
+        ),
+      ],
+    );
+  }
+}
+
+class _ImagePlaceholder extends StatelessWidget {
+  const _ImagePlaceholder();
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return ColoredBox(
+      color: theme.colorScheme.surfaceContainerHighest,
+      child: Center(
+        child: CircularProgressIndicator(
+          strokeWidth: 2,
+          color: theme.colorScheme.primary,
         ),
       ),
     );
   }
+}
 
-  Widget _buildAuthorInfo(ThemeData theme) {
+class _ImageError extends StatelessWidget {
+  const _ImageError();
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return ColoredBox(
+      color: theme.colorScheme.surfaceContainerHighest,
+      child: Icon(
+        Icons.image_not_supported_outlined,
+        color: theme.colorScheme.outline,
+      ),
+    );
+  }
+}
+
+class _AuthorInfo extends StatelessWidget {
+  final String avatar;
+  final String author;
+  final DateTime publishedAt;
+
+  const _AuthorInfo({
+    required this.avatar,
+    required this.author,
+    required this.publishedAt,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final textStyle = theme.textTheme.bodySmall;
+    final secondaryStyle = textStyle?.copyWith(
+      color: theme.colorScheme.onSurfaceVariant,
+    );
+
     return Row(
       children: [
         UserAvatar(
-          imageUrl: item.authorAvatar,
+          imageUrl: avatar,
           radius: 8,
         ),
-        const SizedBox(width: 8),
+        const SizedBox(width: 4),
         Expanded(
           child: Row(
             children: [
               Flexible(
                 child: Text(
-                  item.author,
-                  style: theme.textTheme.bodyMedium,
+                  author,
+                  style: textStyle,
                   overflow: TextOverflow.ellipsis,
                 ),
               ),
-              const Text(
-                ' • ',
-                style: TextStyle(
-                    // ... theme.textTheme.bodyMedium 的属性
-                    ),
-              ),
+              Text(' • ', style: secondaryStyle),
               Text(
-                DateFormatter.timeAgo(item.publishedAt),
-                style: theme.textTheme.bodyMedium,
+                DateFormatter.timeAgo(publishedAt),
+                style: secondaryStyle,
               ),
             ],
           ),
         ),
       ],
+    );
+  }
+}
+
+class _StoryTitle extends StatelessWidget {
+  final String title;
+
+  const _StoryTitle({required this.title});
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      title,
+      style: Theme.of(context).textTheme.bodyLarge,
+      maxLines: 2,
+      overflow: TextOverflow.ellipsis,
     );
   }
 }

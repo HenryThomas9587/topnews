@@ -19,23 +19,20 @@ class BaseSection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Row(
-            children: [
-              Text(
-                title,
-                style: Theme.of(context).textTheme.titleMedium,
+        Row(
+          children: [
+            Text(
+              title,
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
+            const Spacer(),
+            if (trailing != null) trailing!,
+            if (onViewAll != null)
+              TextButton(
+                onPressed: onViewAll,
+                child: const Text('查看全部'),
               ),
-              const Spacer(),
-              if (trailing != null) trailing!,
-              if (onViewAll != null)
-                TextButton(
-                  onPressed: onViewAll,
-                  child: const Text('查看全部'),
-                ),
-            ],
-          ),
+          ],
         ),
         child,
       ],

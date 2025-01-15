@@ -44,6 +44,8 @@ class AppTheme {
   static const imageRadius = 12.0;
   static const imageBorderTopRadius =
       BorderRadius.vertical(top: Radius.circular(imageRadius));
+  static const imageBorderRadius =
+      BorderRadius.all(Radius.circular(imageRadius));
 
   // 卡片配置
   static final cardBorderRadius = BorderRadius.circular(12.0);
@@ -86,13 +88,22 @@ class AppTheme {
 
   // 卡片尺寸配置
   static const storyCardWidth = 280.0;
-  static const storyCardHeight = 280.0;
+  static const storyCardHeight = 285.0;
   static const storyCardImageHeight = 140.0;
   static const storyCardPadding = EdgeInsets.all(12.0);
 
   static const followCardWidth = 100.0;
   static const followCardHeight = 140.0;
   static const followCardPadding = EdgeInsets.all(12.0);
+
+  // 水平间距
+  static const hSpaceXs = SizedBox(width: spaceXs);
+  static const hSpaceSm = SizedBox(width: spaceSm);
+  static const hSpaceMd = SizedBox(width: spaceMd);
+  // 垂直间距
+  static const vSpaceXs = SizedBox(height: spaceXs);
+  static const vSpaceSm = SizedBox(height: spaceSm);
+  static const vSpaceMd = SizedBox(height: spaceMd);
 
   static final light = ThemeData(
     useMaterial3: true,

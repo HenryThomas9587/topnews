@@ -10,6 +10,8 @@ import 'package:topnews/features/home/presentation/widget/section_renderer.dart'
 class HomePage extends HookConsumerWidget {
   const HomePage({super.key});
 
+  static const _loadMoreOffset = 200; // 距离底部多少像素时触发加载更多
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final showToTopButton = useState(false);
@@ -30,6 +32,9 @@ class HomePage extends HookConsumerWidget {
         if (!scrollController.hasClients) return;
         final position = scrollController.position;
 
+        final currentScroll = scrollController.position.pixels; // 当前滚动位置
+        final maxScroll = scrollController.position.maxScrollExtent; // 最大滚动范围
+
         if (position.pixels > 1000) {
           if (!showToTopButton.value) {
             showToTopButton.value = true;
@@ -38,7 +43,7 @@ class HomePage extends HookConsumerWidget {
           showToTopButton.value = false;
         }
 
-        if (position.pixels >= position.maxScrollExtent - 200) {
+        if (currentScroll >= maxScroll - _loadMoreOffset) {
           notifier.loadMoreData();
         }
       }
@@ -54,16 +59,18 @@ class HomePage extends HookConsumerWidget {
           showToTopButton.value = false;
           return notifier.refresh();
         },
-        displacement: 50,
+        displacement: 35,
         edgeOffset: 0,
         strokeWidth: 2.5,
         child: homeState.when(
-          data: (state) => ListView.builder(
+          data: (state) => ListView.separated(
+            separatorBuilder: (context, index) =>
+                const SizedBox(height: AppTheme.spaceSm),
             controller: scrollController,
+            padding: AppTheme.contentPadding,
             physics: const AlwaysScrollableScrollPhysics(
               parent: BouncingScrollPhysics(),
             ),
-            padding: AppTheme.contentPadding,
             itemCount: state.sections.length +
                 (state.hasMore || state.isLoadingMore ? 1 : 0),
             itemBuilder: (context, index) {

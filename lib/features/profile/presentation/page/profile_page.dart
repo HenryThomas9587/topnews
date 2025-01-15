@@ -6,13 +6,16 @@ import 'package:topnews/features/profile/presentation/provider/profile_provider.
 import 'package:topnews/features/profile/presentation/widget/profile_content.dart';
 import 'package:topnews/features/profile/presentation/widget/profile_header.dart';
 import 'package:topnews/features/profile/presentation/widget/profile_stats.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:topnews/core/util/app_permission.dart';
 
 class ProfilePage extends HookConsumerWidget {
   const ProfilePage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final profileAsync = ref.watch(profileProvider('current_user_id'));
+    final notify = ref.read(profileProvider('1').notifier);
+    final profileAsync = ref.watch(profileProvider('1'));
     final scrollController = useScrollController();
 
     useEffect(() {
@@ -44,7 +47,7 @@ class ProfilePage extends HookConsumerWidget {
         body: ListView(
           controller: scrollController,
           children: [
-            ProfileHeader(user: user),
+            ProfileHeader(user: user, onAvatarTap: () => _pickImage(notify)),
             const Divider(),
             ProfileStats(user: user),
             const Divider(),
@@ -61,5 +64,18 @@ class ProfilePage extends HookConsumerWidget {
         ),
       ),
     );
+  }
+
+  Future<void> _pickImage(Profile notify) async {
+    final hasPermission = await AppPermission.requestPhotoOrStoragePermission();
+    if (hasPermission) {
+      final picker = ImagePicker();
+      final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+      if (pickedFile != null) {
+        notify.uploadAvatar(pickedFile.path);
+      }
+    } else {
+      // TODO: 处理权限被拒绝的情况，弹窗提示，跳转app设置
+    }
   }
 }

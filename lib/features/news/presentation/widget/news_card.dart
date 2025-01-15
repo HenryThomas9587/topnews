@@ -4,6 +4,7 @@ import 'package:topnews/core/theme/app_theme.dart';
 import 'package:topnews/core/util/date_formatter.dart';
 import 'package:topnews/features/news/domain/entity/news_entity.dart';
 import 'package:topnews/core/widget/user_avatar.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class NewsCard extends StatelessWidget {
   final NewsEntity news;
@@ -67,9 +68,9 @@ class _NewsMainContent extends StatelessWidget {
             ],
           ),
         ),
-        if (news.imageUrl != null) ...[
+        ...[
           const SizedBox(width: 12),
-          _NewsImage(imageUrl: news.imageUrl!),
+          _NewsImage(imageUrl: news.imageUrl),
         ],
       ],
     );
@@ -84,21 +85,15 @@ class _NewsImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(8),
-      child: Image.network(
-        imageUrl,
-        width: 180,
-        height: 130,
-        fit: BoxFit.cover,
-        errorBuilder: (_, __, ___) => Container(
-          width: 180,
-          height: 130,
-          color: theme.colorScheme.surface,
-          child: Icon(
-            Icons.image_not_supported_outlined,
-            color: theme.colorScheme.outline,
-          ),
+    return Container(
+      width: 150,
+      height: 120,
+      decoration: BoxDecoration(
+        borderRadius: AppTheme.imageBorderRadius,
+        color: theme.colorScheme.surface,
+        image: DecorationImage(
+          image: CachedNetworkImageProvider(imageUrl),
+          fit: BoxFit.cover,
         ),
       ),
     );
